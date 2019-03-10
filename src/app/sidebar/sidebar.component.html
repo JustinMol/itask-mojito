@@ -1,0 +1,12 @@
+<div
+  mwlResizable
+  id="sidebar"
+  [ngStyle]="style"
+  (resizing)="onResizing($event)">
+  <div
+    mwlResizeHandle
+    class="resize-handle-right"
+    [resizeEdges]="{ right: true }"></div>
+
+  
+</div>
