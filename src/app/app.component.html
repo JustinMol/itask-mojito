@@ -1,3 +1,14 @@
-<app-sidebar (resizing)="onSidebarResizing($event)"></app-sidebar>
+<app-sidebar
+    direction="right"
+    (resizing)="onSidebarResizing($event)">
+</app-sidebar>
+<div id="mid-panel" [ngStyle]="midPanel">
+    <div id="graph-frame"></div>
+    <app-code-frame></app-code-frame>
+</div>
+<app-sidebar
+    direction="left"
+    (resizing)="onSidebarResizing($event)">
+</app-sidebar>
 
 <router-outlet></router-outlet>

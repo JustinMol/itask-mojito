@@ -8,7 +8,16 @@ import { ResizeEvent } from 'angular-resizable-element';
 })
 export class AppComponent {
 
-  onSidebarResizing(event: ResizeEvent) {
-    console.log('Resized sidebar', event.edges);
+  midPanel = {
+    left: null,
+    right: null
+  };
+
+  onSidebarResizing(event: ResizeEvent & { direction: string }) {
+    if (event.direction === 'left') {
+      this.midPanel.right = event.rectangle.width + 'px';
+    } else {
+      this.midPanel.left = event.rectangle.right + 'px';
+    }
   }
 }

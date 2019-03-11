@@ -5,11 +5,13 @@ import { ResizableModule } from 'angular-resizable-element';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { CodeFrameComponent } from './code-frame/code-frame.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SidebarComponent
+    SidebarComponent,
+    CodeFrameComponent
   ],
   imports: [
     BrowserModule,

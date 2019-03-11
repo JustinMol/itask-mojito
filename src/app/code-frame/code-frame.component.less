@@ -1,0 +1,47 @@
+#code-frame {
+    height: 100%;
+}
+
+#code-frame-header {
+    height: 26px;
+    background: #2C322F;
+    position: relative;
+}
+
+#code-frame-header hr {
+    position: absolute;
+    margin: 0;
+    width: 100%;
+    left: 0;
+}
+
+#code-frame-body {
+    position: absolute;
+    background: #212724;
+    height: calc(100% - 26px);
+    width: 100%;
+}
+
+#code-frame-body textarea {
+    width: 100%;
+    height: 100%;
+    background: #212724;
+    outline: none;
+    color: #CADBD2;
+    border: none;
+    font-family: 'Consolas', monaco, monospace;
+    padding-top: 8pt;
+    padding-left: 8pt;
+    line-height: normal;
+    font-size: 10pt;
+}
+
+.line-dark {
+    top: 0;
+    border: 1px solid #49504D;
+}
+
+.line-bright {
+    bottom: 0;
+    border: 1px solid #CADBD2;
+}
