@@ -22,20 +22,6 @@
     width: 100%;
 }
 
-#code-frame-body textarea {
-    width: 100%;
-    height: 100%;
-    background: #212724;
-    outline: none;
-    color: #CADBD2;
-    border: none;
-    font-family: 'Consolas', monaco, monospace;
-    padding-top: 8pt;
-    padding-left: 8pt;
-    line-height: normal;
-    font-size: 10pt;
-}
-
 .line-dark {
     top: 0;
     border: 1px solid #49504D;
@@ -44,4 +30,13 @@
 .line-bright {
     bottom: 0;
     border: 1px solid #CADBD2;
+}
+
+app-monaco-editor {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
 }
