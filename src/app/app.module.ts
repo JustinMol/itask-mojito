@@ -6,7 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CodeFrameComponent } from './code-frame/code-frame.component';
-import { MonacoEditorDirective } from './monaco-editor.directive';
+import { MonacoEditorDirective } from './monaco-editor/monaco-editor.directive';
 
 @NgModule({
   declarations: [
