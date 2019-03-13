@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ResizeEvent } from 'angular-resizable-element';
+import { SidebarResizeEvent } from './sidebar/sidebar.component';
 
 @Component({
   selector: 'app-root',
@@ -8,16 +8,16 @@ import { ResizeEvent } from 'angular-resizable-element';
 })
 export class AppComponent {
 
-  midPanel = {
+  midPanelStyle = {
     left: null,
     right: null
   };
 
-  onSidebarResizing(event: ResizeEvent & { direction: string }) {
-    if (event.direction === 'left') {
-      this.midPanel.right = event.rectangle.width + 'px';
+  onSidebarResizing(event: SidebarResizeEvent) {
+    if (event.side === 'left') {
+      this.midPanelStyle.left = event.rectangle.right + 'px';
     } else {
-      this.midPanel.left = event.rectangle.right + 'px';
+      this.midPanelStyle.right = event.rectangle.width + 'px';
     }
   }
 }

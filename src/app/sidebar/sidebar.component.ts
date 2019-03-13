@@ -1,6 +1,8 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 
+export type SidebarResizeEvent = ResizeEvent & { side: 'left' | 'right' };
+
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
@@ -8,9 +10,9 @@ import { ResizeEvent } from 'angular-resizable-element';
 })
 export class SidebarComponent implements OnInit {
 
-  @Input() direction: 'left' | 'right';
+  @Input() side: 'left' | 'right';
 
-  @Output() resizing = new EventEmitter<ResizeEvent & { direction: 'left' | 'right' }>();
+  @Output() resizing = new EventEmitter<SidebarResizeEvent>();
 
   style: {
     width?: string,
@@ -21,16 +23,11 @@ export class SidebarComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // TODO: move to CSS
-    if (this.direction === 'left') {
-      this.style.right = '0';
-    } else if (this.direction === 'right') {
-      this.style.left = '0';
-    }
+    this.style[this.side] = '0';
   }
 
   onResizing(event: ResizeEvent) {
     this.style.width = `${event.rectangle.width}px`;
-    this.resizing.emit({ direction: this.direction, ...event });
+    this.resizing.emit({ side: this.side, ...event });
   }
 }

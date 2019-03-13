@@ -3,11 +3,11 @@
   id="sidebar"
   [ngStyle]="style"
   (resizing)="onResizing($event)">
-  <div *ngIf="direction === 'right'"
+  <div *ngIf="side === 'left'"
     mwlResizeHandle
     class="resize-handle-right"
     [resizeEdges]="{ right: true }"></div>
-  <div *ngIf="direction === 'left'"
+  <div *ngIf="side === 'right'"
     mwlResizeHandle
     class="resize-handle-left"
     [resizeEdges]="{ left: true }"></div>
