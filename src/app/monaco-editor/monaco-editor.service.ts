@@ -1,6 +1,6 @@
 /// <reference path="../../../node_modules/monaco-editor/monaco.d.ts" />
-import { Injectable, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable, ElementRef, HostListener } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
 declare const window: any;
@@ -10,12 +10,24 @@ declare const window: any;
 })
 export class MonacoEditorService {
 
-  private monacoEditor: monaco.editor.ICodeEditor;
+  public resize$ = new Subject();
 
   constructor() { }
 
+  private monacoEditor: monaco.editor.ICodeEditor;
+
+  public notifyResize() {
+    if (this.isReady()) {
+      this.resize$.next();
+    }
+  }
+
   public get editor() {
     return this.monacoEditor;
+  }
+
+  public isReady() {
+    return this.monacoEditor !== null;
   }
 
   public loadEditor(elementRef: ElementRef, options?: monaco.editor.IEditorConstructionOptions): Observable<void> {

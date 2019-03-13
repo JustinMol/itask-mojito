@@ -30,4 +30,8 @@ export class SidebarComponent implements OnInit {
     this.style.width = `${event.rectangle.width}px`;
     this.resizing.emit({ side: this.side, ...event });
   }
+
+  onResized(event: ResizeEvent) {
+    this.resizing.emit({ side: this.side, ...event });
+  }
 }

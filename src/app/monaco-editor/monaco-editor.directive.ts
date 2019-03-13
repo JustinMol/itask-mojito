@@ -1,14 +1,10 @@
 import { Directive, OnInit, ElementRef, HostListener } from '@angular/core';
 import { MonacoEditorService } from './monaco-editor.service';
-import { Subject } from 'rxjs';
-import { map, debounceTime } from 'rxjs/operators';
 
 @Directive({
   selector: 'app-monaco-editor'
 })
 export class MonacoEditorDirective implements OnInit {
-
-  private resize$ = new Subject();
 
   constructor(
     private monacoEditorService: MonacoEditorService,
@@ -16,8 +12,8 @@ export class MonacoEditorDirective implements OnInit {
   ) { }
 
   @HostListener('window:resize')
-  onResize() {
-    this.resize$.next();
+  windowResized() {
+    this.monacoEditorService.notifyResize();
   }
 
   ngOnInit() {
@@ -27,9 +23,9 @@ export class MonacoEditorDirective implements OnInit {
       minimap: { enabled: false },
     }).subscribe();
 
-    this.resize$.pipe(
-      map(() => ({ width: this.elementRef.nativeElement.clientWidth, height: this.elementRef.nativeElement.clientHeight })),
-      debounceTime(50)
-    ).subscribe(dimension => this.monacoEditorService.editor.layout(dimension))
+    this.monacoEditorService.resize$.subscribe(() => this.monacoEditorService.editor.layout({
+      width: this.elementRef.nativeElement.clientWidth,
+      height: this.elementRef.nativeElement.clientHeight
+    }));
   }
 }

@@ -2,7 +2,8 @@
   mwlResizable
   id="sidebar"
   [ngStyle]="style"
-  (resizing)="onResizing($event)">
+  (resizing)="onResizing($event)"
+  (resizeEnd)="onResized($event)">
   <div *ngIf="side === 'left'"
     mwlResizeHandle
     class="resize-handle-right"
