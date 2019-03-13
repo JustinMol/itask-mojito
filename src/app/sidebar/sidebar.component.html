@@ -4,12 +4,9 @@
   [ngStyle]="style"
   (resizing)="onResizing($event)"
   (resizeEnd)="onResized($event)">
-  <div *ngIf="side === 'left'"
+  <div
     mwlResizeHandle
-    class="resize-handle-right"
-    [resizeEdges]="{ right: true }"></div>
-  <div *ngIf="side === 'right'"
-    mwlResizeHandle
-    class="resize-handle-left"
-    [resizeEdges]="{ left: true }"></div>
+    [id]="side"
+    class="resize-handle"
+    [resizeEdges]="resizeEdge"></div>
 </div>

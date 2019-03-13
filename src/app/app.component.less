@@ -13,6 +13,22 @@
     height: 100%;
 }
 
+app-sidebar {
+    position: absolute;
+    height: auto;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+
+    &[side="left"] {
+        left: 0;
+    }
+
+    &[side="right"] {
+        right: 0;
+    }
+}
+
 app-code-frame {
     bottom: 0;
     height: 30%;

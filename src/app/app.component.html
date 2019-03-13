@@ -1,13 +1,15 @@
 <app-sidebar
     side="left"
+    [ngStyle]="styles.sidebars.left"
     (resizing)="onSidebarResizing($event)">
 </app-sidebar>
-<div id="mid-panel" [ngStyle]="midPanelStyle">
+<div id="mid-panel" [ngStyle]="styles.midPanel">
     <div id="graph-frame"></div>
     <app-code-frame></app-code-frame>
 </div>
 <app-sidebar
     side="right"
+    [ngStyle]="styles.sidebars.right"
     (resizing)="onSidebarResizing($event)">
 </app-sidebar>
 

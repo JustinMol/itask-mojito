@@ -1,7 +1,18 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 
 export type SidebarResizeEvent = ResizeEvent & { side: 'left' | 'right' };
+
+enum Edge {
+  left = 'left',
+  right = 'right'
+}
+
+namespace Edge {
+  export function invert(dir: Edge) {
+    return dir === 'left' ? 'right' : 'left';
+  }
+}
 
 @Component({
   selector: 'app-sidebar',
@@ -10,24 +21,21 @@ export type SidebarResizeEvent = ResizeEvent & { side: 'left' | 'right' };
 })
 export class SidebarComponent implements OnInit {
 
-  @Input() side: 'left' | 'right';
+  @Input() side: Edge;
 
   @Output() resizing = new EventEmitter<SidebarResizeEvent>();
 
-  style: {
-    width?: string,
-    left?: string,
-    right?: string
-  } = {};
+  resizeEdge: any;
 
   constructor() { }
 
   ngOnInit() {
-    this.style[this.side] = '0';
+    this.resizeEdge = {
+      [Edge.invert(this.side)]: true
+    };
   }
 
   onResizing(event: ResizeEvent) {
-    this.style.width = `${event.rectangle.width}px`;
     this.resizing.emit({ side: this.side, ...event });
   }
 

@@ -13,16 +13,26 @@ export class AppComponent {
     private monacoEditorService: MonacoEditorService
   ) { }
 
-  midPanelStyle = {
-    left: null,
-    right: null
-  };
+  styles: {
+    midPanel: { left?: string, right?: string },
+    sidebars: {
+      left: { width?: string },
+      right: { width?: string }
+    }
+  } = {
+    midPanel: {},
+    sidebars: {
+      left: {},
+      right: {},
+    }
+  }
 
   onSidebarResizing(event: SidebarResizeEvent) {
+    this.styles.sidebars[event.side].width = event.rectangle.width + 'px';
     if (event.side === 'left') {
-      this.midPanelStyle.left = event.rectangle.right + 'px';
+      this.styles.midPanel.left = event.rectangle.right + 'px';
     } else {
-      this.midPanelStyle.right = event.rectangle.width + 'px';
+      this.styles.midPanel.right = event.rectangle.width + 'px';
     }
 
     this.monacoEditorService.notifyResize();
