@@ -1,0 +1,36 @@
+.panel {
+    & .panel-body {
+        overflow: hidden;
+    }
+
+    & .panel-heading {
+        position: relative;
+        height: 24px;
+        cursor: pointer;
+        color: #CADBD2;
+        font-size: 16px;
+        font-family: 'Consolas', monaco, monospace;
+        font-weight: bold;
+
+        transition: linear;
+
+        &:hover {
+            background: #49504D;
+        }
+
+        & svg-icon,
+        & span {
+            position: absolute;
+            height: 24px;
+            line-height: 24px;
+        }
+
+        & svg-icon {
+            left: 4pt;
+        }
+
+        & span {
+            left: 12pt;
+        }
+    }
+}

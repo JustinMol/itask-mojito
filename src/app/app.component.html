@@ -2,6 +2,11 @@
     side="left"
     [ngStyle]="styles.sidebars.left"
     (resizing)="onSidebarResizing($event)">
+    <app-menu-accordion>
+        <app-menu-panel title="OUTLINE">OUTLINE</app-menu-panel>
+        <app-menu-panel title="FORMS">FORMS</app-menu-panel>
+        <app-menu-panel title="ADTs">ADTs</app-menu-panel>
+    </app-menu-accordion>
 </app-sidebar>
 <div id="mid-panel" [ngStyle]="styles.midPanel">
     <div id="graph-frame"></div>

@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
     "angular-resizable-element": "^3.2.4",
+    "angular-svg-icon": "^7.2.0",
     "core-js": "^2.5.4",
     "monaco-editor": "^0.16.0",
     "rxjs": "~6.3.3",
