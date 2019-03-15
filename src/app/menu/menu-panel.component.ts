@@ -1,5 +1,5 @@
-import { Component, Input, Output, EventEmitter, HostBinding } from '@angular/core';
-import { state, trigger, transition } from '@angular/animations';
+import { Component, Input, Output, EventEmitter, HostBinding, ViewChild, HostListener } from '@angular/core';
+import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-menu-panel',
@@ -12,4 +12,16 @@ export class MenuPanelComponent {
 
   @HostBinding('class.open')
   isOpen: boolean = true;
+
+  @ViewChild(NgScrollbar)
+  bodyScrollbar: NgScrollbar;
+
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.updateScrollbar();
+  }
+
+  updateScrollbar() {
+    this.bodyScrollbar.update();
+  }
 }

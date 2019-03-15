@@ -11,6 +11,7 @@ export class MenuAccordionDirective implements AfterContentInit {
     this.panels.forEach(panel => {
       panel.toggle.subscribe(() => {
         panel.isOpen = !panel.isOpen;
+        this.panels.forEach(p => p.updateScrollbar());
       });
     });
   }

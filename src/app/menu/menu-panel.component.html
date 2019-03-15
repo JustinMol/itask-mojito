@@ -8,9 +8,11 @@
         'padding-top': '4px',
         'padding-bottom': '4px'
       }"></svg-icon>
-    <span>{{title}}</span>
+    <span>{{ title | uppercase }}</span>
   </div>
   <div class="panel-body">
-    <ng-content></ng-content>
+    <ng-scrollbar shown="hover">
+      <ng-content></ng-content>
+    </ng-scrollbar>
   </div>
 </div>
