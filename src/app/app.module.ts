@@ -13,6 +13,9 @@ import { CodeFrameComponent } from './code-frame/code-frame.component';
 import { MonacoEditorDirective } from './monaco-editor/monaco-editor.directive';
 import { MenuPanelComponent } from './menu/menu-panel.component';
 import { MenuAccordionDirective } from './menu/menu-accordion.directive';
+import { OutlineComponent } from './outline/outline.component';
+import { FormListComponent } from './form-list/form-list.component';
+import { AdtListComponent } from './adt-list/adt-list.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +25,9 @@ import { MenuAccordionDirective } from './menu/menu-accordion.directive';
     MonacoEditorDirective,
     MenuPanelComponent,
     MenuAccordionDirective,
+    OutlineComponent,
+    FormListComponent,
+    AdtListComponent,
   ],
   imports: [
     BrowserModule,

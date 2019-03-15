@@ -3,13 +3,13 @@
   (resizing)="onSidebarResizing($event)">
   <app-menu-accordion>
     <app-menu-panel title="OUTLINE">
-      <span style="color: aliceblue" *ngFor="let item of items">{{item}}<br></span>
+      <app-outline></app-outline>
     </app-menu-panel>
     <app-menu-panel title="FORMS">
-      <span style="color: aliceblue" *ngFor="let item of items">{{item}}<br></span>
+      <app-form-list></app-form-list>
     </app-menu-panel>
     <app-menu-panel title="ADTs">
-      <span style="color: aliceblue" *ngFor="let item of items">{{item}}<br></span>
+      <app-adt-list></app-adt-list>
     </app-menu-panel>
   </app-menu-accordion>
 </app-sidebar>

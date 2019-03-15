@@ -11,9 +11,7 @@ export class AppComponent {
 
   constructor(
     private monacoEditorService: MonacoEditorService
-  ) { }
-
-  items = Array.from({ length: 20 }, (_, i) => `Item #${i}`);
+  ) {}
 
   styles: any = {
     midPanel: {},

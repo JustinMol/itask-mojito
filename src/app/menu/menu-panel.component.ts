@@ -14,7 +14,7 @@ export class MenuPanelComponent {
   isOpen: boolean = true;
 
   @ViewChild(NgScrollbar)
-  bodyScrollbar: NgScrollbar;
+  bodyScrollbar?: NgScrollbar;
 
   @HostListener('window:resize')
   onWindowResize() {
@@ -22,6 +22,8 @@ export class MenuPanelComponent {
   }
 
   updateScrollbar() {
-    this.bodyScrollbar.update();
+    if (this.bodyScrollbar) {
+      this.bodyScrollbar.update();
+    }
   }
 }
