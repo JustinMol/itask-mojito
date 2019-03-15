@@ -17,14 +17,9 @@ export class AppComponent {
 
   styles: any = {
     midPanel: {},
-    sidebars: {
-      left: {},
-      right: {},
-    }
   }
 
   onSidebarResizing(event: SidebarResizeEvent) {
-    this.styles.sidebars[event.side].width = event.rectangle.width + 'px';
     if (event.side === 'left') {
       this.styles.midPanel.left = event.rectangle.right + 'px';
     } else {

@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter, Input, OnInit, HostBinding } from '@angular/core';
 import { ResizeEvent } from 'angular-resizable-element';
 
 export type SidebarResizeEvent = ResizeEvent & { side: 'left' | 'right' };
@@ -22,20 +22,22 @@ namespace Edge {
 export class SidebarComponent implements OnInit {
 
   @Input() side: Edge;
-
+  
   @Output() resizing = new EventEmitter<SidebarResizeEvent>();
 
-  resizeEdge: any;
+  @HostBinding('style.width')
+  currentWidth: string;
 
-  constructor() { }
+  resizeEdges: any;
 
   ngOnInit() {
-    this.resizeEdge = {
+    this.resizeEdges = {
       [Edge.invert(this.side)]: true
     };
   }
 
   onResizing(event: ResizeEvent) {
+    this.currentWidth = event.rectangle.width + 'px';
     this.resizing.emit({ side: this.side, ...event });
   }
 

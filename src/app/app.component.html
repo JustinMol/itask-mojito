@@ -1,6 +1,5 @@
 <app-sidebar
   side="left"
-  [ngStyle]="styles.sidebars.left"
   (resizing)="onSidebarResizing($event)">
   <app-menu-accordion>
     <app-menu-panel title="OUTLINE">
@@ -20,7 +19,6 @@
 </div>
 <app-sidebar
   side="right"
-  [ngStyle]="styles.sidebars.right"
   (resizing)="onSidebarResizing($event)">
 </app-sidebar>
 
