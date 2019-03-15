@@ -1,16 +1,21 @@
+@heading-height: 24px;
+
+:host {
+    min-height: @heading-height;
+}
+
 .panel {
-    position: sticky;
     height: 100%;
     width: 100%;
     overflow: hidden;
 
     & .panel-body {
         overflow-y: auto;
-        height: calc(100% - 24px);
+        height: calc(100% - @heading-height);
     }
 
     & .panel-heading {
-        height: 24px;
+        height: @heading-height;
         cursor: pointer;
         background: #49504D;
         color: #CADBD2;

@@ -1,5 +1,5 @@
 /// <reference path="../../../node_modules/monaco-editor/monaco.d.ts" />
-import { Injectable, ElementRef, HostListener } from '@angular/core';
+import { Injectable, ElementRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 

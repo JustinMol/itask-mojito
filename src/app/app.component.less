@@ -29,20 +29,19 @@ app-sidebar {
     }
 
     app-menu-accordion {
-        position: absolute;
         display: flex;
         flex-direction: column;
         height: 100%;
         width: 100%;
 
         app-menu-panel {
-            flex-shrink: 1;
+            flex: 1;
             overflow: hidden;
-        }
-    
-        // Move last menu-panel to bottom
-        app-menu-panel:last-child {
-            margin-top: auto;
+            transition: flex 200ms;
+
+            &:not(.open) {
+                flex: 0;
+            }
         }
     }
 }
