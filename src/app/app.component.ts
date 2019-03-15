@@ -13,13 +13,9 @@ export class AppComponent {
     private monacoEditorService: MonacoEditorService
   ) { }
 
-  styles: {
-    midPanel: { left?: string, right?: string },
-    sidebars: {
-      left: { width?: string },
-      right: { width?: string }
-    }
-  } = {
+  items = Array.from({ length: 20 }, (_, i) => `Item #${i}`);
+
+  styles: any = {
     midPanel: {},
     sidebars: {
       left: {},

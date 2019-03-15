@@ -1,13 +1,14 @@
 <div class="panel noselect">
   <div class="panel-heading" (click)="toggle.emit()">
-    <svg-icon [src]="isOpen ? 'assets/svg/item-open-1.svg' : 'assets/svg/item-closed-1.svg'"
+    <svg-icon
+      [src]="isOpen ? 'assets/svg/item-open-1.svg' : 'assets/svg/item-closed-1.svg'"
       [svgStyle]="{
         fill: isOpen ? '#CADBD2' : 'none',
         stroke: '#CADBD2',
         'padding-top': '4px',
         'padding-bottom': '4px'
       }"></svg-icon>
-      <span>{{title}}</span>
+    <span>{{title}}</span>
   </div>
   <div class="panel-body" *ngIf="isOpen">
     <ng-content></ng-content>

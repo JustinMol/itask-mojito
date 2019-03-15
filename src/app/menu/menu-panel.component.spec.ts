@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuPanelComponent } from './menu-panel.component';
 
-describe('PanelComponent', () => {
+describe('MenuPanelComponent', () => {
   let component: MenuPanelComponent;
   let fixture: ComponentFixture<MenuPanelComponent>;
 

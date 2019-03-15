@@ -9,5 +9,5 @@ export class MenuPanelComponent {
   @Input() title: string;
   @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
 
-  isOpen: boolean = false;
+  isOpen: boolean = true;
 }

@@ -1,21 +1,27 @@
 <app-sidebar
-    side="left"
-    [ngStyle]="styles.sidebars.left"
-    (resizing)="onSidebarResizing($event)">
-    <app-menu-accordion>
-        <app-menu-panel title="OUTLINE">OUTLINE</app-menu-panel>
-        <app-menu-panel title="FORMS">FORMS</app-menu-panel>
-        <app-menu-panel title="ADTs">ADTs</app-menu-panel>
-    </app-menu-accordion>
+  side="left"
+  [ngStyle]="styles.sidebars.left"
+  (resizing)="onSidebarResizing($event)">
+  <app-menu-accordion>
+    <app-menu-panel title="OUTLINE">
+      <span style="color: aliceblue" *ngFor="let item of items">{{item}}<br></span>
+    </app-menu-panel>
+    <app-menu-panel title="FORMS">
+      <span style="color: aliceblue" *ngFor="let item of items">{{item}}<br></span>
+    </app-menu-panel>
+    <app-menu-panel title="ADTs">
+      <span style="color: aliceblue" *ngFor="let item of items">{{item}}<br></span>
+    </app-menu-panel>
+  </app-menu-accordion>
 </app-sidebar>
 <div id="mid-panel" [ngStyle]="styles.midPanel">
-    <div id="graph-frame"></div>
-    <app-code-frame></app-code-frame>
+  <div id="graph-frame"></div>
+  <app-code-frame></app-code-frame>
 </div>
 <app-sidebar
-    side="right"
-    [ngStyle]="styles.sidebars.right"
-    (resizing)="onSidebarResizing($event)">
+  side="right"
+  [ngStyle]="styles.sidebars.right"
+  (resizing)="onSidebarResizing($event)">
 </app-sidebar>
 
 <router-outlet></router-outlet>

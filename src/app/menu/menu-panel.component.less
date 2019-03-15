@@ -1,21 +1,25 @@
 .panel {
+    position: sticky;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+
     & .panel-body {
-        overflow: hidden;
+        overflow-y: auto;
+        height: calc(100% - 24px);
     }
 
     & .panel-heading {
-        position: relative;
         height: 24px;
         cursor: pointer;
+        background: #49504D;
         color: #CADBD2;
         font-size: 16px;
         font-family: 'Consolas', monaco, monospace;
         font-weight: bold;
 
-        transition: linear;
-
         &:hover {
-            background: #49504D;
+            background: rgb(95, 104, 100);
         }
 
         & svg-icon,
