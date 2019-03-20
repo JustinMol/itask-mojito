@@ -11,7 +11,7 @@
     <span>{{ title | uppercase }}</span>
   </div>
   <div class="panel-body">
-    <ng-scrollbar shown="hover">
+    <ng-scrollbar shown="hover" [disableOnBreakpoints]="false">
       <ng-content></ng-content>
     </ng-scrollbar>
   </div>
