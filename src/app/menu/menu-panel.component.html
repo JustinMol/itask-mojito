@@ -1,5 +1,6 @@
 <div class="panel noselect">
-  <div class="panel-heading" (click)="toggle.emit()">
+  <div class="panel-heading"
+    (click)="toggle.emit()">
     <svg-icon
       [src]="isOpen ? 'assets/svg/item-open-1.svg' : 'assets/svg/item-closed-1.svg'"
       [svgStyle]="{
@@ -9,6 +10,12 @@
         'padding-bottom': '4px'
       }"></svg-icon>
     <span>{{ title | uppercase }}</span>
+    <span
+      *ngIf="showAddButton"
+      id="add-button"
+      (click)="add.emit(); $event.stopPropagation()">
+      +
+    </span>
   </div>
   <div class="panel-body">
     <ng-scrollbar

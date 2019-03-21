@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, HostBinding, ViewChild, HostListener } from '@angular/core';
+import { Component, Input, Output, EventEmitter, HostBinding, ViewChild, HostListener, OnInit } from '@angular/core';
 import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
@@ -6,15 +6,22 @@ import { NgScrollbar } from 'ngx-scrollbar';
   templateUrl: './menu-panel.component.html',
   styleUrls: ['./menu-panel.component.less']
 })
-export class MenuPanelComponent {
+export class MenuPanelComponent implements OnInit {
   @Input() title: string;
   @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
+  @Output() add: EventEmitter<void> = new EventEmitter<void>();
 
   @HostBinding('class.open')
   isOpen: boolean = true;
 
   @ViewChild(NgScrollbar)
   bodyScrollbar?: NgScrollbar;
+
+  showAddButton: boolean;
+
+  ngOnInit() {
+    this.showAddButton = this.add.observers.length > 0;
+  }
 
   @HostListener('window:resize')
   onWindowResize() {
