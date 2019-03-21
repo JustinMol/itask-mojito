@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SidebarResizeEvent } from './sidebar/sidebar.component';
 import { MonacoEditorService } from './monaco-editor/monaco-editor.service';
+import { GraphBlockService } from './graph-block.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +11,8 @@ import { MonacoEditorService } from './monaco-editor/monaco-editor.service';
 export class AppComponent {
 
   constructor(
-    private monacoEditorService: MonacoEditorService
+    private monacoEditorService: MonacoEditorService,
+    private graphBlockService: GraphBlockService
   ) {}
 
   styles: any = {

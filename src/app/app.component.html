@@ -20,6 +20,17 @@
 <app-sidebar
   side="right"
   (resizing)="onSidebarResizing($event)">
+  <app-menu-accordion>
+    <app-menu-panel title="SOURCES">
+      <app-graph-blocks [blocks]="graphBlockService.getSources()"></app-graph-blocks>
+    </app-menu-panel>
+    <app-menu-panel title="TRANSFORMS">
+      <app-graph-blocks [blocks]="graphBlockService.getTransforms()"></app-graph-blocks>
+    </app-menu-panel>
+    <app-menu-panel title="CONTROL">
+      <app-graph-blocks [blocks]="graphBlockService.getControls()"></app-graph-blocks>
+    </app-menu-panel>
+  </app-menu-accordion>
 </app-sidebar>
 
 <router-outlet></router-outlet>

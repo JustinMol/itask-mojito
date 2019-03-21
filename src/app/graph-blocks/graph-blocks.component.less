@@ -1,0 +1,14 @@
+@gap-size: 20px;
+
+.grid {
+    height: calc(100% - @gap-size / 2);
+    width: 100%;
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit, 64px);
+    grid-template-rows: repeat(auto-fit, 64px);
+    grid-gap: @gap-size;
+    padding-top: @gap-size / 2;
+    overflow: hidden;
+}

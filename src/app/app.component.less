@@ -8,7 +8,7 @@
     position: absolute;
     width: auto;
     left: 300px;
-    right: 300px;
+    right: 200px;
     top: 0;
     height: 100%;
 }
@@ -18,14 +18,15 @@ app-sidebar {
     height: auto;
     top: 0;
     bottom: 0;
-    width: 300px;
 
     &[side="left"] {
         left: 0;
+        width: 300px;
     }
 
     &[side="right"] {
         right: 0;
+        width: 200px;
     }
 
     app-menu-accordion {
@@ -51,4 +52,10 @@ app-code-frame {
     height: 30%;
     position: absolute;
     width: 100%;
+}
+
+app-graph-source {
+    position: absolute;
+    left: 200px;
+    top: 200px;
 }
