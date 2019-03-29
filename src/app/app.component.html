@@ -3,13 +3,16 @@
   (resizing)="onSidebarResizing($event)">
   <app-menu-accordion>
     <app-menu-panel title="OUTLINE">
-      <app-outline></app-outline>
+      <span buttons (click)="addTask($event)">+</span>
+      <app-outline body></app-outline>
     </app-menu-panel>
     <app-menu-panel title="FORMS">
-      <app-form-list></app-form-list>
+      <span buttons (click)="addForm($event)">+</span>
+      <app-form-list body></app-form-list>
     </app-menu-panel>
     <app-menu-panel title="ADTs">
-      <app-adt-list></app-adt-list>
+      <span buttons (click)="addAdt($event)">+</span>
+      <app-adt-list body></app-adt-list>
     </app-menu-panel>
   </app-menu-accordion>
 </app-sidebar>
@@ -22,13 +25,13 @@
   (resizing)="onSidebarResizing($event)">
   <app-menu-accordion>
     <app-menu-panel title="SOURCES">
-      <app-graph-blocks [blocks]="graphBlockService.getSources()"></app-graph-blocks>
+      <app-graph-blocks body [blocks]="graphBlockService.getSources()"></app-graph-blocks>
     </app-menu-panel>
     <app-menu-panel title="TRANSFORMS">
-      <app-graph-blocks [blocks]="graphBlockService.getTransforms()"></app-graph-blocks>
+      <app-graph-blocks body [blocks]="graphBlockService.getTransforms()"></app-graph-blocks>
     </app-menu-panel>
     <app-menu-panel title="CONTROL">
-      <app-graph-blocks [blocks]="graphBlockService.getControls()"></app-graph-blocks>
+      <app-graph-blocks body [blocks]="graphBlockService.getControls()"></app-graph-blocks>
     </app-menu-panel>
   </app-menu-accordion>
 </app-sidebar>

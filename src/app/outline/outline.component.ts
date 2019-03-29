@@ -17,6 +17,12 @@ export class OutlineComponent implements OnInit {
   ngOnInit() {
     this.getTasks();
   }
+  
+  addTask() {
+    this.taskService.addTask({
+      name: `Task #${this.tasks.length + 1}`
+    });
+  }
 
   getTasks() {
     this.taskService.getTasks().subscribe(tasks => {

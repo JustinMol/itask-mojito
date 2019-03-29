@@ -14,6 +14,12 @@ export class FormListComponent implements OnInit {
     private formService: FormService
   ) {}
 
+  addForm() {
+    this.formService.addForm({
+      name: `Form #${this.forms.length + 1}`,
+    })
+  }
+
   ngOnInit() {
     this.formService.getForms().subscribe(forms => {
       this.forms = forms;

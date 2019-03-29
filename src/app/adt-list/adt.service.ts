@@ -14,8 +14,12 @@ const ADTS: ADT[] = [
 })
 export class AdtService {
 
-  getADTs(): Observable<ADT[]> {
+  getAdts(): Observable<ADT[]> {
     return of(ADTS);
+  }
+
+  addAdt(adt: ADT): void {
+    ADTS.push(adt);
   }
 
 }

@@ -10,19 +10,14 @@
         'padding-bottom': '4px'
       }"></svg-icon>
     <span>{{ title | uppercase }}</span>
-    <span
-      *ngIf="showAddButton"
-      id="add-button"
-      (click)="add.emit(); $event.stopPropagation()">
-      +
-    </span>
+    <ng-content select="[buttons]"></ng-content>
   </div>
   <div class="panel-body">
     <ng-scrollbar
       shown="hover"
       [disableOnBreakpoints]="false"
       [compact]="true">
-      <ng-content></ng-content>
+      <ng-content select="[body]"></ng-content>
     </ng-scrollbar>
   </div>
 </div>

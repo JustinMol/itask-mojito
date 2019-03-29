@@ -18,4 +18,8 @@ export class FormService {
     return of(FORMS);
   }
 
+  addForm(form: Form): void {
+    FORMS.push(form);
+  }
+
 }

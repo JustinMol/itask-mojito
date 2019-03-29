@@ -2,6 +2,7 @@
   mwlResizable
   id="sidebar"
   [ngStyle]="style"
+  [resizeSnapGrid]="{ left: 10, right: 10 }"
   (resizing)="onResizing($event)"
   (resizeEnd)="onResized($event)">
   <div

@@ -23,4 +23,8 @@ export class TaskService {
     return of(TASKS);
   }
 
+  addTask(task: Task): void {
+    TASKS.push(task);
+  }
+
 }

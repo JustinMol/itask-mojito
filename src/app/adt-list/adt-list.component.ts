@@ -15,8 +15,14 @@ export class AdtListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.adtService.getADTs().subscribe(adts => {
+    this.adtService.getAdts().subscribe(adts => {
       this.adts = adts;
+    })
+  }
+
+  addAdt() {
+    this.adtService.addAdt({
+      name: `ADT #${this.adts.length + 1}`
     })
   }
 

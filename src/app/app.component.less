@@ -23,6 +23,14 @@
     }
 }
 
+app-outline,
+app-form-list,
+app-adt-list {
+    position: absolute;
+    width: 100%;
+    overflow: hidden;
+}
+
 app-sidebar {
     position: absolute;
     height: auto;
@@ -52,6 +60,17 @@ app-sidebar {
 
             &:not(.open) {
                 flex: 0;
+            }
+
+            span[buttons] {
+                float: right;
+                margin-right: 8pt;
+                height: 24px;
+                line-height: 24px;
+
+                &:hover {
+                    transform: scale(1.4);
+                }
             }
         }
     }
