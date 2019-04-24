@@ -7,7 +7,7 @@ import { NgScrollbar } from 'ngx-scrollbar';
   styleUrls: ['./menu-panel.component.less']
 })
 export class MenuPanelComponent implements OnInit {
-  @Input() title: string;
+  @Input() panelTitle: string;
   @Output() toggle: EventEmitter<void> = new EventEmitter<void>();
   @Output() add: EventEmitter<void> = new EventEmitter<void>();
 

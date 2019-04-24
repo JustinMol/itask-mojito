@@ -2,15 +2,15 @@
   side="left"
   (resizing)="onSidebarResizing($event)">
   <app-menu-accordion>
-    <app-menu-panel title="OUTLINE">
+    <app-menu-panel panelTitle="OUTLINE">
       <span buttons (click)="addTask($event)">+</span>
       <app-outline body></app-outline>
     </app-menu-panel>
-    <app-menu-panel title="FORMS">
+    <app-menu-panel panelTitle="FORMS">
       <span buttons (click)="addForm($event)">+</span>
       <app-form-list body></app-form-list>
     </app-menu-panel>
-    <app-menu-panel title="ADTs">
+    <app-menu-panel panelTitle="ADTs">
       <span buttons (click)="addAdt($event)">+</span>
       <app-adt-list body></app-adt-list>
     </app-menu-panel>
@@ -24,13 +24,13 @@
   side="right"
   (resizing)="onSidebarResizing($event)">
   <app-menu-accordion>
-    <app-menu-panel title="SOURCES">
+    <app-menu-panel panelTitle="SOURCES">
       <app-graph-blocks body [blocks]="graphBlockService.getSources()"></app-graph-blocks>
     </app-menu-panel>
-    <app-menu-panel title="TRANSFORMS">
+    <app-menu-panel panelTitle="TRANSFORMS">
       <app-graph-blocks body [blocks]="graphBlockService.getTransforms()"></app-graph-blocks>
     </app-menu-panel>
-    <app-menu-panel title="CONTROL">
+    <app-menu-panel panelTitle="CONTROL">
       <app-graph-blocks body [blocks]="graphBlockService.getControls()"></app-graph-blocks>
     </app-menu-panel>
   </app-menu-accordion>
