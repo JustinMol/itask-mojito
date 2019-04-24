@@ -1,7 +1,11 @@
-<svg-icon [src]="block.svg"
-  [stretch]="true"
-  [svgStyle]="{
-    width: '100%',
-    height: '100%'
-  }">
-</svg-icon>
+<div
+  [dragSource]="dragSource"
+  [class.dragging]="dragging$ | async">
+  <svg-icon [src]="block.svg"
+    [stretch]="true"
+    [svgStyle]="{
+      width: '100%',
+      height: '100%'
+    }">
+  </svg-icon>
+</div>

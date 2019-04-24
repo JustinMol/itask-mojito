@@ -1,17 +1,28 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { SkyhookDndService } from '@angular-skyhook/core';
+import { GraphBlock, GraphBlockType } from '../graph-block';
 
 @Component({
   selector: 'app-graph-block',
   templateUrl: './graph-block.component.html',
   styleUrls: ['./graph-block.component.less']
 })
-export class GraphBlockComponent implements OnInit {
+export class GraphBlockComponent {
 
-  @Input() block;
+  @Input() block: GraphBlock;
 
-  constructor() { }
+  dragSource = this.dnd.dragSource(GraphBlockType, {
+    beginDrag: () => this.block,
+  });
 
-  ngOnInit() {
+  dragging$ = this.dragSource.listen(m => m.isDragging());
+
+  constructor(
+    private dnd: SkyhookDndService
+  ) {}
+
+  ngOnDestroy(): void {
+    this.dragSource.unsubscribe();
   }
 
 }
