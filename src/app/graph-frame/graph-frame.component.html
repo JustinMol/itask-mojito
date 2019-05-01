@@ -1,4 +1,10 @@
 <div
     [dropTarget]="dropTarget"
     [class.hovering]="hovering$ | async">
+    <svg>
+        <app-graph-block
+            *ngFor="let node of nodes"
+            [block]="node.block"></app-graph-block>
+        <!-- <app-graph-block [block]="block"></app-graph-block> -->
+    </svg>
 </div>

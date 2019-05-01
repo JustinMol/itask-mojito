@@ -1,6 +1,7 @@
 @import "../styles/colors";
 
 :host {
+    position: relative;
     background: @graph-background;
 
     div {
@@ -11,5 +12,10 @@
         &.hovering {
             background: lighten(@graph-background, 1%);
         }
+    }
+
+    svg {
+        width: 100%;
+        height: 100%;
     }
 }

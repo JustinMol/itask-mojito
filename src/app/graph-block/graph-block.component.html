@@ -1,4 +1,4 @@
-<div
+<!-- <div
   [dragSource]="dragSource"
   [class.dragging]="dragging$ | async">
   <svg-icon [src]="block.svg"
@@ -8,4 +8,11 @@
       height: '100%'
     }">
   </svg-icon>
-</div>
+</div> -->
+<!-- <div> -->
+  <svg
+    [dragSource]="dragSource"
+    [class.dragging]="dragging$ | async">
+    <image x="0" y="0" width="50" height="50" [attr.xlink:href]="block.svg" />
+  </svg>
+<!-- </div> -->
