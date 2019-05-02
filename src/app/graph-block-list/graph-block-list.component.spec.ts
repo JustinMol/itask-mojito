@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GraphBlocksComponent } from './graph-blocks.component';
+import { GraphBlockListComponent } from './graph-block-list.component';
 
 describe('SourceListComponent', () => {
-  let component: GraphBlocksComponent;
-  let fixture: ComponentFixture<GraphBlocksComponent>;
+  let component: GraphBlockListComponent;
+  let fixture: ComponentFixture<GraphBlockListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ GraphBlocksComponent ]
+      declarations: [ GraphBlockListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GraphBlocksComponent);
+    fixture = TestBed.createComponent(GraphBlockListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

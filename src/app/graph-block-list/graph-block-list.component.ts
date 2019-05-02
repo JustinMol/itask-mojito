@@ -3,11 +3,11 @@ import { Observable } from 'rxjs';
 import { GraphBlock } from '../graph-block';
 
 @Component({
-  selector: 'app-graph-blocks',
-  templateUrl: './graph-blocks.component.html',
-  styleUrls: ['./graph-blocks.component.less']
+  selector: 'graph-block-list',
+  templateUrl: './graph-block-list.component.html',
+  styleUrls: ['./graph-block-list.component.less']
 })
-export class GraphBlocksComponent implements OnInit {
+export class GraphBlockListComponent implements OnInit {
 
   @Input('blocks') blocks$: Observable<GraphBlock[]>
 

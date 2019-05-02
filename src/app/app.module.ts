@@ -16,7 +16,7 @@ import { MenuAccordionDirective } from './menu/menu-accordion.directive';
 import { OutlineComponent } from './outline/outline.component';
 import { FormListComponent } from './form-list/form-list.component';
 import { AdtListComponent } from './adt-list/adt-list.component';
-import { GraphBlocksComponent } from './graph-blocks/graph-blocks.component';
+import { GraphBlockListComponent } from './graph-block-list/graph-block-list.component';
 import { GraphFrameComponent } from './graph-frame/graph-frame.component';
 
 @NgModule({
@@ -30,7 +30,7 @@ import { GraphFrameComponent } from './graph-frame/graph-frame.component';
     OutlineComponent,
     FormListComponent,
     AdtListComponent,
-    GraphBlocksComponent,
+    GraphBlockListComponent,
     GraphFrameComponent,
   ],
   imports: [
