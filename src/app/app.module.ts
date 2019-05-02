@@ -18,6 +18,7 @@ import { FormListComponent } from './form-list/form-list.component';
 import { AdtListComponent } from './adt-list/adt-list.component';
 import { GraphBlockListComponent } from './graph-block-list/graph-block-list.component';
 import { GraphFrameComponent } from './graph-frame/graph-frame.component';
+import { GraphBlockIconComponent } from './graph-block-icon/graph-block-icon.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { GraphFrameComponent } from './graph-frame/graph-frame.component';
     AdtListComponent,
     GraphBlockListComponent,
     GraphFrameComponent,
+    GraphBlockIconComponent,
   ],
   imports: [
     BrowserModule,
