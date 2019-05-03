@@ -4,6 +4,8 @@ import { GraphBlock } from '../graph-block';
 
 declare const SVG: any;
 
+const GRID_SIZE = 100;
+
 @Component({
   selector: 'app-graph-frame',
   templateUrl: './graph-frame.component.html',
@@ -19,6 +21,20 @@ export class GraphFrameComponent implements OnInit {
 
   ngOnInit() {
     this.svg = SVG(this.el.nativeElement.firstElementChild);
+    this.drawGrid();
+  }
+
+  drawGrid() {
+    const grid = this.svg.defs().pattern(GRID_SIZE, GRID_SIZE, add => {
+      add.line(0, 0, 0, GRID_SIZE).stroke({ width: 0.2, color: '#a9b4af' });
+      add.line(0, 0, GRID_SIZE, 0).stroke({ width: 0.2, color: '#a9b4af' });
+    });
+
+    this.svg.rect().attr({
+      width: '100%',
+      height: '100%',
+      fill: grid,
+    });
   }
 
   onDrop(m: DropTargetMonitor<GraphBlock>) {
