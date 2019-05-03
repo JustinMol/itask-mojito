@@ -1,5 +1,10 @@
 <div class="grid">
   <div *ngFor="let block of blocks">
-    <graph-block-icon [block]="block"></graph-block-icon>
+    <graph-block-icon
+      [block]="block"
+      appDroppable
+      dragType="GraphBlock"
+      [dragValue]="block">
+    </graph-block-icon>
   </div>
 </div>

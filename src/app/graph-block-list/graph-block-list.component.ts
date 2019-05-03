@@ -17,4 +17,8 @@ export class GraphBlockListComponent implements OnInit {
     this.blocks$.subscribe(blocks => this.blocks = blocks);
   }
 
+  tryMe(x) {
+    console.log(x);
+  }
+
 }

@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { ResizableModule } from 'angular-resizable-element';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { SkyhookDndModule } from '@angular-skyhook/core';
+import { default as HTML5Backend } from 'react-dnd-html5-backend';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +21,8 @@ import { AdtListComponent } from './adt-list/adt-list.component';
 import { GraphBlockListComponent } from './graph-block-list/graph-block-list.component';
 import { GraphFrameComponent } from './graph-frame/graph-frame.component';
 import { GraphBlockIconComponent } from './graph-block-icon/graph-block-icon.component';
+import { DroppableDirective } from './dnd/droppable.directive';
+import { DropTargetDirective } from './dnd/drop-target.directive'
 
 @NgModule({
   declarations: [
@@ -34,6 +38,8 @@ import { GraphBlockIconComponent } from './graph-block-icon/graph-block-icon.com
     GraphBlockListComponent,
     GraphFrameComponent,
     GraphBlockIconComponent,
+    DroppableDirective,
+    DropTargetDirective,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +47,8 @@ import { GraphBlockIconComponent } from './graph-block-icon/graph-block-icon.com
     ResizableModule,
     HttpClientModule,
     AngularSvgIconModule,
-    NgScrollbarModule
+    NgScrollbarModule,
+    SkyhookDndModule.forRoot({ backend: HTML5Backend }),
   ],
   providers: [],
   bootstrap: [AppComponent]
