@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { SidebarResizeEvent } from './sidebar/sidebar.component';
 import { MonacoEditorService } from './monaco-editor/monaco-editor.service';
-import { GraphBlockService } from './graph-block.service';
+import { GraphBlockService } from './graph/graph-block.service';
 import { OutlineComponent } from './outline/outline.component';
 import { AdtListComponent } from './adt-list/adt-list.component';
 import { FormListComponent } from './form-list/form-list.component';

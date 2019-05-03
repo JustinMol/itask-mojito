@@ -18,9 +18,9 @@ import { MenuAccordionDirective } from './menu/menu-accordion.directive';
 import { OutlineComponent } from './outline/outline.component';
 import { FormListComponent } from './form-list/form-list.component';
 import { AdtListComponent } from './adt-list/adt-list.component';
-import { GraphBlockListComponent } from './graph-block-list/graph-block-list.component';
-import { GraphFrameComponent } from './graph-frame/graph-frame.component';
-import { GraphBlockIconComponent } from './graph-block-icon/graph-block-icon.component';
+import { GraphBlockListComponent } from './graph/graph-block-list/graph-block-list.component';
+import { GraphFrameComponent } from './graph/graph-frame/graph-frame.component';
+import { GraphBlockIconComponent } from './graph/graph-block-icon/graph-block-icon.component';
 import { DroppableDirective } from './dnd/droppable.directive';
 import { DropTargetDirective } from './dnd/drop-target.directive'
 
