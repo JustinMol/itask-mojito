@@ -17,12 +17,11 @@ export class GraphFrameComponent implements OnInit {
   private svg;
 
   constructor(
-    private el: ElementRef<Element>,
     private graph: GraphService
   ) {}
 
   ngOnInit() {
-    this.svg = SVG(this.el.nativeElement.firstElementChild);
+    this.svg = SVG('graph-frame');
     this.drawGrid(GRID_SIZE, 0.2);
     this.drawGrid(20, 0.1);
   }

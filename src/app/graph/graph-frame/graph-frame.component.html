@@ -1,4 +1,5 @@
 <svg
+    id="graph-frame"
     appDropTarget
     dropType="GraphBlock"
     (dropped)="onDrop($event)">
@@ -6,5 +7,6 @@
         *ngFor="let node of (graph.nodes$ | async)"
         [attr.x]="node.x"
         [attr.y]="node.y"
-        [attr.href]="node.block.svg"></image>
+        [graphNode]="node">
+    </image>
 </svg>

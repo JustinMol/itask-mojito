@@ -21,9 +21,7 @@ export class DropTargetDirective implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.dropTarget = this.dnd.dropTarget(this.dropType, {
-      drop: m => {
-        this.dropped.emit(m);
-      }
+      drop: m => this.dropped.emit(m)
     });
 
     this.dropTarget.connectDropTarget(this.el.nativeElement);
