@@ -14,6 +14,8 @@ const GRID_SIZE = 100;
 })
 export class GraphFrameComponent implements OnInit {
 
+  nodes = [];
+
   private svg;
 
   constructor(
@@ -21,18 +23,17 @@ export class GraphFrameComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.svg = SVG('graph-frame');
+    this.svg = SVG('#graph-frame');
     this.drawGrid(GRID_SIZE, 0.2);
-    this.drawGrid(20, 0.1);
+    this.drawGrid(10, 0.1);
+    this.graph.nodes$.subscribe(nodes => this.nodes = nodes);
   }
 
   drawGrid(gridSize, strokeWidth) {
     const grid = this.svg.defs().pattern(gridSize, gridSize, add => {
-      add
-        .line(0, 0, 0, gridSize)
+      add.line(0, 0, 0, gridSize)
         .stroke({ width: strokeWidth, color: '#a9b4af' });
-      add
-        .line(0, 0, gridSize, 0)
+      add.line(0, 0, gridSize, 0)
         .stroke({ width: strokeWidth, color: '#a9b4af' });
     });
 

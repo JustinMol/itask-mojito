@@ -21,6 +21,7 @@
     "@angular/platform-browser": "~7.2.0",
     "@angular/platform-browser-dynamic": "~7.2.0",
     "@angular/router": "~7.2.0",
+    "@svgdotjs/svg.draggable.js": "^3.0.2",
     "angular-resizable-element": "^3.2.4",
     "angular-svg-icon": "^7.2.0",
     "core-js": "^2.5.4",
@@ -28,7 +29,6 @@
     "ngx-scrollbar": "^4.1.1",
     "react-dnd-html5-backend": "^7.4.4",
     "rxjs": "~6.3.3",
-    "svg.js": "^2.7.1",
     "tslib": "^1.9.0",
     "zone.js": "~0.8.26"
   },

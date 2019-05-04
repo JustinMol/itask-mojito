@@ -4,9 +4,7 @@
     dropType="GraphBlock"
     (dropped)="onDrop($event)">
     <image
-        *ngFor="let node of (graph.nodes$ | async)"
-        [attr.x]="node.x"
-        [attr.y]="node.y"
+        *ngFor="let node of nodes"
         [graphNode]="node">
     </image>
 </svg>

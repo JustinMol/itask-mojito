@@ -35,7 +35,8 @@
               "src/styles/styles.less"
             ],
             "scripts": [
-              "./node_modules/svg.js/dist/svg.min.js"
+              "./node_modules/@svgdotjs/svg.js/dist/svg.min.js",
+              "./node_modules/@svgdotjs/svg.draggable.js/dist/svg.draggable.min.js"
             ],
             "es5BrowserSupport": true
           },
