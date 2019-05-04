@@ -2,4 +2,9 @@
     appDropTarget
     dropType="GraphBlock"
     (dropped)="onDrop($event)">
+    <image
+        *ngFor="let node of (graph.nodes$ | async)"
+        [attr.x]="node.x"
+        [attr.y]="node.y"
+        [attr.href]="node.block.svg"></image>
 </svg>

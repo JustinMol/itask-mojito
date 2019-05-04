@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer2 } from '@angular/core';
 import { DropTargetMonitor } from '@angular-skyhook/core';
 import { GraphBlock } from '../graph-block';
+import { GraphService } from '../graph.service';
 
 declare const SVG: any;
 
@@ -16,21 +17,27 @@ export class GraphFrameComponent implements OnInit {
   private svg;
 
   constructor(
-    private el: ElementRef<Element>
+    private el: ElementRef<Element>,
+    private graph: GraphService
   ) {}
 
   ngOnInit() {
     this.svg = SVG(this.el.nativeElement.firstElementChild);
-    this.drawGrid();
+    this.drawGrid(GRID_SIZE, 0.2);
+    this.drawGrid(20, 0.1);
   }
 
-  drawGrid() {
-    const grid = this.svg.defs().pattern(GRID_SIZE, GRID_SIZE, add => {
-      add.line(0, 0, 0, GRID_SIZE).stroke({ width: 0.2, color: '#a9b4af' });
-      add.line(0, 0, GRID_SIZE, 0).stroke({ width: 0.2, color: '#a9b4af' });
+  drawGrid(gridSize, strokeWidth) {
+    const grid = this.svg.defs().pattern(gridSize, gridSize, add => {
+      add
+        .line(0, 0, 0, gridSize)
+        .stroke({ width: strokeWidth, color: '#a9b4af' });
+      add
+        .line(0, 0, gridSize, 0)
+        .stroke({ width: strokeWidth, color: '#a9b4af' });
     });
 
-    this.svg.rect().attr({
+    this.svg.rect().back().attr({
       width: '100%',
       height: '100%',
       fill: grid,
@@ -43,8 +50,7 @@ export class GraphFrameComponent implements OnInit {
     const x = offset.x - bounds.left;
     const y = offset.y - bounds.top;
     const block = m.getItem();
-
-    this.svg.image(block.svg).x(x).y(y);
+    this.graph.addNode({ x, y, block });
   }
 
 }
