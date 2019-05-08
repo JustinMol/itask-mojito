@@ -18,13 +18,13 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.elem = SVG.adopt(this.el.nativeElement)
       .draggable()
-      .x(this.node.x)
-      .y(this.node.y)
+      .x(this.node.x - this.node.x % 10)
+      .y(this.node.y - this.node.y % 10)
       .attr({
         href: this.node.block.svg,
       })
       .on('dragmove.namespace', e => this.snapToGrid(e, 10))
-      .on('dragend.namespace', () => this.moveNode());
+      .on('dragend.namespace', e => this.onDragEnd(e));
   }
 
   private snapToGrid(e: Event & { detail: any }, gridSize: number) {
@@ -32,6 +32,19 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
 
     const { handler, box } = e.detail;
     handler.move(box.x - box.x % gridSize, box.y - box.y % gridSize);
+  }
+
+  private onDragEnd(e) {
+    const { x, y } = e.detail.handler.box;
+    if (this.elem.x() === x && this.elem.y() === y) {
+      this.onClick();
+    } else {
+      this.moveNode();
+    }
+  }
+
+  private onClick() {
+    console.log('(todo) graph-node onClick');
   }
 
   private moveNode() {
@@ -42,6 +55,7 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.elem.off('dragmove.namespace');
     this.elem.off('dragend.namespace');
+    this.elem.off('click');
   }
 
 }
