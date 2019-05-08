@@ -22,10 +22,6 @@ export class AppComponent {
     private graphBlockService: GraphBlockService
   ) {}
 
-  styles: any = {
-    midPanel: {},
-  }
-
   addTask(event: Event) {
     this.outline.addTask();
     event.stopImmediatePropagation();
@@ -42,12 +38,6 @@ export class AppComponent {
   }
 
   onSidebarResizing(event: SidebarResizeEvent) {
-    if (event.side === 'left') {
-      this.styles.midPanel.left = event.rectangle.right + 'px';
-    } else {
-      this.styles.midPanel.right = event.rectangle.width + 'px';
-    }
-
     this.monacoEditorService.notifyResize();
   }
 }
