@@ -13,8 +13,8 @@ import { AppComponent } from './app.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { CodeFrameComponent } from './code-frame/code-frame.component';
 import { MonacoEditorDirective } from './monaco-editor/monaco-editor.directive';
-import { MenuPanelComponent } from './menu/menu-panel.component';
-import { MenuAccordionDirective } from './menu/menu-accordion.directive';
+import { MenuPanelComponent } from './menu/menu-panel/menu-panel.component';
+import { MenuAccordionComponent } from './menu/menu-accordion/menu-accordion.component';
 import { OutlineComponent } from './outline/outline.component';
 import { FormListComponent } from './form-list/form-list.component';
 import { AdtListComponent } from './adt-list/adt-list.component';
@@ -23,7 +23,7 @@ import { GraphFrameComponent } from './graph/graph-frame/graph-frame.component';
 import { GraphBlockIconComponent } from './graph/graph-block-icon/graph-block-icon.component';
 import { DroppableDirective } from './dnd/droppable.directive';
 import { DropTargetDirective } from './dnd/drop-target.directive';
-import { GraphNodeDirective } from './graph/graph-node.directive'
+import { GraphNodeDirective } from './graph/graph-node.directive';
 
 @NgModule({
   declarations: [
@@ -32,7 +32,7 @@ import { GraphNodeDirective } from './graph/graph-node.directive'
     CodeFrameComponent,
     MonacoEditorDirective,
     MenuPanelComponent,
-    MenuAccordionDirective,
+    MenuAccordionComponent,
     OutlineComponent,
     FormListComponent,
     AdtListComponent,

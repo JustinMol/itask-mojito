@@ -2,6 +2,14 @@
 
 :host {
     min-height: @heading-height;
+
+    flex: 1;
+    overflow: hidden;
+    transition: flex 200ms;
+
+    &:not(.open) {
+        flex: 0;
+    }
 }
 
 .panel {

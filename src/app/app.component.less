@@ -17,30 +17,13 @@ app-sidebar {
     background: #2C322F;
 }
 
-app-menu-accordion {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
+span[buttons] {
+    float: right;
+    margin-right: 8pt;
+    height: 24px;
+    line-height: 24px;
 
-    app-menu-panel {
-        flex: 1;
-        overflow: hidden;
-        transition: flex 200ms;
-
-        &:not(.open) {
-            flex: 0;
-        }
-
-        span[buttons] {
-            float: right;
-            margin-right: 8pt;
-            height: 24px;
-            line-height: 24px;
-
-            &:hover {
-                transform: scale(1.4);
-            }
-        }
+    &:hover {
+        transform: scale(1.4);
     }
 }
