@@ -1,6 +1,6 @@
 <app-sidebar
   side="left"
-  (resizing)="onSidebarResizing($event)">
+  (resizing)="onSidebarResize($event)">
   <app-menu-accordion>
     <app-menu-panel panelTitle="OUTLINE">
       <span buttons (click)="addTask($event)">+</span>
@@ -16,6 +16,6 @@
     </app-menu-panel>
   </app-menu-accordion>
 </app-sidebar>
-<div id="main-panel">
+<div id="main-panel" [ngStyle]="mainPanel">
   <router-outlet></router-outlet>
 </div>

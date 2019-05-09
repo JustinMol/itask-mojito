@@ -12,8 +12,6 @@ export class MonacoEditorService {
 
   public resize$ = new Subject();
 
-  constructor() { }
-
   private monacoEditor: monaco.editor.ICodeEditor;
 
   public notifyResize() {

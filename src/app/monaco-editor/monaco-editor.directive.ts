@@ -7,25 +7,16 @@ import { MonacoEditorService } from './monaco-editor.service';
 export class MonacoEditorDirective implements OnInit {
 
   constructor(
-    private monacoEditorService: MonacoEditorService,
-    private elementRef: ElementRef
-  ) { }
-
-  @HostListener('window:resize')
-  windowResized() {
-    this.monacoEditorService.notifyResize();
-  }
+    private monaco: MonacoEditorService,
+    private elem: ElementRef<HTMLElement>
+  ) {}
 
   ngOnInit() {
-    this.monacoEditorService.loadEditor(this.elementRef, {
+    this.monaco.loadEditor(this.elem, {
       theme: 'vs-dark',
       language: 'typescript',
       minimap: { enabled: false },
+      automaticLayout: true,
     }).subscribe();
-
-    this.monacoEditorService.resize$.subscribe(() => this.monacoEditorService.editor.layout({
-      width: this.elementRef.nativeElement.clientWidth,
-      height: this.elementRef.nativeElement.clientHeight
-    }));
   }
 }

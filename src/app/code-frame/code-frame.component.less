@@ -1,42 +1,27 @@
-#code-frame {
-    height: 100%;
-}
-
 #code-frame-header {
     height: 26px;
     background: #2C322F;
     position: relative;
-}
 
-#code-frame-header hr {
-    position: absolute;
-    margin: 0;
-    width: 100%;
-    left: 0;
-}
+    & hr {
+        position: absolute;
+        margin: 0;
+        width: 100%;
+        left: 0;
 
-#code-frame-body {
-    position: absolute;
-    background: #212724;
-    height: calc(100% - 26px);
-    width: 100%;
-}
-
-.line-dark {
-    top: 0;
-    border: 1px solid #49504D;
-}
-
-.line-bright {
-    bottom: 0;
-    border: 1px solid #CADBD2;
+        &.line-dark {
+            top: 0;
+            border: 1px solid #49504D;
+        }
+        
+        &.line-bright {
+            bottom: 0;
+            border: 1px solid #CADBD2;
+        }
+    }
 }
 
 app-monaco-editor {
-    position: relative;
     display: block;
     height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
 }
