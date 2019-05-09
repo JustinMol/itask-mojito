@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { GraphFrameComponent } from './graph/graph-frame/graph-frame.component';
+import { TaskComponent } from './task/task.component';
 
 const routes: Routes = [
-  { path: '', component: GraphFrameComponent }
+  { path: '', component: TaskComponent }
 ];
 
 @NgModule({

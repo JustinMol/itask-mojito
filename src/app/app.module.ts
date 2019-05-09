@@ -24,6 +24,7 @@ import { GraphBlockIconComponent } from './graph/graph-block-icon/graph-block-ic
 import { DroppableDirective } from './dnd/droppable.directive';
 import { DropTargetDirective } from './dnd/drop-target.directive';
 import { GraphNodeDirective } from './graph/graph-node.directive';
+import { TaskComponent } from './task/task.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { GraphNodeDirective } from './graph/graph-node.directive';
     DroppableDirective,
     DropTargetDirective,
     GraphNodeDirective,
+    TaskComponent,
   ],
   imports: [
     BrowserModule,
