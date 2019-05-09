@@ -1,2 +1,19 @@
-<app-graph-frame></app-graph-frame>
-<app-code-frame></app-code-frame>
+<div id="task" [ngStyle]="style">
+    <app-graph-frame></app-graph-frame>
+    <app-code-frame></app-code-frame>
+</div>
+<app-sidebar
+  side="right"
+  (resizing)="onSidebarResize($event)">
+  <app-menu-accordion>
+    <app-menu-panel panelTitle="SOURCES">
+      <graph-block-list body [blocks]="graphBlockService.getSources()"></graph-block-list>
+    </app-menu-panel>
+    <app-menu-panel panelTitle="TRANSFORMS">
+      <graph-block-list body [blocks]="graphBlockService.getTransforms()"></graph-block-list>
+    </app-menu-panel>
+    <app-menu-panel panelTitle="CONTROL">
+      <graph-block-list body [blocks]="graphBlockService.getControls()"></graph-block-list>
+    </app-menu-panel>
+  </app-menu-accordion>
+</app-sidebar>

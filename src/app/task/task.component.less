@@ -1,14 +1,29 @@
 :host {
     height: 100%;
     width: 100%;
+}
+
+#task {
+    position: absolute;
     display: flex;
     flex-direction: column;
+    left: 0;
+    right: 200px;
+    height: 100%;
+
+    app-graph-frame {
+        flex: 1;
+    }
+    
+    app-code-frame {
+        height: 30%;
+    }
 }
 
-app-graph-frame {
-    flex: 1;
-}
-
-app-code-frame {
-    height: 30%;
+app-sidebar {
+    position: absolute;
+    height: 100%;
+    width: 200px;
+    min-width: 120px;
+    right: 0;
 }

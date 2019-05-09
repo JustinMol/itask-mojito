@@ -33,6 +33,9 @@ export class AppComponent {
   }
 
   onSidebarResize(event: SidebarResizeEvent) {
-    this.mainPanel.left = event.rectangle.width + 'px';
+    const width = event.rectangle.width;
+    if (width >= 150) {
+      this.mainPanel.left = width + 'px';
+    }
   }
 }
