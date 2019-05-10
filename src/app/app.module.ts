@@ -7,6 +7,7 @@ import { AngularSvgIconModule } from 'angular-svg-icon';
 import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SkyhookDndModule } from '@angular-skyhook/core';
 import { default as HTML5Backend } from 'react-dnd-html5-backend';
+import { LocalStorageModule } from 'angular-2-local-storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -57,6 +58,7 @@ import { TopbarComponent } from './topbar/topbar.component';
     AngularSvgIconModule,
     NgScrollbarModule,
     SkyhookDndModule.forRoot({ backend: HTML5Backend }),
+    LocalStorageModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
