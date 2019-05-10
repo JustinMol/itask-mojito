@@ -25,6 +25,7 @@ import { DroppableDirective } from './dnd/droppable.directive';
 import { DropTargetDirective } from './dnd/drop-target.directive';
 import { GraphNodeDirective } from './graph/graph-node.directive';
 import { TaskComponent } from './task/task.component';
+import { WelcomeComponent } from './welcome/welcome.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { TaskComponent } from './task/task.component';
     DropTargetDirective,
     GraphNodeDirective,
     TaskComponent,
+    WelcomeComponent,
   ],
   imports: [
     BrowserModule,
