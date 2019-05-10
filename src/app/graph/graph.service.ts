@@ -1,18 +1,23 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { LocalStorageService } from 'angular-2-local-storage';
+import { BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
+/**
+ * GraphService provides and persists all nodes and edges for one task.
+ */
+@Injectable()
 export class GraphService {
 
-  private nodes = [];
+  public nodes$: BehaviorSubject<any[]> = new BehaviorSubject([]);
 
-  public nodes$ = of(this.nodes);
-  
-  constructor() {}
+  private _nodes: any[] = [];
 
-  addNode(node) {
-    this.nodes.push(node);
+  constructor(
+    private localStorage: LocalStorageService
+  ) {}
+
+  addNode(task: string, node) {
+    this._nodes.push(node);
+    this.nodes$.next(this._nodes);
   }
 }
