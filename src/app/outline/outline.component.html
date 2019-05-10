@@ -1,3 +1,5 @@
-<span style="color: aliceblue" *ngFor="let task of tasks">
-  {{ task.name }}<br>
+<span
+  *ngFor="let task of tasks"
+  (click)="navigateTo(task)">
+  {{ task.name }}
 </span>

@@ -4,7 +4,8 @@ import { TaskComponent } from './task/task.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent }
+  { path: '', component: WelcomeComponent },
+  { path: 'tasks/:name', component: TaskComponent }
 ];
 
 @NgModule({

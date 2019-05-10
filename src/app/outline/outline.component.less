@@ -1,0 +1,20 @@
+@margin: 2pt;
+@indent: 8pt;
+@font-size: 12pt;
+
+span,
+div {
+    overflow: hidden;
+    display: block;
+    font-family: 'Consolas', monaco, monospace;
+    padding-left: @indent;
+    padding-top: @margin;
+    padding-bottom: @margin;
+    font-size: @font-size;
+    color: #CADBD2;
+    cursor: pointer;
+
+    &:hover{
+        background: lighten(#49504D, 5);
+    }
+}
