@@ -1,6 +1,7 @@
 <div id="task" [ngStyle]="style">
-    <app-graph-frame></app-graph-frame>
-    <app-code-frame></app-code-frame>
+  <app-topbar [openTask]="task"></app-topbar>
+  <app-graph-frame></app-graph-frame>
+  <app-code-frame></app-code-frame>
 </div>
 <app-sidebar
   side="right"

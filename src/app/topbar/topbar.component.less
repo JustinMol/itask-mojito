@@ -1,0 +1,30 @@
+@import "../../styles/colors.less";
+
+:host {
+    background: @topbar-background;
+}
+
+div.tab {
+    display: inline-block;
+    background: @topbar-tab;
+    padding-left: 6pt;
+    padding-right: 6pt;
+}
+
+span {
+    color: @text-color;
+    font-size: 10pt;
+    font-family: 'Consolas', monaco, monospace;
+    display: inline-block;
+    vertical-align: middle;
+
+    &.close {
+        font-weight: 900;
+        padding-left: 6pt;
+        cursor: pointer;
+
+        &:hover {
+            transform: scale(1.1);
+        }
+    }
+}

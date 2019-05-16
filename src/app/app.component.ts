@@ -3,6 +3,7 @@ import { SidebarResizeEvent } from './sidebar/sidebar.component';
 import { OutlineComponent } from './outline/outline.component';
 import { AdtListComponent } from './adt-list/adt-list.component';
 import { FormListComponent } from './form-list/form-list.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -17,19 +18,24 @@ export class AppComponent {
 
   mainPanel: any = {};
 
+  constructor(
+    private router: Router
+  ) {}
+
   addTask(event: Event) {
-    this.outline.addTask();
     event.stopImmediatePropagation();
+    const task = this.outline.addTask();
+    this.router.navigate(['tasks', task.name]);
   }
 
   addForm(event: Event) {
-    this.formList.addForm();
     event.stopImmediatePropagation();
+    this.formList.addForm();
   }
 
   addAdt(event: Event) {
-    this.adtList.addAdt();
     event.stopImmediatePropagation();
+    this.adtList.addAdt();
   }
 
   onSidebarResize(event: SidebarResizeEvent) {

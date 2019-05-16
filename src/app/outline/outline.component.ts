@@ -21,9 +21,7 @@ export class OutlineComponent implements OnInit {
   }
 
   addTask() {
-    this.taskService.addTask({
-      name: `Task #${this.tasks.length + 1}`
-    });
+    return this.taskService.newTask();
   }
 
   navigateTo(task: Task) {

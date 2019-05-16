@@ -23,7 +23,7 @@ export class TaskService {
     return of(this._tasks);
   }
 
-  newTask(): void {
+  newTask(): Task {
     const untitled = this._tasks.filter(t => t.name.startsWith(UNTITLED));
     const newName = `${UNTITLED}-${untitled.length + 1}`;
     return this.addTask({
@@ -31,8 +31,9 @@ export class TaskService {
     });
   }
 
-  addTask(task: Task): void {
+  addTask(task: Task): Task {
     this._tasks.push(task);
+    return task;
   }
 
 }

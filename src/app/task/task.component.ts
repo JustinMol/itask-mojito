@@ -31,9 +31,9 @@ export class TaskComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(map => {
-      const task = this.taskService.getTask(map.get('name'))
-      if (!task) {
-        this.router.navigate(['']);
+      this.task = this.taskService.getTask(map.get('name'));
+      if (!this.task) {
+        return this.router.navigate(['']);
       }
     });
   }

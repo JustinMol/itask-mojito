@@ -26,6 +26,7 @@ import { DropTargetDirective } from './dnd/drop-target.directive';
 import { GraphNodeDirective } from './graph/graph-node.directive';
 import { TaskComponent } from './task/task.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { TopbarComponent } from './topbar/topbar.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
     GraphNodeDirective,
     TaskComponent,
     WelcomeComponent,
+    TopbarComponent,
   ],
   imports: [
     BrowserModule,
