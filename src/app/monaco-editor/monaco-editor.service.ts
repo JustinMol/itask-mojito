@@ -35,7 +35,15 @@ export class MonacoEditorService {
       }));
   }
 
+  public destroy() {
+    this.monacoEditor.dispose();
+  }
+
+  private _bootstrapped: boolean = false;
+
   private bootstrap$: Observable<void> = Observable.create(observer => {
+    if (this._bootstrapped) return observer.next();
+
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = 'libs/vs/loader.js';
@@ -47,5 +55,6 @@ export class MonacoEditorService {
     };
 
     document.head.appendChild(script);
+    this._bootstrapped = true;
   });
 }

@@ -1,9 +1,8 @@
-import { Component, OnInit, ElementRef, Renderer2, Input } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer2, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DropTargetMonitor } from '@angular-skyhook/core';
 import { GraphBlock } from '../graph-block';
 import { GraphService } from '../graph.service';
-import { BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 declare const SVG: any;
 
@@ -19,7 +18,7 @@ export class GraphFrameComponent implements OnInit {
 
   @Input() task: string;
 
-  nodes$: BehaviorSubject<any[]>;
+  nodes$: Observable<any[]>;
 
   private svg;
 
@@ -27,11 +26,14 @@ export class GraphFrameComponent implements OnInit {
     private graph: GraphService
   ) {}
 
+  ngOnChanges(changes: SimpleChanges): void {
+    this.nodes$ = this.graph.getNodes(changes.task.currentValue);
+  }
+
   ngOnInit() {
     this.svg = SVG('#graph-frame');
     this.drawGrid(GRID_SIZE, 0.2);
     this.drawGrid(10, 0.1);
-    this.nodes$ = this.graph.nodes$;
   }
 
   drawGrid(gridSize, strokeWidth) {
@@ -56,6 +58,10 @@ export class GraphFrameComponent implements OnInit {
     const y = offset.y - bounds.top;
     const block = m.getItem();
     this.graph.addNode(this.task, { x, y, block });
+  }
+
+  onNodeMove() {
+    this.graph.notifyChange(this.task);
   }
 
 }

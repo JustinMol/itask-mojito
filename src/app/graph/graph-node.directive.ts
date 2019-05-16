@@ -1,4 +1,5 @@
-import { Directive, Input, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { GraphService } from './graph.service';
 
 declare const SVG: any;
 
@@ -8,11 +9,13 @@ declare const SVG: any;
 export class GraphNodeDirective implements OnInit, OnDestroy {
 
   @Input('graphNode') node;
+  @Output('moved') moved$ = new EventEmitter<any>();
 
   private elem;
 
   constructor(
-    private el: ElementRef<Element>
+    private el: ElementRef<Element>,
+    private graph: GraphService
   ) {}
 
   ngOnInit(): void {
@@ -50,12 +53,14 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   private moveNode() {
     this.node.x = this.elem.x();
     this.node.y = this.elem.y();
+    this.moved$.emit(this.node);
   }
 
   ngOnDestroy(): void {
     this.elem.off('dragmove.namespace');
     this.elem.off('dragend.namespace');
     this.elem.off('click');
+    this.moved$.complete();
   }
 
 }

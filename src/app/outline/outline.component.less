@@ -4,10 +4,22 @@
 @indent: 8pt;
 @font-size: 12pt;
 
-span,
+div {
+    display: block;
+}
+
+span {
+    display: inline-block;
+    vertical-align: middle;
+
+    &.close {
+        position: absolute;
+        right: 13px;
+    }
+}
+
 div {
     overflow: hidden;
-    display: block;
     font-family: 'Consolas', monaco, monospace;
     padding-left: @indent;
     padding-top: @margin;
@@ -16,7 +28,7 @@ div {
     color: @text-color;
     cursor: pointer;
 
-    &:hover{
+    &:hover {
         background: lighten(#49504D, 5);
     }
 }

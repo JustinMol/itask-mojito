@@ -1,4 +1,4 @@
 <div class="tab noselect" *ngIf="openTask">
     <span>{{ openTask.name }}</span>
-    <span class="close">&times;</span>
+    <span class="close" (click)="closeTab()">&times;</span>
 </div>
