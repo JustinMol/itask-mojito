@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../outline/task.service';
+import { Task } from '../task/task.service';
 import { Router } from '@angular/router';
 
 @Component({

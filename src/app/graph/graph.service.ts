@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService } from 'angular-2-local-storage';
-import { BehaviorSubject, of, Observable } from 'rxjs';
-import { TaskService } from '../outline/task.service';
+import { of, Observable } from 'rxjs';
+import { TaskService } from '../task/task.service';
 
 /**
  * GraphService provides and persists all nodes and edges for one task.

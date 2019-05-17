@@ -16,7 +16,7 @@ import { CodeFrameComponent } from './code-frame/code-frame.component';
 import { MonacoEditorDirective } from './monaco-editor/monaco-editor.directive';
 import { MenuPanelComponent } from './menu/menu-panel/menu-panel.component';
 import { MenuAccordionComponent } from './menu/menu-accordion/menu-accordion.component';
-import { OutlineComponent } from './outline/outline.component';
+import { TaskListComponent } from './task/task-list/task-list.component';
 import { FormListComponent } from './form-list/form-list.component';
 import { AdtListComponent } from './adt-list/adt-list.component';
 import { GraphBlockListComponent } from './graph/graph-block-list/graph-block-list.component';
@@ -37,7 +37,7 @@ import { TopbarComponent } from './topbar/topbar.component';
     MonacoEditorDirective,
     MenuPanelComponent,
     MenuAccordionComponent,
-    OutlineComponent,
+    TaskListComponent,
     FormListComponent,
     AdtListComponent,
     GraphBlockListComponent,

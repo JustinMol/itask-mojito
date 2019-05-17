@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { LocalStorageService } from 'angular-2-local-storage';
-import { GraphService } from '../graph/graph.service';
 
 export declare type Task = {
   name: string

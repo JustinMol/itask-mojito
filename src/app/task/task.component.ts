@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidebarResizeEvent } from '../sidebar/sidebar.component';
 import { GraphBlockService } from '../graph/graph-block.service';
-import { Task, TaskService } from '../outline/task.service';
+import { Task, TaskService } from './task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 

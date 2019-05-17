@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService, Task } from './task.service';
+import { TaskService, Task } from '../task.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-outline',
-  templateUrl: './outline.component.html',
-  styleUrls: ['./outline.component.less']
+  selector: 'app-task-list',
+  templateUrl: './task-list.component.html',
+  styleUrls: ['./task-list.component.less']
 })
-export class OutlineComponent implements OnInit {
+export class TaskListComponent implements OnInit {
 
   tasks: Task[] = [];
 

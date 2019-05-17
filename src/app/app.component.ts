@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { SidebarResizeEvent } from './sidebar/sidebar.component';
-import { OutlineComponent } from './outline/outline.component';
+import { TaskListComponent } from './task/task-list/task-list.component';
 import { AdtListComponent } from './adt-list/adt-list.component';
 import { FormListComponent } from './form-list/form-list.component';
 import { Router } from '@angular/router';
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-  @ViewChild(OutlineComponent) outline: OutlineComponent;
+  @ViewChild(TaskListComponent) outline: TaskListComponent;
   @ViewChild(FormListComponent) formList: FormListComponent;
   @ViewChild(AdtListComponent) adtList: AdtListComponent;
 
