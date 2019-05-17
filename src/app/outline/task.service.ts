@@ -33,8 +33,15 @@ export class TaskService {
   }
 
   newTask(): Task {
-    const untitled = this._tasks.filter(t => t.name.startsWith(UNTITLED));
-    const newName = `${UNTITLED}-${untitled.length + 1}`;
+    const highest = this._tasks
+      .filter(t => t.name.startsWith(UNTITLED))
+      .map(t => {
+        const regexed = /.*-(\d+)/.exec(t.name);
+        return parseInt(regexed[1]);
+      })
+      .reduce((prev, curr) => prev >= curr ? prev : curr, 0);
+
+    const newName = `${UNTITLED}-${highest + 1}`;
     return this.addTask({
       name: newName
     });
