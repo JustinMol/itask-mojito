@@ -25,7 +25,7 @@ export class AppComponent {
   addTask(event: Event) {
     event.stopImmediatePropagation();
     const task = this.outline.addTask();
-    this.router.navigate(['tasks', task.name]);
+    this.outline.navigateTo(task);
   }
 
   addForm(event: Event) {

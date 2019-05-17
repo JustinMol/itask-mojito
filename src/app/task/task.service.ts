@@ -1,8 +1,10 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { LocalStorageService } from 'angular-2-local-storage';
+import shortid from 'shortid';
 
 export declare type Task = {
+  id: string,
   name: string
 };
 
@@ -21,8 +23,8 @@ export class TaskService {
     private localStorage: LocalStorageService
   ) {}
 
-  getTask(name: string): Task {
-    const found = this._tasks.filter(t => t.name === name);
+  getTask(id: string): Task {
+    const found = this._tasks.filter(t => t.id === id);
     return found[0];
   }
 
@@ -42,6 +44,7 @@ export class TaskService {
 
     const newName = `${UNTITLED}-${highest + 1}`;
     return this.addTask({
+      id: shortid(),
       name: newName
     });
   }
