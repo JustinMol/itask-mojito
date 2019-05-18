@@ -2,7 +2,8 @@ import { Component, OnInit, ElementRef, Renderer2, Input, OnChanges, SimpleChang
 import { DropTargetMonitor } from '@angular-skyhook/core';
 import { GraphBlock } from '../graph-block';
 import { GraphService } from '../graph.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Task } from 'src/app/task/task';
+import { GraphNode } from '../graph-node';
 
 declare const SVG: any;
 
@@ -16,9 +17,9 @@ const GRID_SIZE = 100;
 })
 export class GraphFrameComponent implements OnInit {
 
-  @Input() task: string;
+  @Input() task: Task;
 
-  nodes$: Observable<any[]>;
+  nodes: GraphNode[];
 
   private svg;
 
@@ -26,8 +27,9 @@ export class GraphFrameComponent implements OnInit {
     private graph: GraphService
   ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.nodes$ = this.graph.getNodes(changes.task.currentValue);
+  ngOnChanges(): void {
+    this.graph.setTask(this.task);
+    this.nodes = this.graph.getNodes();
   }
 
   ngOnInit() {
@@ -57,11 +59,11 @@ export class GraphFrameComponent implements OnInit {
     const x = offset.x - bounds.left;
     const y = offset.y - bounds.top;
     const block = m.getItem();
-    this.graph.addNode(this.task, { x, y, block });
+    this.graph.addNode(new GraphNode(block, { x, y }));
   }
 
-  onNodeMove() {
-    this.graph.notifyChange(this.task);
+  onNodeMove(node) {
+    this.graph.moveNode(node)
   }
 
 }

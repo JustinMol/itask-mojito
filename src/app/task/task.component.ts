@@ -1,20 +1,19 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SidebarResizeEvent } from '../sidebar/sidebar.component';
 import { GraphBlockService } from '../graph/graph-block.service';
-import { Task, TaskService } from './task.service';
+import { TaskService } from './task.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Task } from './task';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.less']
 })
-export class TaskComponent implements OnInit, OnDestroy {
+export class TaskComponent implements OnInit {
 
   task: Task;
-
-  private _removedSub: Subscription;
 
   constructor(
     private graphBlockService: GraphBlockService,
@@ -33,21 +32,16 @@ export class TaskComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this._removedSub = this.taskService.remove$.subscribe(t => {
-      if (this.task.name === t.name) {
-        return this.router.navigate(['']);
-      }
-    });
+    this.taskService.tasks$.pipe(
+      filter(ts => this.task && ts.findIndex(t => t.id === this.task.id) === -1)
+    ).subscribe(() => this.router.navigate(['']));
+
     this.route.paramMap.subscribe(map => {
       this.task = this.taskService.getTask(map.get('task'));
       if (!this.task) {
         return this.router.navigate(['']);
       }
     });
-  }
-
-  ngOnDestroy(): void {
-    this._removedSub.unsubscribe();
   }
 
 }

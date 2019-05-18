@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService } from 'angular-2-local-storage';
-import { of, Observable } from 'rxjs';
 import { TaskService } from '../task/task.service';
+import { Task } from '../task/task';
+import { GraphNode } from './graph-node';
 
 /**
  * GraphService provides and persists all nodes and edges for one task.
@@ -9,32 +9,31 @@ import { TaskService } from '../task/task.service';
 @Injectable()
 export class GraphService {
 
-  private _nodes: any[] = [];
+  private task: Task;
 
   constructor(
-    private localStorage: LocalStorageService,
     private taskService: TaskService
-  ) {
-    this.taskService.remove$.subscribe(task => {
-      this.removeNodes(task.name);
-    });
+  ) {}
+
+  setTask(task: Task) {
+    this.task = task;
   }
 
-  notifyChange(task: string) {
-    this.localStorage.set(task, this._nodes);
+  getNodes(): GraphNode[] {
+    return this.task.nodes;
   }
 
-  getNodes(task: string): Observable<any[]> {
-    this._nodes = this.localStorage.get<any[]>(task) || [];
-    return of(this._nodes);
+  addNode(node: GraphNode) {
+    this.task.nodes.push(node);
+    this.taskService.updateTask(this.task);
   }
 
-  addNode(task: string, node) {
-    this._nodes.push(node);
-    this.localStorage.set(task, this._nodes);
+  moveNode(node: GraphNode) {
+    this.taskService.updateTask(this.task);
   }
 
-  removeNodes(task: string) {
-    this.localStorage.set(task, []);
+  removeNodes() {
+    this.task.nodes = [];
+    this.taskService.updateTask(this.task);
   }
 }

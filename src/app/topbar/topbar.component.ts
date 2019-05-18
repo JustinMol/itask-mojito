@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../task/task.service';
 import { Router } from '@angular/router';
+import { Task } from '../task/task';
 
 @Component({
   selector: 'app-topbar',

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService, Task } from '../task.service';
+import { TaskService } from '../task.service';
 import { Router } from '@angular/router';
+import { Task } from '../task';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-task-list',
@@ -17,19 +19,19 @@ export class TaskListComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.getTasks();
+    this.taskService.tasks$.subscribe(tasks => this.tasks = tasks);
   }
 
-  addTask() {
+  newTask(): Task {
     return this.taskService.newTask();
+  }
+
+  removeTask(task: Task): void {
+    this.taskService.removeTask(task);
   }
 
   navigateTo(task: Task) {
     this.router.navigate(['/tasks', task.id]);
-  }
-
-  getTasks() {
-    this.taskService.getTasks().subscribe(tasks => this.tasks = tasks);
   }
 
 }

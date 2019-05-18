@@ -1,67 +1,72 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { LocalStorageService } from 'angular-2-local-storage';
-import shortid from 'shortid';
-
-export declare type Task = {
-  id: string,
-  name: string
-};
-
-const UNTITLED = 'Untitled';
+import { Task } from './task';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  private _tasks: Task[] = [];
+  public tasks$: BehaviorSubject<Task[]>;
 
-  public remove$: EventEmitter<Task> = new EventEmitter();
+  private _tasks: Task[] = [];
 
   constructor(
     private localStorage: LocalStorageService
-  ) {}
+  ) {
+    this._tasks = this.localStorage.keys()
+      .filter(k => k.startsWith('task'))
+      .map(k => Task.from(this.localStorage.get(k)))
+      .filter(t => t !== null);
 
-  getTask(id: string): Task {
-    const found = this._tasks.filter(t => t.id === id);
-    return found[0];
+    this.tasks$ = new BehaviorSubject(this._tasks);
   }
 
-  getTasks(): Observable<Task[]> {
-    this._tasks = this.localStorage.get('tasks') || [];
-    return of(this._tasks);
+  getTask(id: string): Task {
+    return this._tasks.find(t => t.id === id);
   }
 
   newTask(): Task {
     const highest = this._tasks
-      .filter(t => t.name.startsWith(UNTITLED))
+      .filter(t => t.name.startsWith('Untitled'))
       .map(t => {
-        const regexed = /.*-(\d+)/.exec(t.name);
+        const regexed = /Untitled-(\d+)/.exec(t.name);
         return parseInt(regexed[1]);
       })
       .reduce((prev, curr) => prev >= curr ? prev : curr, 0);
 
-    const newName = `${UNTITLED}-${highest + 1}`;
-    return this.addTask({
-      id: shortid(),
-      name: newName
-    });
+    const newName = `Untitled-${highest + 1}`;
+    return this.createTask(new Task(newName));
   }
 
-  addTask(task: Task): Task {
+  createTask(task: Task): Task {
     this._tasks.push(task);
-    this.localStorage.set('tasks', this._tasks);
+    this.saveToStorage(task);
+    this.tasks$.next(this._tasks);
+    return task;
+  }
+
+  updateTask(task: Task): Task {
+    this.saveToStorage(task);
     return task;
   }
 
   removeTask(task: Task): void {
-    const index = this._tasks.findIndex(t => t.name === task.name);
-    if (index > -1) {
+    this.deleteFromStorage(task);
+    const index = this._tasks.findIndex(t => t.id === task.id);
+    if (index >= 0) {
       this._tasks.splice(index, 1);
-      this.localStorage.set('tasks', this._tasks);
-      this.remove$.emit(task);
     }
+    this.tasks$.next(this._tasks);
+  }
+
+  private saveToStorage(task: Task) {
+    this.localStorage.set(`task-${task.id}`, task);
+  }
+
+  private deleteFromStorage(task: Task) {
+    this.localStorage.remove(`task-${task.id}`);
   }
 
 }

@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { GraphService } from './graph.service';
+import { GraphNode } from './graph-node';
 
 declare const SVG: any;
 
@@ -8,21 +8,20 @@ declare const SVG: any;
 })
 export class GraphNodeDirective implements OnInit, OnDestroy {
 
-  @Input('graphNode') node;
+  @Input('graphNode') node: GraphNode;
   @Output('moved') moved$ = new EventEmitter<any>();
 
   private elem;
 
   constructor(
-    private el: ElementRef<Element>,
-    private graph: GraphService
+    private el: ElementRef<Element>
   ) {}
 
   ngOnInit(): void {
     this.elem = SVG.adopt(this.el.nativeElement)
       .draggable()
-      .x(this.node.x - this.node.x % 10)
-      .y(this.node.y - this.node.y % 10)
+      .x(this.node.coords.x - this.node.coords.x % 10)
+      .y(this.node.coords.y - this.node.coords.y % 10)
       .attr({
         href: this.node.block.svg,
       })
@@ -47,12 +46,12 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   }
 
   private onClick() {
-    console.log('(todo) graph-node onClick');
+    console.log('(todo) graph-node onClick', this.node instanceof GraphNode);
   }
 
   private moveNode() {
-    this.node.x = this.elem.x();
-    this.node.y = this.elem.y();
+    this.node.coords.x = this.elem.x();
+    this.node.coords.y = this.elem.y();
     this.moved$.emit(this.node);
   }
 

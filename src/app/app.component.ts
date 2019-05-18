@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
 
-  @ViewChild(TaskListComponent) outline: TaskListComponent;
+  @ViewChild(TaskListComponent) taskList: TaskListComponent;
   @ViewChild(FormListComponent) formList: FormListComponent;
   @ViewChild(AdtListComponent) adtList: AdtListComponent;
 
@@ -24,8 +24,8 @@ export class AppComponent {
 
   addTask(event: Event) {
     event.stopImmediatePropagation();
-    const task = this.outline.addTask();
-    this.outline.navigateTo(task);
+    const task = this.taskList.newTask();
+    this.taskList.navigateTo(task);
   }
 
   addForm(event: Event) {
