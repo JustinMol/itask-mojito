@@ -9,14 +9,16 @@ div.tab {
     background: @topbar-tab;
     padding-left: 6pt;
     padding-right: 6pt;
+
+    overflow: hidden;
+    white-space: nowrap;
 }
 
 span {
-    color: @text-color;
+    color: @text-color-default;
     font-size: 10pt;
     font-family: 'Consolas', monaco, monospace;
-    display: inline-block;
-    vertical-align: middle;
+    font-style: italic;
 
     &.close {
         padding-left: 6pt;

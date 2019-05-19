@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { TaskService } from '../task/task.service';
 import { Task } from '../task/task';
-import { GraphNode } from './graph-node';
+import { GraphNode } from './graph-node/graph-node';
 
 /**
  * GraphService provides and persists all nodes and edges for one task.
@@ -17,6 +17,10 @@ export class GraphService {
 
   setTask(task: Task) {
     this.task = task;
+  }
+
+  getNode(id: string): GraphNode {
+    return this.task.nodes.find(n => n.id === id);
   }
 
   getNodes(): GraphNode[] {

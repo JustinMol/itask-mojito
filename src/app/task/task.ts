@@ -1,5 +1,5 @@
 import shortid from 'shortid';
-import { GraphNode } from '../graph/graph-node';
+import { GraphNode } from '../graph/graph-node/graph-node';
 
 export class Task {
 

@@ -5,9 +5,11 @@ import { GraphBlock } from './graph-block';
 const SOURCES = [{
   name: 'User Input',
   svg: 'assets/svg/source/user.svg',
+  description: 'Ask the user to fill in a form of a chosen type.'
 }, {
   name: 'Shared Input',
   svg: 'assets/svg/source/shared.svg',
+  description: 'Ask the user to fill in a form of a chosen type. The information is automatically shared with other users.'
 }, {
   name: 'Clock Input',
   svg: 'assets/svg/source/clock.svg',

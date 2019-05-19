@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
-import { GraphBlock } from '../graph-block';
+import { GraphBlock } from '../graph-block/graph-block';
 
 @Component({
   selector: 'graph-block-list',

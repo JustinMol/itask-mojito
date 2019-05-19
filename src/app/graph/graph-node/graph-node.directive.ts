@@ -1,5 +1,6 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { GraphNode } from './graph-node';
+import { Router, ActivatedRoute } from '@angular/router';
 
 declare const SVG: any;
 
@@ -14,7 +15,9 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   private elem;
 
   constructor(
-    private el: ElementRef<Element>
+    private el: ElementRef<Element>,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +49,10 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   }
 
   private onClick() {
-    console.log('(todo) graph-node onClick', this.node instanceof GraphNode);
+    this.router.navigate(
+      ['./nodes', this.node.id],
+      { relativeTo: this.route, state: this.node }
+    );
   }
 
   private moveNode() {

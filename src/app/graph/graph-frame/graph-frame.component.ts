@@ -1,9 +1,9 @@
 import { Component, OnInit, ElementRef, Renderer2, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { DropTargetMonitor } from '@angular-skyhook/core';
-import { GraphBlock } from '../graph-block';
+import { GraphBlock } from '../graph-block/graph-block';
 import { GraphService } from '../graph.service';
 import { Task } from 'src/app/task/task';
-import { GraphNode } from '../graph-node';
+import { GraphNode } from '../graph-node/graph-node';
 
 declare const SVG: any;
 
@@ -12,8 +12,7 @@ const GRID_SIZE = 100;
 @Component({
   selector: 'app-graph-frame',
   templateUrl: './graph-frame.component.html',
-  styleUrls: ['./graph-frame.component.less'],
-  providers: [GraphService]
+  styleUrls: ['./graph-frame.component.less']
 })
 export class GraphFrameComponent implements OnInit {
 

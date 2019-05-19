@@ -1,0 +1,57 @@
+@import "../../../styles/colors.less";
+
+:host {
+    display: flex;
+    flex-direction: column;
+}
+
+div#header {
+    color: @text-color-bright;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: @graph-background;
+    margin: 16pt;
+
+    graph-block-icon {
+        float: left;
+        margin-right: 16pt;
+        width: 50pt;
+        height: 50pt;
+    }
+
+    h1 {
+        font-size: 24pt;
+        margin: 0 0 4pt 0;
+        overflow: hidden;
+        white-space: nowrap;
+        font-weight: 900;
+    }
+
+    i {
+        display: block;
+        max-height: 36pt;
+        line-height: 18pt;
+        font-size: 14pt;
+        overflow: hidden;
+        white-space: pre-line;
+    }
+}
+
+hr {
+    margin: 0;
+    border: 1px solid #CADBD2;
+}
+
+div#table {
+    flex: 1;
+    width: 100%;
+    display: flex;
+
+    & div#values {
+        flex: 1;
+        background: @editor-background;
+    }
+
+    & div#names {
+        width: 150pt;
+    }
+}

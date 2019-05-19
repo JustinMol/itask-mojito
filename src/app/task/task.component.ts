@@ -1,19 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidebarResizeEvent } from '../sidebar/sidebar.component';
-import { GraphBlockService } from '../graph/graph-block.service';
+import { GraphBlockService } from '../graph/graph-block/graph-block.service';
 import { TaskService } from './task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Task } from './task';
 import { filter } from 'rxjs/operators';
+import { Subscription } from 'rxjs';
+import { GraphService } from '../graph/graph.service';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.less']
+  styleUrls: ['./task.component.less'],
+  providers: [GraphService]
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, OnDestroy {
 
   task: Task;
+
+  style: any = {};
+
+  private subscription: Subscription;
 
   constructor(
     private graphBlockService: GraphBlockService,
@@ -21,8 +28,6 @@ export class TaskComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router
   ) {}
-
-  style: any = {};
 
   onSidebarResize(event: SidebarResizeEvent) {
     const width = event.rectangle.width;
@@ -32,7 +37,7 @@ export class TaskComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.taskService.tasks$.pipe(
+    this.subscription = this.taskService.tasks$.pipe(
       filter(ts => this.task && ts.findIndex(t => t.id === this.task.id) === -1)
     ).subscribe(() => this.router.navigate(['']));
 
@@ -42,6 +47,10 @@ export class TaskComponent implements OnInit {
         return this.router.navigate(['']);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

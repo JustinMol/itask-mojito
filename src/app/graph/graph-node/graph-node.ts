@@ -1,4 +1,4 @@
-import { GraphBlock } from './graph-block';
+import { GraphBlock } from '../graph-block/graph-block';
 import shortid from 'shortid';
 
 export type Coordinates = {
@@ -29,9 +29,5 @@ export class GraphNode {
         this.id = shortid();
         this.block = block;
         this.coords = coords;
-    }
-
-    toStrin() {
-        console.log('hai')
     }
 }

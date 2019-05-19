@@ -5,7 +5,7 @@
     width: 100%;
 }
 
-#task {
+#content {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -21,11 +21,15 @@
         height: 30%;
     }
 
+    ::ng-deep app-graph-node-editor {
+        height: 60%;
+    }
+
     app-topbar {
         height: 20pt;
         line-height: 20pt;
         display: block;
-    }    
+    }
 }
 
 app-sidebar {

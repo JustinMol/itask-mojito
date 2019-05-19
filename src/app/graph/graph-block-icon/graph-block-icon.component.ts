@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GraphBlock } from '../graph-block';
+import { GraphBlock } from '../graph-block/graph-block';
 
 @Component({
   selector: 'graph-block-icon',

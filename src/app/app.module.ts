@@ -24,10 +24,11 @@ import { GraphFrameComponent } from './graph/graph-frame/graph-frame.component';
 import { GraphBlockIconComponent } from './graph/graph-block-icon/graph-block-icon.component';
 import { DroppableDirective } from './dnd/droppable.directive';
 import { DropTargetDirective } from './dnd/drop-target.directive';
-import { GraphNodeDirective } from './graph/graph-node.directive';
+import { GraphNodeDirective } from './graph/graph-node/graph-node.directive';
 import { TaskComponent } from './task/task.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { TopbarComponent } from './topbar/topbar.component';
+import { GraphNodeEditorComponent } from './graph/graph-node-editor/graph-node-editor.component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { TopbarComponent } from './topbar/topbar.component';
     TaskComponent,
     WelcomeComponent,
     TopbarComponent,
+    GraphNodeEditorComponent,
   ],
   imports: [
     BrowserModule,
