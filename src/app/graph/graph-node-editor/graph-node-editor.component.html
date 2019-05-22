@@ -1,10 +1,10 @@
 <div id="header" class="noselect clearfix" *ngIf="node">
-  <graph-block-icon [block]="node.block"></graph-block-icon>
-  <h1>{{ node.block.name }}</h1>
-  <i>{{ node.block.description }}</i>
+  <graph-block-icon [block]="block"></graph-block-icon>
+  <h1>{{ block.name }}</h1>
+  <i>{{ block.description }}</i>
 </div>
 <hr />
-<div id="table">
-  <div id="names"></div>
-  <div id="values"></div>
+<div id="content">
+  <ng-template editor-host [component]="block.component"></ng-template>
 </div>
+

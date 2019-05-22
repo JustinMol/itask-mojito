@@ -58,7 +58,7 @@ export class GraphFrameComponent implements OnInit {
     const x = offset.x - bounds.left;
     const y = offset.y - bounds.top;
     const block = m.getItem();
-    this.graph.addNode(new GraphNode(block, { x, y }));
+    this.graph.addNode(new GraphNode(block.type, { x, y }));
   }
 
   onNodeMove(node) {

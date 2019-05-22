@@ -1,4 +1,3 @@
-import { GraphBlock } from '../graph-block/graph-block';
 import shortid from 'shortid';
 
 export type Coordinates = {
@@ -13,7 +12,7 @@ export class GraphNode {
             return null;
         }
 
-        const node = new GraphNode(object.block, object.coords);
+        const node = new GraphNode(object.type, object.coords);
         if (object.id) {
             node.id = object.id;
         }
@@ -22,12 +21,12 @@ export class GraphNode {
     }
 
     public id: string;
-    public block: GraphBlock;
+    public type: string;
     public coords: Coordinates;
 
-    constructor(block: GraphBlock, coords: Coordinates) {
+    constructor(type: string, coords: Coordinates) {
         this.id = shortid();
-        this.block = block;
+        this.type = type;
         this.coords = coords;
     }
 }

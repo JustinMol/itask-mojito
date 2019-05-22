@@ -1,6 +1,8 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { GraphNode } from './graph-node';
 import { Router, ActivatedRoute } from '@angular/router';
+import { GraphBlock } from '../graph-block/graph-block';
+import { GraphBlockService } from '../graph-block/graph-block.service';
 
 declare const SVG: any;
 
@@ -13,20 +15,23 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   @Output('moved') moved$ = new EventEmitter<any>();
 
   private elem;
+  private graphBlock: GraphBlock;
 
   constructor(
     private el: ElementRef<Element>,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private graphBlockService: GraphBlockService
   ) {}
 
   ngOnInit(): void {
+    this.graphBlock = this.graphBlockService.getGraphBlock(this.node.type);
     this.elem = SVG.adopt(this.el.nativeElement)
       .draggable()
       .x(this.node.coords.x - this.node.coords.x % 10)
       .y(this.node.coords.y - this.node.coords.y % 10)
       .attr({
-        href: this.node.block.svg,
+        href: this.graphBlock.svg,
       })
       .on('dragmove.namespace', e => this.snapToGrid(e, 10))
       .on('dragend.namespace', e => this.onDragEnd(e));

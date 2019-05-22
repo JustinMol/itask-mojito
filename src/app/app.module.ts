@@ -29,6 +29,8 @@ import { TaskComponent } from './task/task.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { GraphNodeEditorComponent } from './graph/graph-node-editor/graph-node-editor.component';
+import { TableEditorComponent } from './editors/table-editor/table-editor.component';
+import { EditorHostDirective } from './editors/editor-host.directive';
 
 @NgModule({
   declarations: [
@@ -51,6 +53,8 @@ import { GraphNodeEditorComponent } from './graph/graph-node-editor/graph-node-e
     WelcomeComponent,
     TopbarComponent,
     GraphNodeEditorComponent,
+    TableEditorComponent,
+    EditorHostDirective,
   ],
   imports: [
     BrowserModule,
@@ -63,6 +67,9 @@ import { GraphNodeEditorComponent } from './graph/graph-node-editor/graph-node-e
     LocalStorageModule.forRoot(),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    TableEditorComponent
+  ]
 })
 export class AppModule { }
