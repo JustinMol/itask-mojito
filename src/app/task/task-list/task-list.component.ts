@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from '../task.service';
-import { Router } from '@angular/router';
-import { Task } from '../task';
-import { switchMap } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
+import { TaskDeclaration } from 'src/app/ast/ast';
 
 @Component({
   selector: 'app-task-list',
@@ -11,27 +10,24 @@ import { switchMap } from 'rxjs/operators';
 })
 export class TaskListComponent implements OnInit {
 
-  tasks: Task[] = [];
+  tasks: TaskDeclaration[] = [];
 
   constructor(
     private taskService: TaskService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
     this.taskService.tasks$.subscribe(tasks => this.tasks = tasks);
   }
 
-  newTask(): Task {
-    return this.taskService.newTask();
+  onSelect(task: TaskDeclaration) {
+    return this.router.navigate(['/tasks', task.id]);
   }
 
-  removeTask(task: Task): void {
+  onDelete(task: TaskDeclaration): void {
     this.taskService.removeTask(task);
-  }
-
-  navigateTo(task: Task) {
-    this.router.navigate(['/tasks', task.id]);
   }
 
 }

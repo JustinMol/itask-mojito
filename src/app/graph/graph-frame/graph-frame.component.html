@@ -5,7 +5,7 @@
     (dropped)="onDrop($event)">
     <image
         *ngFor="let node of nodes"
-        [graphNode]="node"
-        (moved)="onNodeMove($event)">
+        [graph-node]="node"
+        (moved)="onNodeMove(node, $event)">
     </image>
 </svg>

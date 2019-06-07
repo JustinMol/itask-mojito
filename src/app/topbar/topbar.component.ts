@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router } from '@angular/router';
-import { Task } from '../task/task';
+import { TaskDeclaration } from '../ast/ast';
 
 @Component({
   selector: 'app-topbar',
@@ -9,7 +9,7 @@ import { Task } from '../task/task';
 })
 export class TopbarComponent {
 
-  @Input() openTask: Task;
+  @Input() openTask: TaskDeclaration;
 
   constructor(
     private router: Router

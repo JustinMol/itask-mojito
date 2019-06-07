@@ -25,6 +25,7 @@
     "angular-2-local-storage": "^3.0.2",
     "angular-resizable-element": "^3.2.4",
     "angular-svg-icon": "^7.2.0",
+    "class-transformer": "^0.2.3",
     "core-js": "^2.5.4",
     "monaco-editor": "^0.16.0",
     "ngx-scrollbar": "^4.1.1",

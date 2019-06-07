@@ -4,6 +4,7 @@ import { TaskListComponent } from './task/task-list/task-list.component';
 import { AdtListComponent } from './adt-list/adt-list.component';
 import { FormListComponent } from './form-list/form-list.component';
 import { Router } from '@angular/router';
+import { TaskService } from './task/task.service';
 
 @Component({
   selector: 'app-root',
@@ -19,13 +20,14 @@ export class AppComponent {
   mainPanel: any = {};
 
   constructor(
-    private router: Router
+    private router: Router,
+    private taskService: TaskService
   ) {}
 
   addTask(event: Event) {
     event.stopImmediatePropagation();
-    const task = this.taskList.newTask();
-    this.taskList.navigateTo(task);
+    const task = this.taskService.newTask();
+    this.router.navigate(['/tasks', task.id]);
   }
 
   addForm(event: Event) {

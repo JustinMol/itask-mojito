@@ -1,7 +1,7 @@
-<div id="content" [ngStyle]="style" *ngIf="task">
+<div id="content" [ngStyle]="sidebarStyle" *ngIf="task">
   <app-topbar [openTask]="task"></app-topbar>
   <router-outlet></router-outlet>
-  <app-graph-frame [task]="task"></app-graph-frame>
+  <app-graph-frame [nodes]="task.body"></app-graph-frame>
   <!-- <app-code-frame></app-code-frame> -->
 </div>
 <app-sidebar
@@ -9,13 +9,13 @@
   (resizing)="onSidebarResize($event)">
   <app-menu-accordion>
     <app-menu-panel panelTitle="SOURCES">
-      <graph-block-list body [blocks]="graphBlockService.getSources()"></graph-block-list>
+      <graph-block-list body [blocks]="sources"></graph-block-list>
     </app-menu-panel>
     <app-menu-panel panelTitle="TRANSFORMS">
-      <graph-block-list body [blocks]="graphBlockService.getTransforms()"></graph-block-list>
+      <graph-block-list body [blocks]="transforms"></graph-block-list>
     </app-menu-panel>
     <app-menu-panel panelTitle="CONTROL">
-      <graph-block-list body [blocks]="graphBlockService.getControls()"></graph-block-list>
+      <graph-block-list body [blocks]="controls"></graph-block-list>
     </app-menu-panel>
   </app-menu-accordion>
 </app-sidebar>

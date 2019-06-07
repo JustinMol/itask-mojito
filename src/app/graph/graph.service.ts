@@ -1,43 +1,24 @@
 import { Injectable } from '@angular/core';
-import { TaskService } from '../task/task.service';
-import { Task } from '../task/task';
-import { GraphNode } from './graph-node/graph-node';
+import { ASTService } from '../ast/ast.service';
+import { Coordinates, ASTNode } from '../ast/ast';
+import { GraphBlockOptions } from './graph-block/graph-block.decorator';
 
-/**
- * GraphService provides and persists all nodes and edges for one task.
- */
 @Injectable()
 export class GraphService {
 
-  private task: Task;
-
   constructor(
-    private taskService: TaskService
+    private ast: ASTService
   ) {}
 
-  setTask(task: Task) {
-    this.task = task;
+  createNode(block: GraphBlockOptions, coordinates: Coordinates): ASTNode {
+    const node = new block.astNode();
+    node.coordinates = coordinates;
+    this.ast.addNode(node);
+    return node;
   }
 
-  getNode(id: string): GraphNode {
-    return this.task.nodes.find(n => n.id === id);
-  }
-
-  getNodes(): GraphNode[] {
-    return this.task.nodes;
-  }
-
-  addNode(node: GraphNode) {
-    this.task.nodes.push(node);
-    this.taskService.updateTask(this.task);
-  }
-
-  moveNode(node: GraphNode) {
-    this.taskService.updateTask(this.task);
-  }
-
-  removeNodes() {
-    this.task.nodes = [];
-    this.taskService.updateTask(this.task);
+  moveNode(node: ASTNode, coordinates: Coordinates): void {
+    node.coordinates = coordinates;
+    this.ast.save();
   }
 }

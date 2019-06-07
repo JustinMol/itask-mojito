@@ -1,20 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
-import { GraphBlock } from '../graph-block/graph-block';
+import { Component, Input } from '@angular/core';
+import { GraphBlockOptions } from '../graph-block/graph-block.decorator';
 
 @Component({
   selector: 'graph-block-list',
   templateUrl: './graph-block-list.component.html',
   styleUrls: ['./graph-block-list.component.less']
 })
-export class GraphBlockListComponent implements OnInit {
+export class GraphBlockListComponent {
 
-  @Input('blocks') blocks$: Observable<GraphBlock[]>
-
-  blocks = [];
-
-  ngOnInit() {
-    this.blocks$.subscribe(blocks => this.blocks = blocks);
-  }
+  @Input() blocks: GraphBlockOptions[];
 
 }

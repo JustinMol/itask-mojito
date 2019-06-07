@@ -1,35 +1,33 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { GraphNode } from './graph-node';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GraphBlock } from '../graph-block/graph-block';
-import { GraphBlockService } from '../graph-block/graph-block.service';
+import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
+import { ASTNode, Coordinates } from 'src/app/ast/ast';
 
 declare const SVG: any;
 
 @Directive({
-  selector: '[graphNode]'
+  selector: '[graph-node]'
 })
 export class GraphNodeDirective implements OnInit, OnDestroy {
 
-  @Input('graphNode') node: GraphNode;
-  @Output('moved') moved$ = new EventEmitter<any>();
+  @Input('graph-node') node: ASTNode;
+  @Output('moved') moved$ = new EventEmitter<Coordinates>();
 
   private elem;
-  private graphBlock: GraphBlock;
+  private graphBlock: GraphBlockOptions;
 
   constructor(
     private el: ElementRef<Element>,
     private router: Router,
-    private route: ActivatedRoute,
-    private graphBlockService: GraphBlockService
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.graphBlock = this.graphBlockService.getGraphBlock(this.node.type);
+    this.graphBlock = getGraphBlock(this.node.constructor);
     this.elem = SVG.adopt(this.el.nativeElement)
       .draggable()
-      .x(this.node.coords.x - this.node.coords.x % 10)
-      .y(this.node.coords.y - this.node.coords.y % 10)
+      .x(this.node.coordinates.x - this.node.coordinates.x % 10)
+      .y(this.node.coordinates.y - this.node.coordinates.y % 10)
       .attr({
         href: this.graphBlock.svg,
       })
@@ -56,14 +54,12 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   private onClick() {
     this.router.navigate(
       ['./nodes', this.node.id],
-      { relativeTo: this.route, state: this.node }
+      { relativeTo: this.route }
     );
   }
 
   private moveNode() {
-    this.node.coords.x = this.elem.x();
-    this.node.coords.y = this.elem.y();
-    this.moved$.emit(this.node);
+    this.moved$.emit({ x: this.elem.x(), y: this.elem.y() });
   }
 
   ngOnDestroy(): void {

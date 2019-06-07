@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { GraphBlockService } from './graph-block.service';
+import { ASTService } from './ast.service';
 
-describe('SourceService', () => {
+describe('AstService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: GraphBlockService = TestBed.get(GraphBlockService);
+    const service: ASTService = TestBed.get(ASTService);
     expect(service).toBeTruthy();
   });
 });

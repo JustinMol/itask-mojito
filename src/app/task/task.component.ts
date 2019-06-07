@@ -1,56 +1,59 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { SidebarResizeEvent } from '../sidebar/sidebar.component';
-import { GraphBlockService } from '../graph/graph-block/graph-block.service';
 import { TaskService } from './task.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Task } from './task';
-import { filter } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
-import { GraphService } from '../graph/graph.service';
+import { ASTService } from '../ast/ast.service';
+import { filter, map, takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+import { TaskDeclaration } from '../ast/ast';
+import { GraphBlockOptions } from '../graph/graph-block/graph-block.decorator';
+import { sources, transforms, controls } from '../graph/graph-block/graph-blocks';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.less'],
-  providers: [GraphService]
+  providers: [ASTService]
 })
 export class TaskComponent implements OnInit, OnDestroy {
 
-  task: Task;
+  task: TaskDeclaration;
 
-  style: any = {};
+  private destroy$ = new Subject();
 
-  private subscription: Subscription;
+  sources: GraphBlockOptions[] = sources;
+  transforms: GraphBlockOptions[] = transforms;
+  controls: GraphBlockOptions[] = controls;
 
   constructor(
-    private graphBlockService: GraphBlockService,
     private taskService: TaskService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
 
-  onSidebarResize(event: SidebarResizeEvent) {
-    const width = event.rectangle.width;
-    if (width >= 120) {
-      this.style.right = event.rectangle.width + 'px';
-    }
-  }
-
   ngOnInit(): void {
-    this.subscription = this.taskService.tasks$.pipe(
-      filter(ts => this.task && ts.findIndex(t => t.id === this.task.id) === -1)
-    ).subscribe(() => this.router.navigate(['']));
+    this.route.paramMap.pipe(
+      map(map => this.taskService.selectTask(map.get('task')))
+    ).subscribe(task => this.task = task);
 
-    this.route.paramMap.subscribe(map => {
-      this.task = this.taskService.getTask(map.get('task'));
-      if (!this.task) {
-        return this.router.navigate(['']);
-      }
-    });
+    // Navigate to root when `this.task` no longer exists
+    this.taskService.tasks$.pipe(
+      filter(ts => !ts.includes(this.task)),
+      takeUntil(this.destroy$)
+    ).subscribe(() => this.router.navigate(['']));
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+    this.destroy$.next();
+  }
+
+  private sidebarStyle: any = {};
+
+  onSidebarResize(event: SidebarResizeEvent) {
+    const width = event.rectangle.width;
+    if (width >= 120) {
+      this.sidebarStyle.right = event.rectangle.width + 'px';
+    }
   }
 
 }

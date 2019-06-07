@@ -1,34 +1,48 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LocalStorageService } from 'angular-2-local-storage';
-import { Task } from './task';
+import { LocalStorageService } from '../local-storage.service';
+import { TaskDeclaration } from '../ast/ast';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
 
-  public tasks$: BehaviorSubject<Task[]>;
+  public tasks$: BehaviorSubject<TaskDeclaration[]>;
+  public currentTask$: BehaviorSubject<TaskDeclaration> = new BehaviorSubject(null);
 
-  private _tasks: Task[] = [];
+  private tasks: TaskDeclaration[] = [];
 
   constructor(
-    private localStorage: LocalStorageService
+    private storage: LocalStorageService
   ) {
-    this._tasks = this.localStorage.keys()
-      .filter(k => k.startsWith('task'))
-      .map(k => Task.from(this.localStorage.get(k)))
-      .filter(t => t !== null);
-
-    this.tasks$ = new BehaviorSubject(this._tasks);
+    this.tasks = this.storage.getAll(TaskDeclaration);
+    this.tasks$ = new BehaviorSubject(this.tasks);
   }
 
-  getTask(id: string): Task {
-    return this._tasks.find(t => t.id === id);
+  save(task?: TaskDeclaration | string): void {
+    if (task === undefined) {
+      return this.tasks.forEach(t => this.storage.save<TaskDeclaration>(t));
+    }
+
+    const _task: TaskDeclaration = typeof task === 'string' ? this.getTask(task) : task;
+    if (_task === null) return;
+
+    this.storage.save<TaskDeclaration>(_task);
   }
 
-  newTask(): Task {
-    const highest = this._tasks
+  selectTask(task: TaskDeclaration | string): TaskDeclaration {
+    let _task: TaskDeclaration = typeof task === 'string' ? this.getTask(task) : task;
+    this.currentTask$.next(_task);
+    return _task;
+  }
+
+  getTask(id: string): TaskDeclaration {
+    return this.tasks.find(t => t.id === id);
+  }
+
+  newTask(): TaskDeclaration {
+    const highest = this.tasks
       .filter(t => t.name.startsWith('Untitled'))
       .map(t => {
         const regexed = /Untitled-(\d+)/.exec(t.name);
@@ -36,37 +50,25 @@ export class TaskService {
       })
       .reduce((prev, curr) => prev >= curr ? prev : curr, 0);
 
-    const newName = `Untitled-${highest + 1}`;
-    return this.createTask(new Task(newName));
+    return this.createTask(`Untitled-${highest + 1}`);
   }
 
-  createTask(task: Task): Task {
-    this._tasks.push(task);
-    this.saveToStorage(task);
-    this.tasks$.next(this._tasks);
+  createTask(name: string): TaskDeclaration {
+    const task = new TaskDeclaration(name);
+    this.tasks.push(task);
+    this.storage.save(task);
+    this.tasks$.next(this.tasks);
     return task;
   }
 
-  updateTask(task: Task): Task {
-    this.saveToStorage(task);
-    return task;
-  }
-
-  removeTask(task: Task): void {
-    this.deleteFromStorage(task);
-    const index = this._tasks.findIndex(t => t.id === task.id);
+  removeTask(task: TaskDeclaration): void {
+    this.storage.remove(task);
+    const index = this.tasks.findIndex(t => t.id === task.id);
     if (index >= 0) {
-      this._tasks.splice(index, 1);
+      this.tasks.splice(index, 1);
     }
-    this.tasks$.next(this._tasks);
-  }
 
-  private saveToStorage(task: Task) {
-    this.localStorage.set(`task-${task.id}`, task);
-  }
-
-  private deleteFromStorage(task: Task) {
-    this.localStorage.remove(`task-${task.id}`);
+    this.tasks$.next(this.tasks);
   }
 
 }

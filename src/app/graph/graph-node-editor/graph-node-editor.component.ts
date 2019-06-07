@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { GraphService } from '../graph.service';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { GraphNode } from '../graph-node/graph-node';
-import { GraphBlockService } from '../graph-block/graph-block.service';
-import { GraphBlock } from '../graph-block/graph-block';
+import { ASTNode } from 'src/app/ast/ast';
+import { ASTService } from 'src/app/ast/ast.service';
+import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
 
 @Component({
   selector: 'app-graph-node-editor',
@@ -13,21 +12,20 @@ import { GraphBlock } from '../graph-block/graph-block';
 })
 export class GraphNodeEditorComponent implements OnInit {
 
-  node: GraphNode;
-  block: GraphBlock;
+  node: ASTNode;
+  block: GraphBlockOptions;
 
   constructor(
     private route: ActivatedRoute,
-    private graph: GraphService,
-    private graphBlockService: GraphBlockService
+    private ast: ASTService
   ) {}
 
   ngOnInit() {
     this.route.paramMap.pipe(
-      map(params => this.graph.getNode(params.get('node')))
+      map(params => this.ast.getNode(params.get('node')))
     ).subscribe(node => {
       this.node = node;
-      this.block = this.graphBlockService.getGraphBlock(node.type);
+      this.block = getGraphBlock(this.node.constructor);
     });
   }
 

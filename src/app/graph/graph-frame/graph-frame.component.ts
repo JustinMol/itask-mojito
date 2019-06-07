@@ -1,9 +1,8 @@
-import { Component, OnInit, ElementRef, Renderer2, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
 import { DropTargetMonitor } from '@angular-skyhook/core';
-import { GraphBlock } from '../graph-block/graph-block';
+import { GraphBlockOptions } from '../graph-block/graph-block.decorator';
+import { ASTNode, Coordinates } from 'src/app/ast/ast';
 import { GraphService } from '../graph.service';
-import { Task } from 'src/app/task/task';
-import { GraphNode } from '../graph-node/graph-node';
 
 declare const SVG: any;
 
@@ -12,24 +11,18 @@ const GRID_SIZE = 100;
 @Component({
   selector: 'app-graph-frame',
   templateUrl: './graph-frame.component.html',
-  styleUrls: ['./graph-frame.component.less']
+  styleUrls: ['./graph-frame.component.less'],
+  providers: [GraphService]
 })
 export class GraphFrameComponent implements OnInit {
 
-  @Input() task: Task;
-
-  nodes: GraphNode[];
+  @Input() nodes: ASTNode[] = []
 
   private svg;
 
   constructor(
     private graph: GraphService
   ) {}
-
-  ngOnChanges(): void {
-    this.graph.setTask(this.task);
-    this.nodes = this.graph.getNodes();
-  }
 
   ngOnInit() {
     this.svg = SVG('#graph-frame');
@@ -52,17 +45,17 @@ export class GraphFrameComponent implements OnInit {
     });
   }
 
-  onDrop(m: DropTargetMonitor<GraphBlock>) {
+  onDrop(m: DropTargetMonitor<GraphBlockOptions>) {
     const offset = m.getClientOffset();
     const bounds = this.svg.node.getBoundingClientRect();
     const x = offset.x - bounds.left;
     const y = offset.y - bounds.top;
-    const block = m.getItem();
-    this.graph.addNode(new GraphNode(block.type, { x, y }));
+    const block: GraphBlockOptions = m.getItem();
+    this.graph.createNode(block, { x, y });
   }
 
-  onNodeMove(node) {
-    this.graph.moveNode(node)
+  onNodeMove(node: ASTNode, coordinates: Coordinates) {
+    this.graph.moveNode(node, coordinates);
   }
 
 }
