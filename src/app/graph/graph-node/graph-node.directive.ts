@@ -1,5 +1,4 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
 import { ASTNode, Coordinates } from 'src/app/ast/ast';
 
@@ -12,14 +11,13 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
 
   @Input('graph-node') node: ASTNode;
   @Output('moved') moved$ = new EventEmitter<Coordinates>();
+  @Output('clicked') clicked$ = new EventEmitter<void>();
 
   private elem;
   private graphBlock: GraphBlockOptions;
 
   constructor(
-    private el: ElementRef<Element>,
-    private router: Router,
-    private route: ActivatedRoute
+    private el: ElementRef<Element>
   ) {}
 
   ngOnInit(): void {
@@ -45,21 +43,14 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   private onDragEnd(e) {
     const { x, y } = e.detail.handler.box;
     if (this.elem.x() === x && this.elem.y() === y) {
-      this.onClick();
+      this.clicked$.emit();
     } else {
-      this.moveNode();
+      this.moved$.emit({ x: this.elem.x(), y: this.elem.y() });
     }
   }
 
-  private onClick() {
-    this.router.navigate(
-      ['./nodes', this.node.id],
-      { relativeTo: this.route }
-    );
-  }
-
   private moveNode() {
-    this.moved$.emit({ x: this.elem.x(), y: this.elem.y() });
+    
   }
 
   ngOnDestroy(): void {

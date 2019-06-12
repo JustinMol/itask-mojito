@@ -6,6 +6,7 @@
     <image
         *ngFor="let node of nodes"
         [graph-node]="node"
-        (moved)="onNodeMove(node, $event)">
+        (moved)="onNodeMove(node, $event)"
+        (clicked)="onNodeClick(node)">
     </image>
 </svg>

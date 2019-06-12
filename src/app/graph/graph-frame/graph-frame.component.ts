@@ -3,6 +3,7 @@ import { DropTargetMonitor } from '@angular-skyhook/core';
 import { GraphBlockOptions } from '../graph-block/graph-block.decorator';
 import { ASTNode, Coordinates } from 'src/app/ast/ast';
 import { GraphService } from '../graph.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 declare const SVG: any;
 
@@ -21,7 +22,9 @@ export class GraphFrameComponent implements OnInit {
   private svg;
 
   constructor(
-    private graph: GraphService
+    private graph: GraphService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -56,6 +59,13 @@ export class GraphFrameComponent implements OnInit {
 
   onNodeMove(node: ASTNode, coordinates: Coordinates) {
     this.graph.moveNode(node, coordinates);
+  }
+
+  onNodeClick(node: ASTNode) {
+    this.router.navigate(
+      ['./nodes', node.id],
+      { relativeTo: this.route }
+    );
   }
 
 }

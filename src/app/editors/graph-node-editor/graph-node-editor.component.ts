@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ASTNode } from 'src/app/ast/ast';
 import { ASTService } from 'src/app/ast/ast.service';
-import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
+import { GraphBlockOptions, getGraphBlock } from '../../graph/graph-block/graph-block.decorator';
 
 @Component({
   selector: 'app-graph-node-editor',
