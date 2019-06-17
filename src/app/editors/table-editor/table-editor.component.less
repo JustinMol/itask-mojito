@@ -1,30 +1,44 @@
-@import "../../../styles/colors.less";
+@import "../../../styles/styles.less";
 
 .table {
     display: table;
     width: 100%;
     border: none;
 
-    color: @text-color-bright;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 18pt;
-
     & .tr {
-        height: 40pt;
         display: table-row;
     }
 
     & .td {
         display: table-cell;
+        vertical-align: middle;
+        height: 40pt;
     }
 
     & .tr .td:nth-of-type(1) {
         width: 150pt;
         font-weight: 900;
-        padding: 8pt;
+        padding: 0 8pt;
+
+        .font.segoe;
+        .font.large;
+        .color.bright;
     }
 
     & .tr .td:nth-of-type(2) {
         background: @editor-background;
+        border-bottom: 1pt solid #2C322F;
+    }
+
+    & input {
+        width: calc(100% - 16pt);
+        height: 100%;
+        border: none;
+        background: none;
+        padding: 0 8pt;
+
+        .color.bright;
+        .font.monospace;
+        .font.medium;
     }
 }

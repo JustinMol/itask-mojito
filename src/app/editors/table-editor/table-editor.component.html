@@ -1,14 +1,10 @@
 <div class="table noselect">
-  <div class="tr">
-    <div class="td">Message</div>
-    <div class="td"></div>
-  </div>
-  <div class="tr">
-    <div class="td">Type</div>
-    <div class="td"></div>
-  </div>
-  <div class="tr">
-    <div class="td">Multiple</div>
-    <div class="td"></div>
+  <div class="tr" *ngFor="let field of fields">
+    <div class="td">{{ field.label | titlecase }}</div> 
+    <div class="td ">
+      <input type="text"
+        [(ngModel)]="field.value"
+        (ngModelChange)="onValueChange(field)" />
+    </div>
   </div>
 </div>

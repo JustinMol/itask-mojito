@@ -10,8 +10,8 @@ export class GraphService {
     private ast: ASTService
   ) {}
 
-  createNode(block: GraphBlockOptions, coordinates: Coordinates): ASTNode {
-    const node = new block.astNode();
+  createNode({ NodeType }: GraphBlockOptions, coordinates: Coordinates): ASTNode {
+    const node = new NodeType();
     node.coordinates = coordinates;
     this.ast.addNode(node);
     return node;

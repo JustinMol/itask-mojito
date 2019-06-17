@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, Type } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ASTNode } from 'src/app/ast/ast';
 import { ASTService } from 'src/app/ast/ast.service';
-import { GraphBlockOptions, getGraphBlock } from '../../graph/graph-block/graph-block.decorator';
+import { getGraphBlock, GraphBlockOptions } from 'src/app/graph/graph-block/graph-block.decorator';
 
 @Component({
   selector: 'app-graph-node-editor',
@@ -12,10 +12,11 @@ import { GraphBlockOptions, getGraphBlock } from '../../graph/graph-block/graph-
 })
 export class GraphNodeEditorComponent implements OnInit {
 
-  node: ASTNode;
   block: GraphBlockOptions;
-
+  node: ASTNode;
+  
   constructor(
+    private router: Router,
     private route: ActivatedRoute,
     private ast: ASTService
   ) {}
@@ -24,9 +25,12 @@ export class GraphNodeEditorComponent implements OnInit {
     this.route.paramMap.pipe(
       map(params => this.ast.getNode(params.get('node')))
     ).subscribe(node => {
+      this.block = getGraphBlock(node.constructor);
       this.node = node;
-      this.block = getGraphBlock(this.node.constructor);
     });
   }
 
+  onConfirm() {
+    this.router.navigate(['../../'], { relativeTo: this.route });
+  }
 }

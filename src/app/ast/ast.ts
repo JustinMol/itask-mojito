@@ -1,8 +1,8 @@
 import shortid from 'shortid';
 import { Storable } from '../local-storage.service';
 import { GraphBlock } from '../graph/graph-block/graph-block.decorator';
-import { TableEditorComponent } from '../editors/table-editor/table-editor.component';
 import { Type } from 'class-transformer';
+import { TableEditor, EditorField } from '../editors/table-editor/table-editor.decorator';
 
 export declare type DataType = any;
 export declare type Coordinates = { x: number, y: number };
@@ -21,51 +21,43 @@ export class ASTNode extends AST {
     location?: Location;
 }
 
+@TableEditor
 @GraphBlock({
-    type: 'user-input',
     name: 'User Input',
     svg: 'assets/svg/source/user.svg',
     description: 'Ask the user to fill in a form of a chosen type.',
-    component: TableEditorComponent,
 })
 export class UserInputDeclaration extends ASTNode {
-    varName: string = '';
-    message: string = '';
-    type: DataType = null;
-    multiple: boolean = false;
+    @EditorField('variable name') varName: string = '';
+    @EditorField() message: string = '';
+    @EditorField() type: DataType = null;
+    @EditorField() multiple: boolean = false;
 }
 
 @GraphBlock({
-    type: 'clock-input',
     name: 'Clock Input',
     svg: 'assets/svg/source/clock.svg',
     description: '',
-    component: null,
 })
-export class ClockInputDeclaration extends ASTNode {
+export class ClockInputDeclaration extends ASTNode {}
 
-}
-
+@TableEditor
 @GraphBlock({
-    type: 'shared-input',
     name: 'Shared Input',
     svg: 'assets/svg/source/shared.svg',
     description: 'Ask the user to fill in a form of a chosen type. The information is automatically shared with other users.',
-    component: TableEditorComponent,
 })
 export class SharedInputDeclaration extends ASTNode {
-    varName: string = '';
-    message: string = '';
-    type: DataType = null;
-    multiple: boolean = false;
+    @EditorField('variable name') varName: string = '';
+    @EditorField() message: string = '';
+    @EditorField() type: DataType = null;
+    @EditorField() multiple: boolean = false;
 }
 
 @GraphBlock({
-    type: 'task-transform',
     name: 'Task Transform',
     svg: 'assets/svg/transform/task.svg',
     description: '',
-    component: null,
 })
 export class TaskTransformDeclaration extends ASTNode {
     task: TaskDeclaration = null;
@@ -73,31 +65,25 @@ export class TaskTransformDeclaration extends ASTNode {
 }
 
 @GraphBlock({
-    type: 'code',
     name: 'Code Block',
     svg: 'assets/svg/transform/code.svg',
     description: '',
-    component: null,
 })
 export class CodeTransformDeclaration extends ASTNode {
     code: string = '';
 }
 
 @GraphBlock({
-    type: 'decision',
     name: 'Decision',
     svg: 'assets/svg/control/choice.svg',
     description: '',
-    component: null,
 })
 export class DecisionControlDeclaration extends ASTNode {}
 
 @GraphBlock({
-    type: 'split',
     name: 'Parallel Split',
     svg: 'assets/svg/control/parallel-split.svg',
     description: '',
-    component: null,
 })
 export class SplitControlDeclaration extends ASTNode {}
 

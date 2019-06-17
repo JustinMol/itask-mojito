@@ -4,18 +4,16 @@ import { ASTNode } from 'src/app/ast/ast';
 const GraphBlockMetadataKey = Symbol('GraphBlock');
 
 export interface GraphBlockOptions {
-    type: string;
     name: string;
     svg: string;
     description: string;
-    component: Type<any>;
-    astNode?: Type<ASTNode>;
+    NodeType?: Type<ASTNode>;
 }
 
 export function GraphBlock(options: GraphBlockOptions) {
     return constructor => {
-        if (!options.astNode) {
-            options.astNode = constructor;
+        if (!options.NodeType) {
+            options.NodeType = constructor;
         }
 
         Reflect.defineMetadata(GraphBlockMetadataKey, options, constructor);

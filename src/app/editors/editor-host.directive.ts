@@ -1,4 +1,6 @@
-import { Directive, Input, Type, ViewContainerRef, ComponentFactoryResolver, OnChanges, SimpleChanges } from '@angular/core';
+import { Directive, ViewContainerRef, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { EditorFactoryResolver } from './editor.service';
+import { ASTNode } from '../ast/ast';
 
 
 @Directive({
@@ -6,24 +8,29 @@ import { Directive, Input, Type, ViewContainerRef, ComponentFactoryResolver, OnC
 })
 export class EditorHostDirective implements OnChanges {
 
-  @Input() component: Type<any>;
+  @Input() node: ASTNode;
 
   constructor(
-    private viewContainerRef: ViewContainerRef,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private editorFactoryResolver: EditorFactoryResolver,
+    private viewContainerRef: ViewContainerRef
   ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (!changes.component) return;
-
-    if (!this.component) {
-      this.viewContainerRef.clear();
+    if (!changes.node) {
       return;
     }
 
-    const factory = this.componentFactoryResolver.resolveComponentFactory(this.component);
     this.viewContainerRef.clear();
-    const componentRef = this.viewContainerRef.createComponent(factory);
-  }
+    if (!this.node) {
+      return;
+    }
 
+    const factory = this.editorFactoryResolver.createEditorFactory(this.node);
+    if (!factory) {
+      return;
+    }
+
+    const componentRef = this.viewContainerRef.createComponent(factory);
+    componentRef.instance.node = this.node;
+  }
 }

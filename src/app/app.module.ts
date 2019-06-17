@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import { ResizableModule } from 'angular-resizable-element';
 import { AngularSvgIconModule } from 'angular-svg-icon';
@@ -59,6 +60,7 @@ import { EditorHostDirective } from './editors/editor-host.directive';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     ResizableModule,
     HttpClientModule,
     AngularSvgIconModule,

@@ -5,6 +5,9 @@
 </div>
 <hr />
 <div id="content">
-  <ng-template editor-host [block]="block" [node]="node"></ng-template>
+  <ng-template editor-host [node]="node"></ng-template>
 </div>
 
+<div id="footer">
+  <button (click)="onConfirm()">Confirm</button>
+</div>
