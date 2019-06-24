@@ -17,9 +17,6 @@ import { CodeFrameComponent } from './code-frame/code-frame.component';
 import { MonacoEditorDirective } from './monaco-editor/monaco-editor.directive';
 import { MenuPanelComponent } from './menu/menu-panel/menu-panel.component';
 import { MenuAccordionComponent } from './menu/menu-accordion/menu-accordion.component';
-import { TaskListComponent } from './task/task-list/task-list.component';
-import { FormListComponent } from './form-list/form-list.component';
-import { AdtListComponent } from './adt-list/adt-list.component';
 import { GraphBlockListComponent } from './graph/graph-block-list/graph-block-list.component';
 import { GraphFrameComponent } from './graph/graph-frame/graph-frame.component';
 import { GraphBlockIconComponent } from './graph/graph-block-icon/graph-block-icon.component';
@@ -32,6 +29,7 @@ import { TopbarComponent } from './topbar/topbar.component';
 import { GraphNodeEditorComponent } from './editors/graph-node-editor/graph-node-editor.component';
 import { TableEditorComponent } from './editors/table-editor/table-editor.component';
 import { EditorHostDirective } from './editors/editor-host.directive';
+import { OutlineComponent } from './menu/outline/outline.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +39,6 @@ import { EditorHostDirective } from './editors/editor-host.directive';
     MonacoEditorDirective,
     MenuPanelComponent,
     MenuAccordionComponent,
-    TaskListComponent,
-    FormListComponent,
-    AdtListComponent,
     GraphBlockListComponent,
     GraphFrameComponent,
     GraphBlockIconComponent,
@@ -56,6 +51,7 @@ import { EditorHostDirective } from './editors/editor-host.directive';
     GraphNodeEditorComponent,
     TableEditorComponent,
     EditorHostDirective,
+    OutlineComponent,
   ],
   imports: [
     BrowserModule,

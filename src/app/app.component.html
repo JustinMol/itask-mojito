@@ -2,17 +2,29 @@
   side="left"
   (resizing)="onSidebarResize($event)">
   <app-menu-accordion>
-    <app-menu-panel panelTitle="OUTLINE">
+    <app-menu-panel panelTitle="Outline">
       <span buttons (click)="addTask($event)">+</span>
-      <app-task-list body></app-task-list>
+      <app-outline body
+        [items]="tasks$"
+        (onSelect)="navigateTo($event)"
+        (onDelete)="tasks.delete($event)">
+      </app-outline>
     </app-menu-panel>
-    <app-menu-panel panelTitle="FORMS">
+    <app-menu-panel panelTitle="Record Types">
       <span buttons (click)="addForm($event)">+</span>
-      <app-form-list body></app-form-list>
+      <app-outline body
+        [items]="recordTypes$"
+        (onSelect)="navigateTo($event)"
+        (onDelete)="recordTypes.delete($event)">
+      </app-outline>
     </app-menu-panel>
-    <app-menu-panel panelTitle="ADTs">
+    <app-menu-panel panelTitle="Option Types">
       <span buttons (click)="addAdt($event)">+</span>
-      <app-adt-list body></app-adt-list>
+      <app-outline body
+        [items]="optionTypes$"
+        (onSelect)="navigateTo($event)"
+        (onDelete)="optionTypes.delete($event)">
+      </app-outline>
     </app-menu-panel>
   </app-menu-accordion>
 </app-sidebar>

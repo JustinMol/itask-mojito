@@ -3,7 +3,7 @@ import { SidebarResizeEvent } from '../sidebar/sidebar.component';
 import { TaskService } from './task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ASTService } from '../ast/ast.service';
-import { filter, map, takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil, switchMap, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TaskDeclaration } from '../ast/ast';
 import { GraphBlockOptions } from '../graph/graph-block/graph-block.decorator';
@@ -33,11 +33,12 @@ export class TaskComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      map(map => this.taskService.selectTask(map.get('task')))
+      switchMap(map => this.taskService.get(map.get('task'))),
+      tap(task => this.taskService.selectTask(task))
     ).subscribe(task => this.task = task);
 
     // Navigate to root when `this.task` no longer exists
-    this.taskService.tasks$.pipe(
+    this.taskService.getAll().pipe(
       filter(ts => !ts.includes(this.task)),
       takeUntil(this.destroy$)
     ).subscribe(() => this.router.navigate(['']));

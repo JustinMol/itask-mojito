@@ -4,7 +4,7 @@ import { GraphBlock } from '../graph/graph-block/graph-block.decorator';
 import { Type } from 'class-transformer';
 import { TableEditor, EditorField } from '../editors/table-editor/table-editor.decorator';
 
-export declare type DataType = any;
+export declare type DataType = RecordTypeDeclaration | OptionTypeDeclaration;
 export declare type Coordinates = { x: number, y: number };
 export declare type Location = { line: number, col: number };
 
@@ -13,6 +13,26 @@ export class AST {
 
     constructor() {
         this.id = shortid();
+    }
+}
+
+@Storable({
+    id: t => t.id,
+    key: '__recordType',
+})
+export class RecordTypeDeclaration extends AST {
+    constructor(public name: string) {
+        super();
+    }
+}
+
+@Storable({
+    id: t => t.id,
+    key: '__optionType',
+})
+export class OptionTypeDeclaration extends AST {
+    constructor(public name: string) {
+        super();
     }
 }
 

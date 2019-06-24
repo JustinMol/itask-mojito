@@ -1,10 +1,11 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { SidebarResizeEvent } from './sidebar/sidebar.component';
-import { TaskListComponent } from './task/task-list/task-list.component';
-import { AdtListComponent } from './adt-list/adt-list.component';
-import { FormListComponent } from './form-list/form-list.component';
 import { Router } from '@angular/router';
 import { TaskService } from './task/task.service';
+import { Observable } from 'rxjs';
+import { TaskDeclaration, RecordTypeDeclaration, OptionTypeDeclaration } from './ast/ast';
+import { RecordTypeService } from './record-type.service';
+import { OptionTypeService } from './option-type.service';
 
 @Component({
   selector: 'app-root',
@@ -13,31 +14,44 @@ import { TaskService } from './task/task.service';
 })
 export class AppComponent {
 
-  @ViewChild(TaskListComponent) taskList: TaskListComponent;
-  @ViewChild(FormListComponent) formList: FormListComponent;
-  @ViewChild(AdtListComponent) adtList: AdtListComponent;
-
   mainPanel: any = {};
+
+  tasks$: Observable<TaskDeclaration[]>;
+  recordTypes$: Observable<RecordTypeDeclaration[]>;
+  optionTypes$: Observable<OptionTypeDeclaration[]>;
 
   constructor(
     private router: Router,
-    private taskService: TaskService
-  ) {}
+    private tasks: TaskService,
+    private recordTypes: RecordTypeService,
+    private optionTypes: OptionTypeService
+  ) {
+    this.recordTypes$ = recordTypes.getAll();
+    this.tasks$ = tasks.getAll();
+    this.optionTypes$ = optionTypes.getAll();
+  }
 
   addTask(event: Event) {
     event.stopImmediatePropagation();
-    const task = this.taskService.newTask();
-    this.router.navigate(['/tasks', task.id]);
+    this.tasks.newTask().subscribe(task => {
+      return this.router.navigate(['/tasks', task.id]);
+    });
   }
 
   addForm(event: Event) {
     event.stopImmediatePropagation();
-    this.formList.addForm();
+    this.recordTypes.create();
   }
 
   addAdt(event: Event) {
     event.stopImmediatePropagation();
-    this.adtList.addAdt();
+    this.optionTypes.create();
+  }
+
+  navigateTo(model: TaskDeclaration | RecordTypeDeclaration | OptionTypeDeclaration) {
+    const path: string = model instanceof TaskDeclaration ? '/tasks' :
+      model instanceof RecordTypeDeclaration ? '/records' : '/options';
+    return this.router.navigate([path, model.id]);
   }
 
   onSidebarResize(event: SidebarResizeEvent) {

@@ -1,0 +1,6 @@
+<div
+  *ngFor="let item of items"
+  (click)="onSelect.next(item)">
+  <span>{{ item.name }}</span>
+  <span class="close" (click)="onDelete.next(item)">&times;</span>
+</div>

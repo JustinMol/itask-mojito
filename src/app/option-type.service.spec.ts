@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AdtService } from './adt.service';
+import { OptionTypeService } from './option-type.service';
 
-describe('AdtService', () => {
+describe('OptionTypeService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: AdtService = TestBed.get(AdtService);
+    const service: OptionTypeService = TestBed.get(OptionTypeService);
     expect(service).toBeTruthy();
   });
 });
