@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { EditorComponent } from '../editor-component';
 import { ASTNode } from 'src/app/ast/ast';
 import { ASTService } from 'src/app/ast/ast.service';
-import { getFields } from './simple-editor.decorator';
+import { getFields } from '../editor-decorator';
 
 @Component({
   selector: 'app-simple-editor',

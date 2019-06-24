@@ -30,6 +30,9 @@ import { GraphNodeEditorComponent } from './editors/graph-node-editor/graph-node
 import { SimpleEditorComponent } from './editors/simple-editor/simple-editor.component';
 import { EditorHostDirective } from './editors/editor-host.directive';
 import { OutlineComponent } from './menu/outline/outline.component';
+import { TableEditorComponent } from './editors/table-editor/table-editor.component';
+import { RecordTypeEditorComponent } from './editors/record-type-editor/record-type-editor.component';
+import { OptionTypeEditorComponent } from './editors/option-type-editor/option-type-editor.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +55,9 @@ import { OutlineComponent } from './menu/outline/outline.component';
     SimpleEditorComponent,
     EditorHostDirective,
     OutlineComponent,
+    TableEditorComponent,
+    RecordTypeEditorComponent,
+    OptionTypeEditorComponent,
   ],
   imports: [
     BrowserModule,

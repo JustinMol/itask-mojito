@@ -2,7 +2,7 @@ import shortid from 'shortid';
 import { Storable } from '../local-storage.service';
 import { GraphBlock } from '../graph/graph-block/graph-block.decorator';
 import { Type } from 'class-transformer';
-import { SimpleEditor, EditorField } from '../editors/simple-editor/simple-editor.decorator';
+import { SimpleEditor, EditorField } from '../editors/editor-decorator';
 
 export declare type DataType = RecordTypeDeclaration | OptionTypeDeclaration;
 export declare type Coordinates = { x: number, y: number };
@@ -21,9 +21,18 @@ export class AST {
     key: '__recordType',
 })
 export class RecordTypeDeclaration extends AST {
+    fields: RecordTypeField[] = [];
+
     constructor(public name: string) {
         super();
     }
+}
+
+export class RecordTypeField {
+    property: string = '';
+    type: DataType = null;
+    optional: boolean = false;
+    comment: string = '';
 }
 
 @Storable({
@@ -31,9 +40,17 @@ export class RecordTypeDeclaration extends AST {
     key: '__optionType',
 })
 export class OptionTypeDeclaration extends AST {
+    options: Option[] = [];
+
     constructor(public name: string) {
         super();
     }
+}
+
+export class Option {
+    option: string = '';
+    argument: DataType = null;
+    comment: string = '';
 }
 
 export class ASTNode extends AST {

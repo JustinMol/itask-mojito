@@ -1,0 +1,24 @@
+@import "../../../styles/styles.less";
+
+:host {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#header {
+    .editor.header;
+}
+
+#content {
+    position: relative;
+    flex: 1;
+
+    app-table-editor {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+}

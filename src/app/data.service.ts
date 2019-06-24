@@ -31,7 +31,6 @@ export abstract class DataService<T extends Model> implements CrudService<T> {
   }
 
   getAll(): Observable<T[]> {
-    console.log(`data.service<${this.Model.constructor.name}> getAll()`, !this.models$);
     if (!this.models$) {
       this.models = this.storage.getAll(this.Model);
       this.models$ = new BehaviorSubject(this.models);

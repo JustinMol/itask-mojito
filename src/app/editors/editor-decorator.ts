@@ -3,19 +3,19 @@ const EditorFieldMetaKey = Symbol('EditorField');
 
 export enum EditorType {
     SimpleEditor,
+    TableEditor
 };
 
-
-// @TableEditor
+/* @Decorators */
 export const SimpleEditor = Reflect.metadata(EditorMetaKey, EditorType.SimpleEditor);
-
-// @EditorField
+export const TableEditor = Reflect.metadata(EditorMetaKey, EditorType.TableEditor);
 export function EditorField(label?: string, type?: string) {
     return function(target: object, property: string) {
         return Reflect.defineMetadata(EditorFieldMetaKey, label || property, target, property);
     }
 }
 
+/* Getter functions */
 export function getFields(target: object): any[] {
     return Object.getOwnPropertyNames(target)
         .filter(f => Reflect.hasMetadata(EditorFieldMetaKey, target, f))

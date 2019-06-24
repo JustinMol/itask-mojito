@@ -1,5 +1,5 @@
 import { Injectable, ComponentFactoryResolver, ComponentFactory, Type } from '@angular/core';
-import { EditorType, getEditorType } from './simple-editor/simple-editor.decorator';
+import { EditorType, getEditorType } from './editor-decorator';
 import { SimpleEditorComponent } from './simple-editor/simple-editor.component';
 import { EditorComponent } from './editor-component';
 

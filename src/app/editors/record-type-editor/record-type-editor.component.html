@@ -1,0 +1,12 @@
+<div id="header" class="noselect" *ngIf="type">
+  <h1>Editing Record Type: {{ type.name }}</h1>
+</div>
+<div id="content">
+  <app-table-editor
+    [rows]="type.fields"
+    [columns]="columns"
+    (add)="addRecordField()"
+    (change)="updateRecordField()"
+    (delete)="deleteRecordField($event)">
+  </app-table-editor>
+</div>

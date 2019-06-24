@@ -1,0 +1,31 @@
+<div id="table">
+  <div class="flex-row header">
+    <div class="flex-cell" *ngFor="let column of columns">
+      {{ column | titlecase }}
+    </div>
+    <div class="delete"></div>
+  </div>
+  <div class="flex-row" *ngFor="let row of rows">
+    <div class="flex-cell" *ngFor="let column of columns">
+      <input
+        [placeholder]="column"
+        type="text"
+        [(ngModel)]="row[column]"
+        (ngModelChange)="onValueChange(row)" />
+    </div>
+    <ng-container *ngIf="showDeleteButtons; then thenTemplate; else elseTemplate"></ng-container>
+    <ng-template #thenTemplate>
+      <div class="delete pointer" (click)="onDelete(row)">
+        <span>&times;</span>
+      </div>
+    </ng-template>
+    <ng-template #elseTemplate>
+      <div class="delete"></div>
+    </ng-template>
+  </div>
+  <div class="flex-row footer" (click)="onAdd()">
+    <div class="flex-cell">
+      <i>{{ addText }}</i>
+    </div>
+  </div>
+</div>

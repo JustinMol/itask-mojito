@@ -31,6 +31,7 @@ export class GraphNodeEditorComponent implements OnInit {
   }
 
   onConfirm() {
+    // Navigate back to task
     this.router.navigate(['../../'], { relativeTo: this.route });
   }
 }

@@ -21,6 +21,49 @@ body {
     user-select: none;
 }
 
+.editor {
+    .header {
+        background: @graph-background;
+        padding: 16pt;
+
+        .font.segoe;
+        .color.bright;
+
+        h1 {
+            font-size: 24pt;
+            margin: 0 0 4pt 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-weight: 900;
+        }
+    
+        i {
+            display: block;
+            max-height: 36pt;
+            line-height: 18pt;
+            font-size: 14pt;
+            overflow: hidden;
+            white-space: pre-line;
+        }
+    }
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.flex-cell {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
 .close {
     font-weight: 900;
     cursor: pointer;
