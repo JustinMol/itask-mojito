@@ -33,19 +33,17 @@ export class AppComponent {
 
   addTask(event: Event) {
     event.stopImmediatePropagation();
-    this.tasks.newTask().subscribe(task => {
-      return this.router.navigate(['/tasks', task.id]);
-    });
+    this.tasks.newTask().subscribe(m => this.navigateTo(m));
   }
 
   addForm(event: Event) {
     event.stopImmediatePropagation();
-    this.recordTypes.create();
+    this.recordTypes.create().subscribe(m => this.navigateTo(m));
   }
 
   addAdt(event: Event) {
     event.stopImmediatePropagation();
-    this.optionTypes.create();
+    this.optionTypes.create().subscribe(m => this.navigateTo(m));
   }
 
   navigateTo(model: TaskDeclaration | RecordTypeDeclaration | OptionTypeDeclaration) {

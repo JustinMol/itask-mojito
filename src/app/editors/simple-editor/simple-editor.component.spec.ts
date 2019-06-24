@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TableEditorComponent } from './table-editor.component';
+import { SimpleEditorComponent } from './simple-editor.component';
 
 describe('TableEditorComponent', () => {
-  let component: TableEditorComponent;
-  let fixture: ComponentFixture<TableEditorComponent>;
+  let component: SimpleEditorComponent;
+  let fixture: ComponentFixture<SimpleEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TableEditorComponent ]
+      declarations: [ SimpleEditorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TableEditorComponent);
+    fixture = TestBed.createComponent(SimpleEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

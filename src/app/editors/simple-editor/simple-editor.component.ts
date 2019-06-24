@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { EditorComponent } from '../editor-component';
 import { ASTNode } from 'src/app/ast/ast';
 import { ASTService } from 'src/app/ast/ast.service';
-import { getFields } from './table-editor.decorator';
+import { getFields } from './simple-editor.decorator';
 
 @Component({
-  selector: 'app-table-editor',
-  templateUrl: './table-editor.component.html',
-  styleUrls: ['./table-editor.component.less']
+  selector: 'app-simple-editor',
+  templateUrl: './simple-editor.component.html',
+  styleUrls: ['./simple-editor.component.less']
 })
-export class TableEditorComponent extends EditorComponent {
+export class SimpleEditorComponent extends EditorComponent {
 
   node: ASTNode;
   fields: { property: string; label: string; value: any }[];

@@ -2,7 +2,7 @@ import shortid from 'shortid';
 import { Storable } from '../local-storage.service';
 import { GraphBlock } from '../graph/graph-block/graph-block.decorator';
 import { Type } from 'class-transformer';
-import { TableEditor, EditorField } from '../editors/table-editor/table-editor.decorator';
+import { SimpleEditor, EditorField } from '../editors/simple-editor/simple-editor.decorator';
 
 export declare type DataType = RecordTypeDeclaration | OptionTypeDeclaration;
 export declare type Coordinates = { x: number, y: number };
@@ -41,7 +41,7 @@ export class ASTNode extends AST {
     location?: Location;
 }
 
-@TableEditor
+@SimpleEditor
 @GraphBlock({
     name: 'User Input',
     svg: 'assets/svg/source/user.svg',
@@ -61,7 +61,7 @@ export class UserInputDeclaration extends ASTNode {
 })
 export class ClockInputDeclaration extends ASTNode {}
 
-@TableEditor
+@SimpleEditor
 @GraphBlock({
     name: 'Shared Input',
     svg: 'assets/svg/source/shared.svg',

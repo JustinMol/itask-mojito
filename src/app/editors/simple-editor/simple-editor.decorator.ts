@@ -2,12 +2,12 @@ const EditorMetaKey = Symbol('Editor');
 const EditorFieldMetaKey = Symbol('EditorField');
 
 export enum EditorType {
-    TableEditor,
+    SimpleEditor,
 };
 
 
 // @TableEditor
-export const TableEditor = Reflect.metadata(EditorMetaKey, EditorType.TableEditor);
+export const SimpleEditor = Reflect.metadata(EditorMetaKey, EditorType.SimpleEditor);
 
 // @EditorField
 export function EditorField(label?: string, type?: string) {

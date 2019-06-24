@@ -27,7 +27,7 @@ import { TaskComponent } from './task/task.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { GraphNodeEditorComponent } from './editors/graph-node-editor/graph-node-editor.component';
-import { TableEditorComponent } from './editors/table-editor/table-editor.component';
+import { SimpleEditorComponent } from './editors/simple-editor/simple-editor.component';
 import { EditorHostDirective } from './editors/editor-host.directive';
 import { OutlineComponent } from './menu/outline/outline.component';
 
@@ -49,7 +49,7 @@ import { OutlineComponent } from './menu/outline/outline.component';
     WelcomeComponent,
     TopbarComponent,
     GraphNodeEditorComponent,
-    TableEditorComponent,
+    SimpleEditorComponent,
     EditorHostDirective,
     OutlineComponent,
   ],
@@ -67,7 +67,7 @@ import { OutlineComponent } from './menu/outline/outline.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    TableEditorComponent
+    SimpleEditorComponent
   ]
 })
 export class AppModule { }

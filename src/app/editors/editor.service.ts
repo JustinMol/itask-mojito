@@ -1,6 +1,6 @@
 import { Injectable, ComponentFactoryResolver, ComponentFactory, Type } from '@angular/core';
-import { EditorType, getEditorType } from './table-editor/table-editor.decorator';
-import { TableEditorComponent } from './table-editor/table-editor.component';
+import { EditorType, getEditorType } from './simple-editor/simple-editor.decorator';
+import { SimpleEditorComponent } from './simple-editor/simple-editor.component';
 import { EditorComponent } from './editor-component';
 
 @Injectable({
@@ -13,7 +13,7 @@ export class EditorFactoryResolver {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver
   ) {
-    this._editorMap.set(EditorType.TableEditor, TableEditorComponent);
+    this._editorMap.set(EditorType.SimpleEditor, SimpleEditorComponent);
   }
 
   createEditorFactory(target: any): ComponentFactory<EditorComponent> {
