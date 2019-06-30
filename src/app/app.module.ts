@@ -33,6 +33,7 @@ import { OutlineComponent } from './menu/outline/outline.component';
 import { TableEditorComponent } from './editors/table-editor/table-editor.component';
 import { RecordTypeEditorComponent } from './editors/record-type-editor/record-type-editor.component';
 import { OptionTypeEditorComponent } from './editors/option-type-editor/option-type-editor.component';
+import { GraphEdgeDirective } from './graph/graph-edge/graph-edge.directive';
 
 @NgModule({
   declarations: [
@@ -58,6 +59,7 @@ import { OptionTypeEditorComponent } from './editors/option-type-editor/option-t
     TableEditorComponent,
     RecordTypeEditorComponent,
     OptionTypeEditorComponent,
+    GraphEdgeDirective,
   ],
   imports: [
     BrowserModule,

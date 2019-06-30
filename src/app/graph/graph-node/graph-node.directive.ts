@@ -1,8 +1,10 @@
-import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter, HostBinding } from '@angular/core';
 import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
 import { ASTNode, Coordinates } from 'src/app/ast/ast';
 
 declare const SVG: any;
+
+const GRID_SIZE_SMALL = 20;
 
 @Directive({
   selector: '[graph-node]'
@@ -10,11 +12,12 @@ declare const SVG: any;
 export class GraphNodeDirective implements OnInit, OnDestroy {
 
   @Input('graph-node') node: ASTNode;
-  @Output('moved') moved$ = new EventEmitter<Coordinates>();
+  @Output('moved') isMoved$ = new EventEmitter<Coordinates>();
   @Output('clicked') clicked$ = new EventEmitter<void>();
 
-  private elem;
+  private elem: any;
   private graphBlock: GraphBlockOptions;
+  private moved = false;
 
   constructor(
     private el: ElementRef<Element>
@@ -22,42 +25,85 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.graphBlock = getGraphBlock(this.node.constructor);
-    this.elem = SVG.adopt(this.el.nativeElement)
+    this.elem = SVG.adopt(this.el.nativeElement);
+
+    this.elem
       .draggable()
-      .x(this.node.coordinates.x - this.node.coordinates.x % 10)
-      .y(this.node.coordinates.y - this.node.coordinates.y % 10)
+      .x(this.x)
+      .y(this.y)
       .attr({
         href: this.graphBlock.svg,
       })
-      .on('dragmove.namespace', e => this.snapToGrid(e, 10))
-      .on('dragend.namespace', e => this.onDragEnd(e));
-  }
+      .on('mouseover', () => this.focus())
+      .on('mouseleave', () => this.unfocus())
+      .on('dragmove.namespace', e => this.onDrag(e, GRID_SIZE_SMALL))
+      .on('dragend.namespace', () => this.onDragEnd());
 
-  private snapToGrid(e: Event & { detail: any }, gridSize: number) {
-    e.preventDefault();
-
-    const { handler, box } = e.detail;
-    handler.move(box.x - box.x % gridSize, box.y - box.y % gridSize);
-  }
-
-  private onDragEnd(e) {
-    const { x, y } = e.detail.handler.box;
-    if (this.elem.x() === x && this.elem.y() === y) {
-      this.clicked$.emit();
-    } else {
-      this.moved$.emit({ x: this.elem.x(), y: this.elem.y() });
+    const parent = this.elem.parent();
+    for (const anchor of this.graphBlock.anchors || []) {
+      // parent
+      //   .circle(5)
+      //   .fill('tomato')
+      //   .x(this.x + anchor.x * 50 - 2.5)
+      //   .y(this.y + anchor.y * 50 - 2.5);
     }
   }
 
-  private moveNode() {
-    
+  private focus() {
+    this.elem.transform({
+      scale: 1.1,
+    });
+  }
+
+  private unfocus() {
+    this.elem.transform({
+      scale: 1,
+    });
+  }
+
+  private onDrag(e: Event & { detail: any }, gridSize: number) {
+    e.preventDefault();
+
+    this.unfocus();
+    const { handler, box } = e.detail;
+    const x = this.snap(box.x, gridSize);
+    const y = this.snap(box.y, gridSize);
+
+    if (x !== this.x || y !== this.y) {
+      handler.move(x, y);
+      this.isMoved$.emit(new Coordinates(x, y));
+      this.moved = true;
+    }
+  }
+
+  private onDragEnd() {
+    if (!this.moved) {
+      this.clicked$.emit();
+    } else {
+      this.isMoved$.emit(new Coordinates(this.elem.x(), this.elem.y()));
+    }
+
+    this.moved = false;
+  }
+
+  private snap(x: number, gridSize) {
+    return Math.ceil(x / gridSize) * gridSize;
+  }
+
+  private get x() {
+    return this.node.coordinates.x;
+  }
+
+  private get y() {
+    return this.node.coordinates.y;
   }
 
   ngOnDestroy(): void {
-    this.elem.off('dragmove.namespace');
-    this.elem.off('dragend.namespace');
-    this.elem.off('click');
-    this.moved$.complete();
+    this.elem
+      .off('mouseover')
+      .off('mouseleave')
+      .off('dragmove.namespace')
+      .off('dragend.namespace');
   }
 
 }

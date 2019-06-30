@@ -1,12 +1,47 @@
 import shortid from 'shortid';
 import { Storable } from '../local-storage.service';
 import { GraphBlock } from '../graph/graph-block/graph-block.decorator';
-import { Type } from 'class-transformer';
+import { Type, Exclude } from 'class-transformer';
 import { SimpleEditor, EditorField } from '../editors/editor-decorator';
+import { EventEmitter } from '@angular/core';
 
 export declare type DataType = RecordTypeDeclaration | OptionTypeDeclaration;
-export declare type Coordinates = { x: number, y: number };
 export declare type Location = { line: number, col: number };
+
+export class Coordinates {
+
+    constructor(public x: number, public y: number) {}
+
+    add(other: Coordinates) {
+        return new Coordinates(this.x + other.x, this.y + other.y);
+    }
+
+    multiply(other: Coordinates) {
+        return new Coordinates(this.x * other.x, this.y * other.y);
+    }
+
+    scale(n: number) {
+        return new Coordinates(this.x * n, this.y * n);
+    }
+
+    distance(other: Coordinates) {
+        const a = Math.abs(this.x - other.x);
+        const b = Math.abs(this.y - other.y);
+        return Math.sqrt(a * a + b * b);
+    }
+
+    toString() {
+        return this.x + ',' + this.y;
+    }
+
+}
+
+const ANCHORS: Coordinates[] = [
+    new Coordinates(0.5, 0),
+    new Coordinates(1, 0.5),
+    new Coordinates(0.5, 1),
+    new Coordinates(0, 0.5),
+];
 
 export class AST {
     id: string;
@@ -54,8 +89,33 @@ export class Option {
 }
 
 export class ASTNode extends AST {
+    @Type(() => Coordinates)
     coordinates: Coordinates;
     location?: Location;
+
+    @Exclude()
+    isMoved$: EventEmitter<void>;
+
+    constructor() {
+        super();
+        this.isMoved$ = new EventEmitter();
+    }
+
+    setCoordinates(coordinates: Coordinates) {
+        if (!this.coordinates || this.coordinates.x !== coordinates.x || this.coordinates.y !== coordinates.y) {
+            this.coordinates = coordinates;
+            this.isMoved$.emit();
+        }
+    }
+}
+
+export class SequenceEdge {
+    constructor(public from: ASTNode, public to: ASTNode) {}
+}
+
+export class OptionEdge {
+    from: DecisionControlDeclaration;
+    to: ASTNode;
 }
 
 @SimpleEditor
@@ -63,6 +123,7 @@ export class ASTNode extends AST {
     name: 'User Input',
     svg: 'assets/svg/source/user.svg',
     description: 'Ask the user to fill in a form of a chosen type.',
+    anchors: ANCHORS
 })
 export class UserInputDeclaration extends ASTNode {
     @EditorField('variable name') varName: string = '';
@@ -75,6 +136,7 @@ export class UserInputDeclaration extends ASTNode {
     name: 'Clock Input',
     svg: 'assets/svg/source/clock.svg',
     description: '',
+    anchors: ANCHORS,
 })
 export class ClockInputDeclaration extends ASTNode {}
 
@@ -83,6 +145,7 @@ export class ClockInputDeclaration extends ASTNode {}
     name: 'Shared Input',
     svg: 'assets/svg/source/shared.svg',
     description: 'Ask the user to fill in a form of a chosen type. The information is automatically shared with other users.',
+    anchors: ANCHORS,
 })
 export class SharedInputDeclaration extends ASTNode {
     @EditorField('variable name') varName: string = '';
@@ -95,6 +158,7 @@ export class SharedInputDeclaration extends ASTNode {
     name: 'Task Transform',
     svg: 'assets/svg/transform/task.svg',
     description: '',
+    anchors: ANCHORS,
 })
 export class TaskTransformDeclaration extends ASTNode {
     task: TaskDeclaration = null;
@@ -105,6 +169,7 @@ export class TaskTransformDeclaration extends ASTNode {
     name: 'Code Block',
     svg: 'assets/svg/transform/code.svg',
     description: '',
+    anchors: ANCHORS,
 })
 export class CodeTransformDeclaration extends ASTNode {
     code: string = '';
@@ -114,6 +179,7 @@ export class CodeTransformDeclaration extends ASTNode {
     name: 'Decision',
     svg: 'assets/svg/control/choice.svg',
     description: '',
+    anchors: ANCHORS,
 })
 export class DecisionControlDeclaration extends ASTNode {}
 
@@ -121,6 +187,7 @@ export class DecisionControlDeclaration extends ASTNode {}
     name: 'Parallel Split',
     svg: 'assets/svg/control/parallel-split.svg',
     description: '',
+    anchors: ANCHORS,
 })
 export class SplitControlDeclaration extends ASTNode {}
 

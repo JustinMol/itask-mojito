@@ -1,13 +1,14 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { DropTargetMonitor } from '@angular-skyhook/core';
 import { GraphBlockOptions } from '../graph-block/graph-block.decorator';
-import { ASTNode, Coordinates } from 'src/app/ast/ast';
+import { ASTNode, Coordinates, SequenceEdge } from 'src/app/ast/ast';
 import { GraphService } from '../graph.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 declare const SVG: any;
 
-const GRID_SIZE = 100;
+const GRID_SIZE_LARGE = 100;
+const GRID_SIZE_SMALL = 20;
 
 @Component({
   selector: 'app-graph-frame',
@@ -17,7 +18,8 @@ const GRID_SIZE = 100;
 })
 export class GraphFrameComponent implements OnInit {
 
-  @Input() nodes: ASTNode[] = []
+  @Input() nodes: ASTNode[] = [];
+  @Input() edges: SequenceEdge[] = [];
 
   private svg;
 
@@ -29,8 +31,16 @@ export class GraphFrameComponent implements OnInit {
 
   ngOnInit() {
     this.svg = SVG('#graph-frame');
-    this.drawGrid(GRID_SIZE, 0.2);
-    this.drawGrid(10, 0.1);
+    this.drawGrid(GRID_SIZE_LARGE, 0.2);
+    this.drawGrid(GRID_SIZE_SMALL, 0.1);
+
+    // TODO: delme
+    this.nodes.forEach((n1, i, arr) => {
+      const n2 = arr[i + 1];
+      if (n2) {
+        this.edges.push(new SequenceEdge(n1, n2));
+      }
+    });
   }
 
   drawGrid(gridSize, strokeWidth) {
@@ -54,7 +64,7 @@ export class GraphFrameComponent implements OnInit {
     const x = offset.x - bounds.left;
     const y = offset.y - bounds.top;
     const block: GraphBlockOptions = m.getItem();
-    this.graph.createNode(block, { x, y });
+    this.graph.createNode(block, new Coordinates(x, y));
   }
 
   onNodeMove(node: ASTNode, coordinates: Coordinates) {

@@ -1,5 +1,5 @@
 import { Type } from '@angular/core';
-import { ASTNode } from 'src/app/ast/ast';
+import { ASTNode, Coordinates } from 'src/app/ast/ast';
 
 const GraphBlockMetadataKey = Symbol('GraphBlock');
 
@@ -7,6 +7,7 @@ export interface GraphBlockOptions {
     name: string;
     svg: string;
     description: string;
+    anchors?: Coordinates[];
     NodeType?: Type<ASTNode>;
 }
 
@@ -22,7 +23,10 @@ export function GraphBlock(options: GraphBlockOptions) {
 
 export function getGraphBlock(constructor: Function): GraphBlockOptions {
     const options: GraphBlockOptions = Reflect.getMetadata(GraphBlockMetadataKey, constructor);
-    if (!options) throw new Error(`Class '${constructor.name}' is not a GraphBlock`);
+    if (!options) {
+        console.error(`Class '${constructor.name}' is not a GraphBlock`);
+        return {} as GraphBlockOptions;
+    }
 
     return options;
 }

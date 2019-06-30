@@ -10,9 +10,17 @@ svg {
         background: @graph-background-light;
     }
 
-    image:hover {
-        height: 52px;
-        transform: translate(-1px,-1px);
+    image {
         cursor: pointer;
+    }
+    
+    #arrowhead {
+        fill: @graph-sequence-edge;
+    }
+
+    polyline.sequence {
+        stroke: @graph-sequence-edge;
+        stroke-width: 2pt;
+        fill: none;
     }
 }

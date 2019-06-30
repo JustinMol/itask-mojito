@@ -12,13 +12,13 @@ export class GraphService {
 
   createNode({ NodeType }: GraphBlockOptions, coordinates: Coordinates): ASTNode {
     const node = new NodeType();
-    node.coordinates = coordinates;
+    node.setCoordinates(coordinates);
     this.ast.addNode(node);
     return node;
   }
 
   moveNode(node: ASTNode, coordinates: Coordinates): void {
-    node.coordinates = coordinates;
+    node.setCoordinates(coordinates);
     this.ast.save();
   }
 }
