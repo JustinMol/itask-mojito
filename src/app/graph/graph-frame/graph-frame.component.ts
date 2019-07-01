@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 declare const SVG: any;
 
 const GRID_SIZE_LARGE = 100;
-const GRID_SIZE_SMALL = 20;
+const GRID_SIZE_SMALL = 50;
 
 @Component({
   selector: 'app-graph-frame',
@@ -23,6 +23,9 @@ export class GraphFrameComponent implements OnInit {
 
   private svg;
 
+  newEdgeFrom: ASTNode;
+  newEdge: SequenceEdge;
+
   constructor(
     private graph: GraphService,
     private route: ActivatedRoute,
@@ -33,14 +36,6 @@ export class GraphFrameComponent implements OnInit {
     this.svg = SVG('#graph-frame');
     this.drawGrid(GRID_SIZE_LARGE, 0.2);
     this.drawGrid(GRID_SIZE_SMALL, 0.1);
-
-    // TODO: delme
-    this.nodes.forEach((n1, i, arr) => {
-      const n2 = arr[i + 1];
-      if (n2) {
-        this.edges.push(new SequenceEdge(n1, n2));
-      }
-    });
   }
 
   drawGrid(gridSize, strokeWidth) {
@@ -58,24 +53,70 @@ export class GraphFrameComponent implements OnInit {
     });
   }
 
+  onFrameClick() {
+    this.newEdge = null;
+    this.newEdgeFrom = null;
+  }
+
+  canSendEdge(node: ASTNode) {
+    return this.graph.canSendEdge(node);
+  }
+
+  canReceiveEdge(node: ASTNode): boolean {
+    return this.graph.canCreateEdge(this.newEdgeFrom, node);
+  }
+
   onDrop(m: DropTargetMonitor<GraphBlockOptions>) {
     const offset = m.getClientOffset();
     const bounds = this.svg.node.getBoundingClientRect();
     const x = offset.x - bounds.left;
     const y = offset.y - bounds.top;
     const block: GraphBlockOptions = m.getItem();
-    this.graph.createNode(block, new Coordinates(x, y));
+    const coordinates = new Coordinates(x, y).snap(GRID_SIZE_SMALL);
+    this.graph.createNode(block, coordinates);
   }
 
   onNodeMove(node: ASTNode, coordinates: Coordinates) {
-    this.graph.moveNode(node, coordinates);
+    this.graph.moveNode(node, coordinates.snap(GRID_SIZE_SMALL));
   }
 
   onNodeClick(node: ASTNode) {
-    this.router.navigate(
+    if (this.newEdgeFrom) {
+      this.completeEdge(node);
+    } else {
+      this.editNode(node);
+    }
+  }
+
+  private editNode(node: ASTNode) {
+    return this.router.navigate(
       ['./nodes', node.id],
       { relativeTo: this.route }
     );
+  }
+
+  startEdge(node: ASTNode, event: Event) {
+    event.stopImmediatePropagation();
+    this.newEdgeFrom = node;
+  }
+
+  private completeEdge(to: ASTNode) {
+    if (this.canReceiveEdge(to)) {
+      this.graph.createEdge(this.newEdgeFrom, to);
+      this.newEdgeFrom = null;
+    }
+  }
+
+  onNodeHover(node: ASTNode) {
+    if (!this.newEdgeFrom) return;
+    if (this.newEdge && this.newEdge.from === node) return;
+    if (!this.canReceiveEdge(node)) return;
+
+    this.newEdge = new SequenceEdge(this.newEdgeFrom, node);
+  }
+
+  onNodeLeave(node: ASTNode) {
+    this.newEdge = null;
   }
 
 }

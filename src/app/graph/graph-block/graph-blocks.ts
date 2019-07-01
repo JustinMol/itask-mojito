@@ -6,7 +6,8 @@ import {
     CodeTransformDeclaration,
     ClockInputDeclaration,
     DecisionControlDeclaration,
-    SplitControlDeclaration
+    SplitControlDeclaration,
+    JoinControlDeclaration
 } from 'src/app/ast/ast';
 
 export const sources: GraphBlockOptions[] = [
@@ -22,5 +23,6 @@ export const transforms: GraphBlockOptions[] = [
 
 export const controls: GraphBlockOptions[] = [
     DecisionControlDeclaration,
+    JoinControlDeclaration,
     SplitControlDeclaration,
 ].map(getGraphBlock);

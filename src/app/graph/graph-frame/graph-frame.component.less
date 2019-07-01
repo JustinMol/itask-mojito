@@ -10,17 +10,34 @@ svg {
         background: @graph-background-light;
     }
 
-    image {
-        cursor: pointer;
+    .transparent {
+        opacity: 0.5;
     }
-    
-    #arrowhead {
+
+    circle,
+    #arrowhead,
+    #arrowhead-transparent {
         fill: @graph-sequence-edge;
+    }
+
+    #arrowhead-transparent {
+        .transparent;
+    }
+
+    text {
+        fill: white;
+        font-size: 12pt;
+        font-weight: 900;
+        outline: 1pt solid red;
     }
 
     polyline.sequence {
         stroke: @graph-sequence-edge;
         stroke-width: 2pt;
         fill: none;
+
+        &.transparent {
+            marker-end: url('#arrowhead-transparent');
+        }
     }
 }

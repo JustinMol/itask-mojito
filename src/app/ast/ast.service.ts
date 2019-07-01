@@ -1,5 +1,5 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { ASTNode, TaskDeclaration } from './ast';
+import { ASTNode, TaskDeclaration, Edge, SequenceEdge } from './ast';
 import { TaskService } from '../task/task.service';
 import { filter } from 'rxjs/operators';
 
@@ -17,13 +17,22 @@ export class ASTService implements OnDestroy {
   }
 
   addNode(node: ASTNode): void {
-    this.task.body.push(node);
-    this.taskService.save(this.task);
+    this.task.nodes.push(node);
+    this.save();
   }
 
   getNode(id: string): ASTNode {
     if (!this.task) return null;
-    return this.task.body.find(node => node.id === id);
+    return this.task.nodes.find(node => node.id === id);
+  }
+
+  getEdges() {
+    return this.task.edges;
+  }
+
+  addEdge(edge: Edge) {
+    this.task.edges.push(edge);
+    this.save();
   }
 
   save() {

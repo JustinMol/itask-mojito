@@ -25,7 +25,7 @@ export function getGraphBlock(constructor: Function): GraphBlockOptions {
     const options: GraphBlockOptions = Reflect.getMetadata(GraphBlockMetadataKey, constructor);
     if (!options) {
         console.error(`Class '${constructor.name}' is not a GraphBlock`);
-        return {} as GraphBlockOptions;
+        return null;
     }
 
     return options;

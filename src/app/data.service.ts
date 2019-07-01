@@ -27,10 +27,12 @@ export abstract class DataService<T extends Model> implements CrudService<T> {
   }
 
   get(id: string): Observable<T> {
+    this.log(`get('${id}')`);
     return of(this.models.find(t => t.id === id));
   }
 
   getAll(): Observable<T[]> {
+    this.log('getAll()');
     if (!this.models$) {
       this.models = this.storage.getAll(this.Model);
       this.models$ = new BehaviorSubject(this.models);
@@ -54,5 +56,9 @@ export abstract class DataService<T extends Model> implements CrudService<T> {
     }
 
     return of(null);
+  }
+
+  private log(...args) {
+    return console.log(`DataService<${this.Model.name}>`, ...args);
   }
 }

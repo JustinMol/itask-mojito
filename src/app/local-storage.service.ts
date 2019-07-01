@@ -52,6 +52,6 @@ export class LocalStorageService {
   }
 }
 
-export function Storable<T>(options: StorableOptions) {
+export function Storable(options: StorableOptions) {
   return Reflect.metadata(StorableMetadataKey, options);
 }

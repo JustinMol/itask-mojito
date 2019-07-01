@@ -1,8 +1,10 @@
-import { Directive, Input, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, OnDestroy, OnChanges, ViewChild } from '@angular/core';
 import { Coordinates, SequenceEdge, ASTNode } from 'src/app/ast/ast';
 import { Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getGraphBlock } from '../graph-block/graph-block.decorator';
+
+declare const SVG: any;
 
 @Directive({
   selector: '[graph-edge]'
@@ -11,13 +13,15 @@ export class GraphEdgeDirective implements OnInit, OnDestroy {
 
   @Input('graph-edge') edge: SequenceEdge;
 
+  private line: any;
   private destroy$ = new Subject();
 
   constructor(
-    private el: ElementRef<Element>
+    private el: ElementRef<SVGPolylineElement>
   ) {}
 
   ngOnInit() {
+    this.line = SVG.adopt(this.el.nativeElement);
     this.moveEdge();
     merge(
       this.edge.to.isMoved$,
@@ -34,9 +38,8 @@ export class GraphEdgeDirective implements OnInit, OnDestroy {
   }
 
   private moveEdge() {
-    const el = this.el.nativeElement;
     const points = this.getClosestAnchors(this.edge.from, this.edge.to);
-    el.setAttribute('points', points.join(' '));
+    this.line.plot(points.map(c => [c.x, c.y]));
   }
 
   private getClosestAnchors(node1: ASTNode, node2: ASTNode): [Coordinates, Coordinates] {

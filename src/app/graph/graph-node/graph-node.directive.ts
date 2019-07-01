@@ -1,10 +1,10 @@
-import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
 import { ASTNode, Coordinates } from 'src/app/ast/ast';
 
 declare const SVG: any;
 
-const GRID_SIZE_SMALL = 20;
+const GRID_SIZE_SMALL = 50;
 
 @Directive({
   selector: '[graph-node]'
@@ -13,9 +13,9 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
 
   @Input('graph-node') node: ASTNode;
   @Output('moved') isMoved$ = new EventEmitter<Coordinates>();
-  @Output('clicked') clicked$ = new EventEmitter<void>();
+  @Output('clicked') clicked$ = new EventEmitter<Event>();
 
-  private elem: any;
+  private svg: any;
   private graphBlock: GraphBlockOptions;
   private moved = false;
 
@@ -25,69 +25,41 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.graphBlock = getGraphBlock(this.node.constructor);
-    this.elem = SVG.adopt(this.el.nativeElement);
+    this.svg = SVG.adopt(this.el.nativeElement);
 
-    this.elem
+    this.svg
       .draggable()
       .x(this.x)
       .y(this.y)
       .attr({
         href: this.graphBlock.svg,
       })
-      .on('mouseover', () => this.focus())
-      .on('mouseleave', () => this.unfocus())
       .on('dragmove.namespace', e => this.onDrag(e, GRID_SIZE_SMALL))
-      .on('dragend.namespace', () => this.onDragEnd());
-
-    const parent = this.elem.parent();
-    for (const anchor of this.graphBlock.anchors || []) {
-      // parent
-      //   .circle(5)
-      //   .fill('tomato')
-      //   .x(this.x + anchor.x * 50 - 2.5)
-      //   .y(this.y + anchor.y * 50 - 2.5);
-    }
-  }
-
-  private focus() {
-    this.elem.transform({
-      scale: 1.1,
-    });
-  }
-
-  private unfocus() {
-    this.elem.transform({
-      scale: 1,
-    });
+      .on('dragend.namespace', e => this.onDragEnd(e));
   }
 
   private onDrag(e: Event & { detail: any }, gridSize: number) {
     e.preventDefault();
 
-    this.unfocus();
     const { handler, box } = e.detail;
-    const x = this.snap(box.x, gridSize);
-    const y = this.snap(box.y, gridSize);
+    const coords = new Coordinates(box.x, box.y).snap(gridSize);
 
-    if (x !== this.x || y !== this.y) {
-      handler.move(x, y);
-      this.isMoved$.emit(new Coordinates(x, y));
+    if (coords.x !== this.x || coords.y !== this.y) {
+      handler.move(coords.x, coords.y);
+      this.isMoved$.emit(coords);
       this.moved = true;
     }
   }
 
-  private onDragEnd() {
+  private onDragEnd(event: Event) {
+    event.stopImmediatePropagation();
     if (!this.moved) {
-      this.clicked$.emit();
+      this.clicked$.emit(event);
     } else {
-      this.isMoved$.emit(new Coordinates(this.elem.x(), this.elem.y()));
+      this.isMoved$.emit(new Coordinates(this.svg.x(), this.svg.y()));
     }
 
     this.moved = false;
-  }
-
-  private snap(x: number, gridSize) {
-    return Math.ceil(x / gridSize) * gridSize;
   }
 
   private get x() {
@@ -99,9 +71,7 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.elem
-      .off('mouseover')
-      .off('mouseleave')
+    this.svg
       .off('dragmove.namespace')
       .off('dragend.namespace');
   }

@@ -1,8 +1,11 @@
 <svg
     id="graph-frame"
+    [attr.viewBox]="viewBox"
+    class="noselect"
     appDropTarget
     dropType="GraphBlock"
-    (dropped)="onDrop($event)">
+    (dropped)="onDrop($event)"
+    (click)="onFrameClick()">
     <defs>
         <marker id="arrowhead"
             viewBox="0 0 12 12"
@@ -11,18 +14,47 @@
             orient="auto-start-reverse" >
             <path d="M 0 0 L 12 5 L 0 10 z" />
         </marker>
+        <marker id="arrowhead-transparent"
+            viewBox="0 0 12 12"
+            markerWidth="6" markerHeight="6"
+            refX="10" refY="5"
+            orient="auto-start-reverse" >
+            <path d="M 0 0 L 12 5 L 0 10 z" />
+        </marker>
     </defs>
+    <g *ngFor="let edge of edges">
+        <polyline [graph-edge]="edge" marker-end="url(#arrowhead)" class="sequence" />
+    </g>
     <polyline
-        *ngFor="let edge of edges"
-        marker-end="url(#arrowhead)"
-        class="sequence"
-        [graph-edge]="edge" />
+        *ngIf="newEdge"
+        class="sequence transparent"
+        [graph-edge]="newEdge" />
     <g *ngFor="let node of nodes">
+        <!-- Graph block image -->
         <image
             width="50"
             height="50"
+            svg-hoverable
             [graph-node]="node"
+            [ngClass]="{
+                'transparent': newEdgeFrom && !canReceiveEdge(node),
+                'pointer': !newEdgeFrom || (newEdgeFrom && canReceiveEdge(node))
+            }"
             (moved)="onNodeMove(node, $event)"
-            (clicked)="onNodeClick(node)" />
+            (click)="$event.stopImmediatePropagation()"
+            (clicked)="onNodeClick(node, $event)"
+            (mouseover)="onNodeHover(node)"
+            (mouseleave)="onNodeLeave(node)" />
+        <!-- (+) button -->
+        <svg *ngIf="!newEdgeFrom && canSendEdge(node)"
+            width="14" height="14"
+            [attr.x]="node.coordinates.x + 50 + 6"
+            [attr.y]="node.coordinates.y + 25 - 7"
+            class="pointer"
+            (click)="startEdge(node, $event)" >
+            <circle r="50%" cx="50%" cy="50%" />
+            <line x1="50%" x2="50%" y1="20%" y2="80%" stroke-width="2" stroke="white" />
+            <line x1="20%" x2="80%" y1="50%" y2="50%" stroke-width="2" stroke="white" />
+        </svg>
     </g>
 </svg>

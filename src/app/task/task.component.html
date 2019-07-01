@@ -1,7 +1,10 @@
 <div id="content" [ngStyle]="sidebarStyle" *ngIf="task">
   <app-topbar [openTask]="task"></app-topbar>
   <router-outlet></router-outlet>
-  <app-graph-frame [nodes]="task.body"></app-graph-frame>
+  <app-graph-frame
+    [nodes]="task.nodes"
+    [edges]="task.edges">
+  </app-graph-frame>
   <!-- <app-code-frame></app-code-frame> -->
 </div>
 <app-sidebar

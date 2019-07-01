@@ -30,6 +30,12 @@ export class Coordinates {
         return Math.sqrt(a * a + b * b);
     }
 
+    snap(gridSize: number) {
+        const x = Math.ceil(this.x / gridSize) * gridSize
+        const y = Math.ceil(this.y / gridSize) * gridSize
+        return new Coordinates(x, y);
+    }
+
     toString() {
         return this.x + ',' + this.y;
     }
@@ -44,10 +50,14 @@ const ANCHORS: Coordinates[] = [
 ];
 
 export class AST {
-    id: string;
+    public id: string;
 
     constructor() {
         this.id = shortid();
+    }
+
+    equals(node: ASTNode) {
+        return this.id === node.id;
     }
 }
 
@@ -107,15 +117,6 @@ export class ASTNode extends AST {
             this.isMoved$.emit();
         }
     }
-}
-
-export class SequenceEdge {
-    constructor(public from: ASTNode, public to: ASTNode) {}
-}
-
-export class OptionEdge {
-    from: DecisionControlDeclaration;
-    to: ASTNode;
 }
 
 @SimpleEditor
@@ -184,12 +185,57 @@ export class CodeTransformDeclaration extends ASTNode {
 export class DecisionControlDeclaration extends ASTNode {}
 
 @GraphBlock({
+    name: 'Join',
+    svg: 'assets/svg/control/join.svg',
+    description: '',
+    anchors: ANCHORS,
+})
+export class JoinControlDeclaration extends ASTNode {}
+
+@GraphBlock({
     name: 'Parallel Split',
     svg: 'assets/svg/control/parallel-split.svg',
     description: '',
     anchors: ANCHORS,
 })
 export class SplitControlDeclaration extends ASTNode {}
+
+const NodeDiscriminator = {
+    discriminator: {
+        property: '__type',
+        subTypes: [
+            { value: UserInputDeclaration, name: 'user-input' },
+            { value: SharedInputDeclaration, name: 'shared-input' },
+            { value: ClockInputDeclaration, name: 'clock-input' },
+            { value: TaskTransformDeclaration, name: 'task-transform' },
+            { value: CodeTransformDeclaration, name: 'code-transform' },
+            { value: DecisionControlDeclaration, name: 'decision-control' },
+            { value: JoinControlDeclaration, name: 'join-control' },
+            { value: SplitControlDeclaration, name: 'split-control' },
+        ]
+    }
+};
+
+export class Edge {
+    @Type(() => ASTNode, NodeDiscriminator)
+    public from: ASTNode;
+
+    @Type(() => ASTNode, NodeDiscriminator)
+    public to: ASTNode;
+
+    constructor(from: ASTNode, to: ASTNode) {
+        this.from = from;
+        this.to = to;
+    }
+}
+
+export class SequenceEdge extends Edge {}
+
+export class OptionEdge extends Edge {
+    constructor(public from: DecisionControlDeclaration, public to: ASTNode) {
+        super(from, to);
+    }
+}
 
 @Storable({
     id: t => t.id,
@@ -202,21 +248,19 @@ export class TaskDeclaration extends AST {
 
     parameters: ParameterDeclaration[] = [];
 
-    @Type(() => ASTNode, {
+    @Type(() => ASTNode, NodeDiscriminator)
+    nodes: ASTNode[] = [];
+
+    @Type(() => Edge, {
         discriminator: {
             property: '__type',
             subTypes: [
-                { value: UserInputDeclaration, name: 'user-input' },
-                { value: SharedInputDeclaration, name: 'shared-input' },
-                { value: ClockInputDeclaration, name: 'clock-input' },
-                { value: TaskTransformDeclaration, name: 'task-transform' },
-                { value: CodeTransformDeclaration, name: 'code-transform' },
-                { value: DecisionControlDeclaration, name: 'decision-control' },
-                { value: SplitControlDeclaration, name: 'split-control' },
-            ]
+                { value: SequenceEdge, name: 'sequence' },
+                { value: OptionEdge, name: 'option' },
+            ],
         }
     })
-    body: ASTNode[] = [];
+    edges: Edge[] = [];
 }
 
 export class ParameterDeclaration extends AST {
