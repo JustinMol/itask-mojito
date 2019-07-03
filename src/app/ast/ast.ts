@@ -2,7 +2,7 @@ import shortid from 'shortid';
 import { Storable } from '../local-storage.service';
 import { GraphBlock } from '../graph/graph-block/graph-block.decorator';
 import { Type, Exclude } from 'class-transformer';
-import { SimpleEditor, EditorField } from '../editors/editor-decorator';
+import { SimpleEditor, EditorField, ConditionEditor } from '../editors/editor-decorator';
 import { EventEmitter } from '@angular/core';
 
 export declare type DataType = RecordTypeDeclaration | OptionTypeDeclaration;
@@ -31,8 +31,8 @@ export class Coordinates {
     }
 
     snap(gridSize: number) {
-        const x = Math.ceil(this.x / gridSize) * gridSize
-        const y = Math.ceil(this.y / gridSize) * gridSize
+        const x = this.x - this.x % gridSize; // or Math.ceil(this.x / gridSize) * gridSize
+        const y = this.y - this.y % gridSize; // or Math.ceil(this.y / gridSize) * gridSize
         return new Coordinates(x, y);
     }
 
@@ -176,13 +176,29 @@ export class CodeTransformDeclaration extends ASTNode {
     code: string = '';
 }
 
+export class SimpleBooleanExpression {
+    value: string = '';
+    condition: 'equals' | 'contains' = 'equals';
+    operand: string = '';
+
+    constructor(value = '', condition: 'equals' | 'contains' = 'equals', operand = '') {
+        this.value = value;
+        this.condition = condition;
+        this.operand = operand;
+    }
+}
+
+@ConditionEditor
 @GraphBlock({
     name: 'Decision',
     svg: 'assets/svg/control/choice.svg',
-    description: '',
+    description: 'Make a decision based on a task\'s value',
     anchors: ANCHORS,
 })
-export class DecisionControlDeclaration extends ASTNode {}
+export class DecisionControlDeclaration extends ASTNode {
+    @Type(() => SimpleBooleanExpression)
+    andExpressions: SimpleBooleanExpression[][] = [[new SimpleBooleanExpression()]];
+}
 
 @GraphBlock({
     name: 'Join',

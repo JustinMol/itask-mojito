@@ -2,6 +2,8 @@ import { Injectable, ComponentFactoryResolver, ComponentFactory, Type } from '@a
 import { EditorType, getEditorType } from './editor-decorator';
 import { SimpleEditorComponent } from './simple-editor/simple-editor.component';
 import { EditorComponent } from './editor-component';
+import { TableEditorComponent } from './table-editor/table-editor.component';
+import { ConditionEditorComponent } from './condition-editor/condition-editor.component';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,8 @@ export class EditorFactoryResolver {
     private componentFactoryResolver: ComponentFactoryResolver
   ) {
     this._editorMap.set(EditorType.SimpleEditor, SimpleEditorComponent);
+    this._editorMap.set(EditorType.TableEditor, TableEditorComponent);
+    this._editorMap.set(EditorType.ConditionEditor, ConditionEditorComponent);
   }
 
   createEditorFactory(target: any): ComponentFactory<EditorComponent> {

@@ -1,6 +1,10 @@
 @import "../../../styles/styles.less";
 
+@footer-size: 36pt;
+
 :host {
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
@@ -24,11 +28,20 @@ hr {
 }
 
 div#content {
+    width: 100%;
+    height: 300pt;
+    position: relative;
     flex: 1;
+
+    & * {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
 }
 
 div#footer {
-    height: 36pt;
+    height: @footer-size;
 
     button {
         cursor: pointer;

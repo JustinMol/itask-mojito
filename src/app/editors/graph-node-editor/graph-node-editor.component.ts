@@ -1,4 +1,4 @@
-import { Component, OnInit, Type } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { ASTNode } from 'src/app/ast/ast';
@@ -31,7 +31,8 @@ export class GraphNodeEditorComponent implements OnInit {
   }
 
   onConfirm() {
-    // Navigate back to task
+    // Save & navigate back to task
+    this.ast.save();
     this.router.navigate(['../../'], { relativeTo: this.route });
   }
 }

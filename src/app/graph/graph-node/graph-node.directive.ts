@@ -4,7 +4,7 @@ import { ASTNode, Coordinates } from 'src/app/ast/ast';
 
 declare const SVG: any;
 
-const GRID_SIZE_SMALL = 50;
+const GRID_SIZE_SMALL = 20;
 
 @Directive({
   selector: '[graph-node]'

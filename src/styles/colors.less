@@ -1,10 +1,18 @@
 .color {
-    color: @text-color-default;
+    &.default {
+        color: @text-color-default;
+    }
 
     &.bright {
         color: @text-color-bright;
     }
+
+    &.grim {
+        color: @grim;
+    }
 }
+
+@grim: #696E6C;
 
 @topbar-background: #212724;
 @topbar-tab: @graph-background;

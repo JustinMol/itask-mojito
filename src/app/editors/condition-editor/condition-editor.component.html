@@ -1,0 +1,23 @@
+<div *ngFor="let andExpression of node.andExpressions; let last = last">
+  <div id="block">
+    <div id="headers">
+      <span>Value</span>
+      <span>Condition</span>
+      <span>Operand</span>
+      <div class="or"></div>
+    </div>
+    <div id="row" *ngFor="let orExpression of andExpression; let last = last">
+      <div><input [(ngModel)]="orExpression.value" /></div>
+      <div><input class="i" [(ngModel)]="orExpression.condition" /></div>
+      <div><input [(ngModel)]="orExpression.operand" /></div>
+      <div (click)="last ? onOrClick(andExpression) : null" class="or" [ngClass]="{'last': last}">
+        <span>OR</span>
+      </div>
+    </div>
+  </div>
+  <div (click)="last ? onAndClick() : null" class="and" [ngClass]="{'last': last}">
+    <div *ngIf="!last" class="vr"></div>
+    AND
+    <div *ngIf="!last" class="vr"></div>
+  </div>
+</div>

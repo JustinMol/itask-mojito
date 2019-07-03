@@ -35,6 +35,7 @@ import { RecordTypeEditorComponent } from './editors/record-type-editor/record-t
 import { OptionTypeEditorComponent } from './editors/option-type-editor/option-type-editor.component';
 import { GraphEdgeDirective } from './graph/graph-edge/graph-edge.directive';
 import { SvgHoverableDirective } from './svg/svg-hoverable.directive';
+import { ConditionEditorComponent } from './editors/condition-editor/condition-editor.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { SvgHoverableDirective } from './svg/svg-hoverable.directive';
     OptionTypeEditorComponent,
     GraphEdgeDirective,
     SvgHoverableDirective,
+    ConditionEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -77,7 +79,9 @@ import { SvgHoverableDirective } from './svg/svg-hoverable.directive';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    SimpleEditorComponent
+    SimpleEditorComponent,
+    TableEditorComponent,
+    ConditionEditorComponent,
   ]
 })
 export class AppModule { }

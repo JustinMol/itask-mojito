@@ -1,0 +1,94 @@
+@import "../../../styles/styles.less";
+
+:host {
+    overflow-y: auto;
+    overflow-x: hidden;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: @editor-background;
+    position: relative;
+
+    .noselect;
+    .font.segoe;
+    .font.medium;
+    .color.bright;
+}
+
+div#block {
+    background: @graph-background;
+    margin: 8pt;
+    border-radius: 3pt;
+}
+
+#headers {
+    .font.bold;
+    .font.small;
+    .color.grim;
+
+    padding: 8pt 0;
+    height: 12pt;
+}
+
+#row {
+    height: 26pt;
+    padding-top: 8pt;
+    padding-bottom: 16pt;
+    position: relative;
+}
+
+#row,
+#headers {
+    margin-left: 8pt;
+    display: flex;
+    flex-direction: row;
+
+    & .or {
+        .font.bold;
+        .color.grim;
+
+        height: 100%;
+        width: 60pt;
+        line-height: 26pt;
+        text-align: center;
+
+        &.last {
+            color: @button-background;
+            .pointer;
+        }
+    }
+
+    & div:not(.or),
+    & span {
+        flex: 1;
+    }
+}
+
+input {
+    .input.clear;
+    .input.underlined;
+    .color.bright;
+    .font.segoe;
+    .font.medium;
+
+    height: 100%;
+    width: 95%;
+}
+
+.and {
+    margin-left: 30pt;
+
+    .font.bold;
+    .color.grim;
+
+    & .vr {
+        border-right: 1pt solid @grim;
+        width: 15pt;
+        height: 10pt;
+    }
+
+    &.last {
+        color: @button-background;
+        .pointer;
+    }
+}

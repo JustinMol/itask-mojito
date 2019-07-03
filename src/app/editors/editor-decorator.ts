@@ -3,16 +3,23 @@ const EditorFieldMetaKey = Symbol('EditorField');
 
 export enum EditorType {
     SimpleEditor,
-    TableEditor
+    TableEditor,
+    ConditionEditor,
 };
 
 /* @Decorators */
 export const SimpleEditor = Reflect.metadata(EditorMetaKey, EditorType.SimpleEditor);
 export const TableEditor = Reflect.metadata(EditorMetaKey, EditorType.TableEditor);
+export const ConditionEditor = Reflect.metadata(EditorMetaKey, EditorType.ConditionEditor);
+
 export function EditorField(label?: string, type?: string) {
     return function(target: object, property: string) {
         return Reflect.defineMetadata(EditorFieldMetaKey, label || property, target, property);
     }
+}
+
+export function EditorExpression() {
+    
 }
 
 /* Getter functions */

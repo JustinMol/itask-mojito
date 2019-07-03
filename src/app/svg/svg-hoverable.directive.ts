@@ -43,7 +43,7 @@ export class SvgHoverableDirective implements AfterViewInit, OnDestroy {
       });
     }
 
-    const newWidth = this.width * 1.1;
+    const newWidth = this.width * this.scale;
     this.svg.width(newWidth);
     const newHeight = this.height * this.scale;
     this.svg.height(newHeight);

@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 declare const SVG: any;
 
 const GRID_SIZE_LARGE = 100;
-const GRID_SIZE_SMALL = 50;
+const GRID_SIZE_SMALL = 20;
 
 @Component({
   selector: 'app-graph-frame',
