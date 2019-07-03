@@ -3,11 +3,11 @@ import { SidebarResizeEvent } from '../sidebar/sidebar.component';
 import { TaskService } from './task.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ASTService } from '../ast/ast.service';
-import { filter, map, takeUntil, switchMap, tap } from 'rxjs/operators';
+import { filter, takeUntil, switchMap, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
-import { TaskDeclaration } from '../ast/ast';
 import { GraphBlockOptions } from '../graph/graph-block/graph-block.decorator';
 import { sources, transforms, controls } from '../graph/graph-block/graph-blocks';
+import { TaskDeclaration } from '../ast/task/task-declaration';
 
 @Component({
   selector: 'app-task',

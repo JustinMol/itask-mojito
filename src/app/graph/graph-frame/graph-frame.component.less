@@ -1,4 +1,4 @@
-@import '../../../styles/colors.less';
+@import '../../../styles/styles.less';
 
 svg {
     background: @graph-background;
@@ -14,7 +14,6 @@ svg {
         opacity: 0.5;
     }
 
-    circle,
     #arrowhead,
     #arrowhead-transparent {
         fill: @graph-sequence-edge;
@@ -29,6 +28,15 @@ svg {
         font-size: 12pt;
         font-weight: 900;
         outline: 1pt solid red;
+    }
+
+    polyline.clickable {
+        opacity: 0;
+        stroke: #000;
+        stroke-width: 10pt;
+        fill: none;
+
+        .pointer;
     }
 
     polyline.sequence {

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Option, OptionTypeDeclaration } from 'src/app/ast/ast';
 import { ActivatedRoute, Router } from '@angular/router';
 import { OptionTypeService } from 'src/app/option-type.service';
 import { switchMap, filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
+import { OptionTypeDeclaration, OptionDeclaration } from 'src/app/ast/data-type/option-type';
 
 @Component({
   selector: 'app-option-type-editor',
@@ -14,7 +14,7 @@ export class OptionTypeEditorComponent implements OnInit, OnDestroy {
 
   type: OptionTypeDeclaration;
 
-  readonly columns = Object.getOwnPropertyNames(new Option());
+  readonly columns = Object.getOwnPropertyNames(new OptionDeclaration());
 
   private destroy$ = new Subject();
 
@@ -42,7 +42,7 @@ export class OptionTypeEditorComponent implements OnInit, OnDestroy {
   }
 
   addOption() {
-    this.type.options.push(new Option());
+    this.type.options.push(new OptionDeclaration());
     this.optionTypes.update(this.type);
   }
 
@@ -50,7 +50,7 @@ export class OptionTypeEditorComponent implements OnInit, OnDestroy {
     this.optionTypes.update(this.type);
   }
 
-  deleteOption(option: Option) {
+  deleteOption(option: OptionDeclaration) {
     const index = this.type.options.findIndex(o => o === option);
     if (index > -1) {
       this.type.options.splice(index, 1);

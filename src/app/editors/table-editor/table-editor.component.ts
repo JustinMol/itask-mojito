@@ -16,10 +16,6 @@ export class TableEditorComponent extends EditorComponent {
   @Output() change: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
 
-  constructor() {
-    super();
-  }
-
   ngOnInit() {}
 
   get showDeleteButtons() {

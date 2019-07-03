@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { EditorComponent } from '../editor-component';
-import { ASTNode } from 'src/app/ast/ast';
-import { ASTService } from 'src/app/ast/ast.service';
 import { getFields } from '../editor-decorator';
+import { ASTService } from 'src/app/ast/ast.service';
+import { ASTNode } from 'src/app/ast/ast-node/ast-node';
 
 @Component({
   selector: 'app-simple-editor',
@@ -14,9 +14,7 @@ export class SimpleEditorComponent extends EditorComponent {
   node: ASTNode;
   fields: { property: string; label: string; value: any }[];
 
-  constructor(
-    private ast: ASTService
-  ) {
+  constructor(protected ast: ASTService) {
     super();
   }
 

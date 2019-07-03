@@ -3,9 +3,11 @@ import { SidebarResizeEvent } from './sidebar/sidebar.component';
 import { Router } from '@angular/router';
 import { TaskService } from './task/task.service';
 import { Observable } from 'rxjs';
-import { TaskDeclaration, RecordTypeDeclaration, OptionTypeDeclaration } from './ast/ast';
 import { RecordTypeService } from './record-type.service';
 import { OptionTypeService } from './option-type.service';
+import { RecordTypeDeclaration } from './ast/data-type/record-type';
+import { OptionTypeDeclaration } from './ast/data-type/option-type';
+import { TaskDeclaration } from './ast/task/task-declaration';
 
 @Component({
   selector: 'app-root',

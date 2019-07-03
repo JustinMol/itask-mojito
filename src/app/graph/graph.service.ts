@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ASTService } from '../ast/ast.service';
-import { Coordinates, ASTNode, SequenceEdge, DecisionControlDeclaration, JoinControlDeclaration } from '../ast/ast';
 import { GraphBlockOptions } from './graph-block/graph-block.decorator';
+import { ASTNode } from '../ast/ast-node/ast-node';
+import { SequenceEdge, Edge } from '../ast/task/task-declaration';
+import { JoinControlDeclaration } from '../ast/controls/join';
+import { DecisionControlDeclaration } from '../ast/controls/decision';
+import { Coordinates } from '../ast/ast-node/coordinates';
 
 @Injectable()
 export class GraphService {
@@ -17,6 +21,10 @@ export class GraphService {
     return node;
   }
 
+  deleteNode(node: ASTNode) {
+    return this.ast.removeNode(node);
+  }
+
   moveNode(node: ASTNode, coordinates: Coordinates): void {
     node.setCoordinates(coordinates);
     this.ast.save();
@@ -25,6 +33,10 @@ export class GraphService {
   createEdge(from: ASTNode, to: ASTNode) {
     const edge = new SequenceEdge(from, to);
     this.ast.addEdge(edge);
+  }
+
+  deleteEdge(edge: Edge) {
+    this.ast.removeEdge(edge);
   }
 
   canSendEdge(node: ASTNode) {

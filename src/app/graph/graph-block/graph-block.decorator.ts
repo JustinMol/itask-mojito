@@ -1,17 +1,28 @@
 import { Type } from '@angular/core';
-import { ASTNode, Coordinates } from 'src/app/ast/ast';
+import { plainToClass } from 'class-transformer';
+import { ASTNode } from 'src/app/ast/ast-node/ast-node';
+import { Coordinates } from 'src/app/ast/ast-node/coordinates';
 
 const GraphBlockMetadataKey = Symbol('GraphBlock');
 
-export interface GraphBlockOptions {
+export class GraphBlockOptions {
     name: string;
     svg: string;
     description: string;
     anchors?: Coordinates[];
     NodeType?: Type<ASTNode>;
+
+    getAnchorCoordinates(origin: Coordinates): Coordinates[] {
+        if (!this.anchors) {
+            return [origin];
+        }
+
+        return this.anchors.map(anchor => anchor.scale(50).add(origin));
+    }
 }
 
-export function GraphBlock(options: GraphBlockOptions) {
+export function GraphBlock(options: GraphBlockOptions | any) {
+    options = plainToClass(GraphBlockOptions, options);
     return constructor => {
         if (!options.NodeType) {
             options.NodeType = constructor;

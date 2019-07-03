@@ -5,7 +5,8 @@
     appDropTarget
     dropType="GraphBlock"
     (dropped)="onDrop($event)"
-    (click)="onFrameClick()">
+    (click)="onFrameClick()"
+    (contextmenu)="onRightClick($event)" >
     <defs>
         <marker id="arrowhead"
             viewBox="0 0 12 12"
@@ -22,8 +23,9 @@
             <path d="M 0 0 L 12 5 L 0 10 z" />
         </marker>
     </defs>
-    <g *ngFor="let edge of edges">
+    <g *ngFor="let edge of edges" class="pointer" (contextmenu)="onRightClickEdge($event, edge)">
         <polyline [graph-edge]="edge" marker-end="url(#arrowhead)" class="sequence" />
+        <polyline [graph-edge]="edge" class="clickable"></polyline>
     </g>
     <polyline
         *ngIf="newEdge"
@@ -42,18 +44,19 @@
             (moved)="onNodeMove(node, $event)"
             (click)="$event.stopImmediatePropagation()"
             (clicked)="onNodeClick(node, $event)"
+            (contextmenu)="onRightClick($event, node)"
             (mouseover)="onNodeHover(node)"
             (mouseleave)="onNodeLeave(node)" />
-        <!-- (+) button -->
-        <svg *ngIf="!newEdgeFrom && canSendEdge(node)"
-            width="14" height="14"
-            [attr.x]="node.coordinates.x + 50 + 6"
-            [attr.y]="node.coordinates.y + 25 - 7"
-            class="pointer"
-            (click)="startEdge(node, $event)" >
-            <circle r="50%" cx="50%" cy="50%" />
-            <line x1="50%" x2="50%" y1="20%" y2="80%" stroke-width="2" stroke="white" />
-            <line x1="20%" x2="80%" y1="50%" y2="50%" stroke-width="2" stroke="white" />
-        </svg>
+        <ng-container>
+            <svg *ngIf="!newEdgeFrom && canSendEdge(node)"
+                graph-node-button
+                [node]="node"
+                width="14"
+                height="14"
+                [attr.x]="node.coordinates.x + 50 - 7"
+                [attr.y]="node.coordinates.y + 35"
+                [node]="node"
+                (buttonClick)="startEdge(node, $event)" />
+        </ng-container>
     </g>
 </svg>

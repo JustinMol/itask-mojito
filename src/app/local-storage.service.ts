@@ -5,8 +5,8 @@ import 'reflect-metadata';
 
 const StorableMetadataKey = Symbol('Storable');
 
-interface StorableOptions {
-  id(t: any): string;
+interface StorableOptions<T = any> {
+  id(t: T): string;
   key: string;
 };
 
@@ -44,7 +44,7 @@ export class LocalStorageService {
     this.storage.remove(key);
   }
 
-  private getOptions<T>(Class: Type<T> | Function): StorableOptions {
+  private getOptions<T>(Class: Type<T> | Function): StorableOptions<T> {
     const options = Reflect.getMetadata(StorableMetadataKey, Class);
     if (!options) throw new Error(`Class '${Class.name}' is not Storable`);
     
@@ -52,6 +52,8 @@ export class LocalStorageService {
   }
 }
 
-export function Storable(options: StorableOptions) {
-  return Reflect.metadata(StorableMetadataKey, options);
+export function Storable<T>(options: StorableOptions<T>) {
+  return (target: Type<T>) => {
+    Reflect.defineMetadata(StorableMetadataKey, options, target);
+  }
 }

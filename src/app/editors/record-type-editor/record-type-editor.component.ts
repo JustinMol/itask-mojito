@@ -2,8 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecordTypeService } from 'src/app/record-type.service';
 import { switchMap, filter, takeUntil } from 'rxjs/operators';
-import { RecordTypeDeclaration, RecordTypeField } from 'src/app/ast/ast';
 import { Subject } from 'rxjs';
+import { RecordTypeDeclaration, RecordTypeField } from 'src/app/ast/data-type/record-type';
 
 @Component({
   selector: 'app-record-type-editor',

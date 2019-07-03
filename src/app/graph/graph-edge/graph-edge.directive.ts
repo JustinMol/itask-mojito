@@ -1,8 +1,10 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, OnChanges, ViewChild } from '@angular/core';
-import { Coordinates, SequenceEdge, ASTNode } from 'src/app/ast/ast';
 import { Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getGraphBlock } from '../graph-block/graph-block.decorator';
+import { SequenceEdge } from 'src/app/ast/task/task-declaration';
+import { ASTNode } from 'src/app/ast/ast-node/ast-node';
+import { Coordinates } from 'src/app/ast/ast-node/coordinates';
 
 declare const SVG: any;
 
@@ -63,11 +65,11 @@ export class GraphEdgeDirective implements OnInit, OnDestroy {
 
   private getAnchorCoordinates(node: ASTNode) {
     const block = getGraphBlock(node.constructor);
-    if (!block || !block.anchors) {
+    if (!block) {
       return [node.coordinates];
     }
 
-    return block.anchors.map(anchor => anchor.scale(50).add(node.coordinates));
+    return block.getAnchorCoordinates(node.coordinates);
   }
 
 }

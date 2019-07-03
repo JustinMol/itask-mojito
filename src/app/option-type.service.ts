@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DataService } from './data.service';
-import { OptionTypeDeclaration } from './ast/ast';
 import { LocalStorageService } from './local-storage.service';
 import { Observable } from 'rxjs';
+import { OptionTypeDeclaration } from './ast/data-type/option-type';
 
 @Injectable({
   providedIn: 'root'

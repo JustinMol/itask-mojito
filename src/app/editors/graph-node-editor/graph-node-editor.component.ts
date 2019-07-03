@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import { ASTNode } from 'src/app/ast/ast';
 import { ASTService } from 'src/app/ast/ast.service';
 import { getGraphBlock, GraphBlockOptions } from 'src/app/graph/graph-block/graph-block.decorator';
+import { ASTNode } from 'src/app/ast/ast-node/ast-node';
 
 @Component({
   selector: 'app-graph-node-editor',

@@ -1,7 +1,6 @@
 import { Directive, ViewContainerRef, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { EditorFactoryResolver } from './editor.service';
-import { ASTNode } from '../ast/ast';
-
+import { ASTNode } from '../ast/ast-node/ast-node';
 
 @Directive({
   selector: '[editor-host]'

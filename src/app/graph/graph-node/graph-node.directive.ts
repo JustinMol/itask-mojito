@@ -1,10 +1,11 @@
 import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
-import { ASTNode, Coordinates } from 'src/app/ast/ast';
+import { ASTNode } from 'src/app/ast/ast-node/ast-node';
+import { Coordinates } from 'src/app/ast/ast-node/coordinates';
 
 declare const SVG: any;
 
-const GRID_SIZE_SMALL = 20;
+const GRID_SIZE_SMALL = 25;
 
 @Directive({
   selector: '[graph-node]'

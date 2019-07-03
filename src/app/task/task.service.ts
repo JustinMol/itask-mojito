@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage.service';
-import { TaskDeclaration } from '../ast/ast';
 import { DataService } from '../data.service';
+import { TaskDeclaration } from '../ast/task/task-declaration';
 
 @Injectable({
   providedIn: 'root'

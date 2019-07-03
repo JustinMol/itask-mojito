@@ -1,14 +1,16 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DropTargetMonitor } from '@angular-skyhook/core';
-import { GraphBlockOptions } from '../graph-block/graph-block.decorator';
-import { ASTNode, Coordinates, SequenceEdge } from 'src/app/ast/ast';
+import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
 import { GraphService } from '../graph.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ASTNode } from 'src/app/ast/ast-node/ast-node';
+import { SequenceEdge, Edge } from 'src/app/ast/task/task-declaration';
+import { Coordinates } from 'src/app/ast/ast-node/coordinates';
 
 declare const SVG: any;
 
 const GRID_SIZE_LARGE = 100;
-const GRID_SIZE_SMALL = 20;
+const GRID_SIZE_SMALL = 25;
 
 @Component({
   selector: 'app-graph-frame',
@@ -20,6 +22,8 @@ export class GraphFrameComponent implements OnInit {
 
   @Input() nodes: ASTNode[] = [];
   @Input() edges: SequenceEdge[] = [];
+
+  blocks: {[node: string]: GraphBlockOptions} = {};
 
   private svg;
 
@@ -36,6 +40,7 @@ export class GraphFrameComponent implements OnInit {
     this.svg = SVG('#graph-frame');
     this.drawGrid(GRID_SIZE_LARGE, 0.2);
     this.drawGrid(GRID_SIZE_SMALL, 0.1);
+    this.nodes.forEach(n => this.setGraphBlock(n));
   }
 
   drawGrid(gridSize, strokeWidth) {
@@ -73,7 +78,8 @@ export class GraphFrameComponent implements OnInit {
     const y = offset.y - bounds.top;
     const block: GraphBlockOptions = m.getItem();
     const coordinates = new Coordinates(x, y).snap(GRID_SIZE_SMALL);
-    this.graph.createNode(block, coordinates);
+    const node = this.graph.createNode(block, coordinates);
+    this.setGraphBlock(node);
   }
 
   onNodeMove(node: ASTNode, coordinates: Coordinates) {
@@ -86,6 +92,23 @@ export class GraphFrameComponent implements OnInit {
     } else {
       this.editNode(node);
     }
+  }
+
+  onRightClick(event: Event, node?: ASTNode) {
+    event.stopImmediatePropagation();
+
+    if (node) {
+      this.graph.deleteNode(node);
+      delete this.blocks[node.id];
+    }
+
+    return false;
+  }
+
+  onRightClickEdge(event: Event, edge: Edge) {
+    event.stopImmediatePropagation();
+    this.graph.deleteEdge(edge);
+    return false;
   }
 
   private editNode(node: ASTNode) {
@@ -104,6 +127,7 @@ export class GraphFrameComponent implements OnInit {
     if (this.canReceiveEdge(to)) {
       this.graph.createEdge(this.newEdgeFrom, to);
       this.newEdgeFrom = null;
+      this.newEdge = null;
     }
   }
 
@@ -117,6 +141,10 @@ export class GraphFrameComponent implements OnInit {
 
   onNodeLeave(node: ASTNode) {
     this.newEdge = null;
+  }
+
+  private setGraphBlock(node: ASTNode) {
+    this.blocks[node.id] = getGraphBlock(node.constructor);
   }
 
 }

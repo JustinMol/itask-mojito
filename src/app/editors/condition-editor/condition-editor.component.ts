@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { EditorComponent } from '../editor-component';
-import { DecisionControlDeclaration, SimpleBooleanExpression } from 'src/app/ast/ast';
+import { ASTService } from 'src/app/ast/ast.service';
+import { DecisionControlDeclaration } from 'src/app/ast/controls/decision';
+import { SimpleBooleanExpression } from 'src/app/ast/values/boolean-expression';
 
 @Component({
   selector: 'app-condition-editor',
@@ -11,7 +13,7 @@ export class ConditionEditorComponent extends EditorComponent {
 
   node: DecisionControlDeclaration;
 
-  constructor() {
+  constructor(private ast: ASTService) {
     super();
   }
 
@@ -19,10 +21,12 @@ export class ConditionEditorComponent extends EditorComponent {
 
   onAndClick() {
     this.node.andExpressions.push([new SimpleBooleanExpression()]);
+    this.ast.save();
   }
 
   onOrClick(andExpression: SimpleBooleanExpression[]) {
     andExpression.push(new SimpleBooleanExpression());
+    this.ast.save();
   }
 
 }
