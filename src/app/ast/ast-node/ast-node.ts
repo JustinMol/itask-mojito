@@ -5,7 +5,7 @@ import { EventEmitter } from '@angular/core';
 
 export declare type Location = { line: number, col: number };
 
-export const ANCHORS: Coordinates[] = [
+export const DEFAULT_ANCHORS: Coordinates[] = [
     new Coordinates(0.5, 0),
     new Coordinates(1, 0.5),
     new Coordinates(0.5, 1),

@@ -30,15 +30,32 @@
         border-bottom: 1pt solid #2C322F;
     }
 
+
+    & select {
+        width: 100%;
+
+        & option {
+            background: @editor-background;
+
+            &:hover {
+                background: red;
+            }
+        }
+    }
+
     & input {
         width: calc(100% - 16pt);
+    }
+
+    & select,
+    & input {
         height: 100%;
         border: none;
         background: none;
         padding: 0 8pt;
 
-        .color.bright;
         .font.monospace;
         .font.medium;
+        .color.bright;
     }
 }

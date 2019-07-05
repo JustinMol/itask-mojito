@@ -1,3 +1,5 @@
+import { Observable } from 'rxjs';
+
 const EditorMetaKey = Symbol('Editor');
 const EditorFieldMetaKey = Symbol('EditorField');
 
@@ -7,32 +9,40 @@ export enum EditorType {
     ConditionEditor,
 };
 
-/* @Decorators */
+export type Field = EditorFieldOptions & {
+    value: any;
+    property: string;
+    options$: Observable<any[]>;
+};
+
+/* @Editors */
 export const SimpleEditor = Reflect.metadata(EditorMetaKey, EditorType.SimpleEditor);
 export const TableEditor = Reflect.metadata(EditorMetaKey, EditorType.TableEditor);
 export const ConditionEditor = Reflect.metadata(EditorMetaKey, EditorType.ConditionEditor);
 
-export function EditorField(label?: string, type?: string) {
+export function getEditorType(target: object): EditorType {
+    return Reflect.getMetadata(EditorMetaKey, target);
+}
+
+/* @EditorField */
+export interface EditorFieldOptions {
+    property?: string;
+    label?: string;
+    input?: 'input' | 'select',
+    type?: any,
+}
+
+export function EditorField(options: EditorFieldOptions = {}) {
     return function(target: object, property: string) {
-        return Reflect.defineMetadata(EditorFieldMetaKey, label || property, target, property);
+        options.label = options.label || property;
+        options.property = property;
+        options.input = options.input || 'input';
+        return Reflect.defineMetadata(EditorFieldMetaKey, options, target, property);
     }
 }
 
-export function EditorExpression() {
-    
-}
-
-/* Getter functions */
-export function getFields(target: object): any[] {
+export function getFieldOptions(target: object): EditorFieldOptions[] {
     return Object.getOwnPropertyNames(target)
         .filter(f => Reflect.hasMetadata(EditorFieldMetaKey, target, f))
-        .map(f => ({
-            property: f,
-            label: Reflect.getMetadata(EditorFieldMetaKey, target, f),
-            value: target[f],
-        }));
-}
-
-export function getEditorType(target: object): EditorType {
-    return Reflect.getMetadata(EditorMetaKey, target);
+        .map(f => Reflect.getMetadata(EditorFieldMetaKey, target, f));
 }

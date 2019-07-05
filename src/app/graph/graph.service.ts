@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { ASTService } from '../ast/ast.service';
 import { GraphBlockOptions } from './graph-block/graph-block.decorator';
 import { ASTNode } from '../ast/ast-node/ast-node';
-import { SequenceEdge, Edge } from '../ast/task/task-declaration';
 import { JoinControlDeclaration } from '../ast/controls/join';
 import { DecisionControlDeclaration } from '../ast/controls/decision';
 import { Coordinates } from '../ast/ast-node/coordinates';
+import { SequenceEdge } from '../ast/task/sequence-edge';
+import { Edge } from '../ast/task/edge';
 
 @Injectable()
 export class GraphService {

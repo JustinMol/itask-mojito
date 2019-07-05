@@ -7,11 +7,13 @@
   </div>
   <div class="flex-row" *ngFor="let row of rows">
     <div class="flex-cell" *ngFor="let column of columns">
+      <!-- NEEDS DYNAMIC -->
       <input
         [placeholder]="column"
         type="text"
         [(ngModel)]="row[column]"
         (ngModelChange)="onValueChange(row)" />
+      <!-- NEEDS DYNAMIC -->
     </div>
     <ng-container *ngIf="showDeleteButtons; then thenTemplate; else elseTemplate"></ng-container>
     <ng-template #thenTemplate>

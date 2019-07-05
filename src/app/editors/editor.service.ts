@@ -1,19 +1,24 @@
 import { Injectable, ComponentFactoryResolver, ComponentFactory, Type } from '@angular/core';
-import { EditorType, getEditorType } from './editor-decorator';
+import { EditorType, getEditorType, getFieldOptions, Field } from './editor-decorator';
 import { SimpleEditorComponent } from './simple-editor/simple-editor.component';
 import { EditorComponent } from './editor-component';
 import { TableEditorComponent } from './table-editor/table-editor.component';
 import { ConditionEditorComponent } from './condition-editor/condition-editor.component';
+import { ASTNode } from '../ast/ast-node/ast-node';
+
+import { DataType } from '../ast/data-type/data-type';
+import { DataTypeService } from '../data-type.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EditorFactoryResolver {
+export class EditorService {
 
   private _editorMap = new Map<EditorType,Type<EditorComponent>>();
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private dataTypes: DataTypeService
   ) {
     this._editorMap.set(EditorType.SimpleEditor, SimpleEditorComponent);
     this._editorMap.set(EditorType.TableEditor, TableEditorComponent);
@@ -29,5 +34,31 @@ export class EditorFactoryResolver {
     }
 
     return null;
+  }
+
+  initializeEditor(component: EditorComponent, node: ASTNode) {
+    const fields = getFieldOptions(node);
+    component.node = node;
+    component.fields = component.fields || [];
+
+    fields.forEach(field => {
+      let options = null;
+      switch (field.type) {
+        case DataType:
+          options = this.dataTypes.getAll();
+          break;
+        default:
+          break;
+      }
+
+      component.fields.push({
+        property: field.property,
+        value: node[field.property],
+        options$: options,
+        input: field.input,
+        label: field.label,
+        type: field.type,
+      });
+    });
   }
 }

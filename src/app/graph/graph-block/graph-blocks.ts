@@ -7,6 +7,7 @@ import { CodeTransformDeclaration } from 'src/app/ast/transforms/code-transform'
 import { DecisionControlDeclaration } from 'src/app/ast/controls/decision';
 import { JoinControlDeclaration } from 'src/app/ast/controls/join';
 import { SplitControlDeclaration } from 'src/app/ast/controls/parallel-split';
+import { PatternMatchExpression } from 'src/app/ast/values/pattern-match-expression';
 
 export const sources: GraphBlockOptions[] = [
     UserInputDeclaration,
@@ -23,4 +24,5 @@ export const controls: GraphBlockOptions[] = [
     DecisionControlDeclaration,
     JoinControlDeclaration,
     SplitControlDeclaration,
+    PatternMatchExpression,
 ].map(getGraphBlock);

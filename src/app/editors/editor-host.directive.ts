@@ -1,5 +1,5 @@
 import { Directive, ViewContainerRef, OnChanges, SimpleChanges, Input } from '@angular/core';
-import { EditorFactoryResolver } from './editor.service';
+import { EditorService } from './editor.service';
 import { ASTNode } from '../ast/ast-node/ast-node';
 
 @Directive({
@@ -10,7 +10,7 @@ export class EditorHostDirective implements OnChanges {
   @Input() node: ASTNode;
 
   constructor(
-    private editorFactoryResolver: EditorFactoryResolver,
+    private editorService: EditorService,
     private viewContainerRef: ViewContainerRef
   ) {}
 
@@ -24,12 +24,12 @@ export class EditorHostDirective implements OnChanges {
       return;
     }
 
-    const factory = this.editorFactoryResolver.createEditorFactory(this.node);
+    const factory = this.editorService.createEditorFactory(this.node);
     if (!factory) {
       return;
     }
 
     const componentRef = this.viewContainerRef.createComponent(factory);
-    componentRef.instance.node = this.node;
+    this.editorService.initializeEditor(componentRef.instance, this.node);
   }
 }

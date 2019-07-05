@@ -3,7 +3,8 @@ import { TaskService } from '../task/task.service';
 import { filter } from 'rxjs/operators';
 import { remove } from 'lodash';
 import { ASTNode } from './ast-node/ast-node';
-import { TaskDeclaration, Edge } from './task/task-declaration';
+import { TaskDeclaration } from './task/task-declaration';
+import { Edge } from './task/edge';
 
 @Injectable()
 export class ASTService implements OnDestroy {

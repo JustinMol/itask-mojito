@@ -2,9 +2,9 @@ import { Directive, Input, ElementRef, OnInit, OnDestroy, OnChanges, ViewChild }
 import { Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getGraphBlock } from '../graph-block/graph-block.decorator';
-import { SequenceEdge } from 'src/app/ast/task/task-declaration';
 import { ASTNode } from 'src/app/ast/ast-node/ast-node';
 import { Coordinates } from 'src/app/ast/ast-node/coordinates';
+import { SequenceEdge } from 'src/app/ast/task/sequence-edge';
 
 declare const SVG: any;
 

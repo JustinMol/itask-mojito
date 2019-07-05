@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef, Output, EventEmitter } from '@angular/core';
 import { ASTNode } from 'src/app/ast/ast-node/ast-node';
+import { DecisionControlDeclaration } from 'src/app/ast/controls/decision';
 
 declare const SVG: any;
 
@@ -15,6 +16,7 @@ export interface EdgeButton {
 export class GraphNodeButtonComponent implements OnInit {
 
   @Input() node: ASTNode;
+  @Input() options: any[];
   @Output('buttonClick') buttonClick$: EventEmitter<any> = new EventEmitter();
 
   // private svg: any;
@@ -25,6 +27,11 @@ export class GraphNodeButtonComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    if (this.node instanceof DecisionControlDeclaration) {
+      this.options = ['true', 'false'];
+    } else {
+      this.options = [];
+    }
     // this.block = getGraphBlock(this.node.constructor);
     // this.svg = SVG.adopt(this.el.nativeElement);
   }

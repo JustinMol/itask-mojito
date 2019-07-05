@@ -20,8 +20,10 @@ export class TaskService extends DataService<TaskDeclaration> {
   getAll(): Observable<TaskDeclaration[]> {
     const models$ = super.getAll();
     this.models.map(task => {
-      for (const edge of task.edges) {
-        for (const node of task.nodes) {
+      for (const node of task.nodes) {
+        
+
+        for (const edge of task.edges) {
           if (edge.from.equals(node)) {
             edge.from = node;
           } else if (edge.to.equals(node)) {

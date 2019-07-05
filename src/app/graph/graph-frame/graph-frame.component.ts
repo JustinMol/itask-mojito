@@ -4,8 +4,9 @@ import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.dec
 import { GraphService } from '../graph.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ASTNode } from 'src/app/ast/ast-node/ast-node';
-import { SequenceEdge, Edge } from 'src/app/ast/task/task-declaration';
 import { Coordinates } from 'src/app/ast/ast-node/coordinates';
+import { SequenceEdge } from 'src/app/ast/task/sequence-edge';
+import { Edge } from 'src/app/ast/task/edge';
 
 declare const SVG: any;
 
@@ -21,14 +22,14 @@ const GRID_SIZE_SMALL = 25;
 export class GraphFrameComponent implements OnInit {
 
   @Input() nodes: ASTNode[] = [];
-  @Input() edges: SequenceEdge[] = [];
+  @Input() edges: Edge[] = [];
 
   blocks: {[node: string]: GraphBlockOptions} = {};
 
   private svg;
 
   newEdgeFrom: ASTNode;
-  newEdge: SequenceEdge;
+  newEdge: Edge;
 
   constructor(
     private graph: GraphService,

@@ -11,8 +11,8 @@ export class RecordTypeDeclaration extends DataType {
 
     public id: string;
 
-    constructor(public name: string) {
-        super();
+    constructor(name: string) {
+        super(name);
         this.id = shortid();
     }
 }

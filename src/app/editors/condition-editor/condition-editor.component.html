@@ -7,7 +7,9 @@
       <div class="or"></div>
     </div>
     <div id="row" *ngFor="let orExpression of andExpression; let last = last">
+      <!-- NEEDS DYNAMIC -->
       <div><input [(ngModel)]="orExpression.variable" /></div>
+      <!-- NEEDS DYNAMIC -->
       <div><input class="i" [(ngModel)]="orExpression.condition" /></div>
       <div><input [(ngModel)]="orExpression.value" /></div>
       <div (click)="last ? onOrClick(andExpression) : null" class="or" [ngClass]="{'last': last}">

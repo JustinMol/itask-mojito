@@ -11,14 +11,14 @@ export class OptionTypeDeclaration extends DataType {
 
     public id: string;
 
-    constructor(public name: string) {
-        super();
+    constructor(name: string) {
+        super(name);
         this.id = shortid();
     }
 }
 
 export class OptionDeclaration {
-    option: string = '';
+    name: string = '';
     argument: DataType = null;
     comment: string = '';
 }

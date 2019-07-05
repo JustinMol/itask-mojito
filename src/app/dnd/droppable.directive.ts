@@ -19,6 +19,7 @@ export class DroppableDirective implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.dnd.dragLayer()
     this.dragSource = this.dnd.dragSource(this.dragType, {
       beginDrag: () => this.dragValue,
     });
