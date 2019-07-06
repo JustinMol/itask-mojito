@@ -1,6 +1,7 @@
 import shortid from 'shortid';
 import { Storable } from 'src/app/local-storage.service';
 import { DataType } from './data-type';
+import { EditorField } from 'src/app/editors/editor-decorator';
 
 @Storable<OptionTypeDeclaration>({
     id: t => t.id,
@@ -18,7 +19,7 @@ export class OptionTypeDeclaration extends DataType {
 }
 
 export class OptionDeclaration {
-    name: string = '';
-    argument: DataType = new DataType();
-    comment: string = '';
+    @EditorField() name: string = '';
+    @EditorField({ input: 'select', type: DataType }) argument: DataType = new DataType();
+    @EditorField() comment: string = '';
 }

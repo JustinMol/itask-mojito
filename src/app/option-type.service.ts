@@ -28,4 +28,14 @@ export class OptionTypeService extends DataService<OptionTypeDeclaration> {
 
     return super.create(new OptionTypeDeclaration(`OptionType-${highest + 1}`));
   }
+
+  update(t: OptionTypeDeclaration) {
+    t.options.forEach(opt => {
+      if (opt.argument === t) {
+        console.log('circleref in', t);
+      }
+    });
+
+    return super.update(t);
+  }
 }

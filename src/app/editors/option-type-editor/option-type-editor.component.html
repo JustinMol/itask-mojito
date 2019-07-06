@@ -1,13 +1,13 @@
-<div id="header" class="noselect" *ngIf="type">
-  <h1>Editing Option Type: {{ type.name }}</h1>
+<div id="header" class="noselect" *ngIf="value">
+  <h1>Editing Option Type: {{ value.name }}</h1>
 </div>
 <div id="content">
   <app-table-editor
-    [rows]="type.options"
+    [rows]="value.options"
     [columns]="columns"
     addText="Add Option"
     (add)="addOption()"
-    (change)="updateOption()"
+    (onChange)="updateOption()"
     (delete)="deleteOption($event)">
   </app-table-editor>
 </div>

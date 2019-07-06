@@ -4,6 +4,7 @@ import { RecordTypeService } from 'src/app/record-type.service';
 import { switchMap, filter, takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { RecordTypeDeclaration, RecordTypeField } from 'src/app/ast/data-type/record-type';
+import { getFieldOptions } from '../editor-decorator';
 
 @Component({
   selector: 'app-record-type-editor',
@@ -12,9 +13,9 @@ import { RecordTypeDeclaration, RecordTypeField } from 'src/app/ast/data-type/re
 })
 export class RecordTypeEditorComponent implements OnInit, OnDestroy {
 
-  type: RecordTypeDeclaration;
+  value: RecordTypeDeclaration;
 
-  readonly columns = Object.getOwnPropertyNames(new RecordTypeField());
+  readonly columns = getFieldOptions(new RecordTypeField());
 
   private destroy$ = new Subject();
 
@@ -27,12 +28,12 @@ export class RecordTypeEditorComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.paramMap.pipe(
       switchMap(params => this.recordTypes.get(params.get('id')))
-    ).subscribe(type => {
-      this.type = type;
+    ).subscribe(value => {
+      this.value = value;
     });
 
     this.recordTypes.getAll().pipe(
-      filter(ts => !ts.includes(this.type)),
+      filter(ts => !ts.includes(this.value)),
       takeUntil(this.destroy$)
     ).subscribe(() => this.router.navigate(['']));
   }
@@ -42,19 +43,19 @@ export class RecordTypeEditorComponent implements OnInit, OnDestroy {
   }
 
   addRecordField() {
-    this.type.fields.push(new RecordTypeField());
-    this.recordTypes.update(this.type);
+    this.value.fields.push(new RecordTypeField());
+    this.recordTypes.update(this.value);
   }
 
   updateRecordField() {
-    this.recordTypes.update(this.type);
+    this.recordTypes.update(this.value);
   }
 
   deleteRecordField(field: RecordTypeField) {
-    const index = this.type.fields.findIndex(f => f === field);
+    const index = this.value.fields.findIndex(f => f === field);
     if (index > -1) {
-      this.type.fields.splice(index, 1);
-      this.recordTypes.update(this.type);
+      this.value.fields.splice(index, 1);
+      this.recordTypes.update(this.value);
     }
   }
 

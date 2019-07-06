@@ -1,5 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { EditorComponent } from '../editor-component';
+import { EditorFieldOptions } from '../editor-decorator';
 
 @Component({
   selector: 'app-table-editor',
@@ -9,11 +10,11 @@ import { EditorComponent } from '../editor-component';
 export class TableEditorComponent extends EditorComponent {
 
   @Input() rows: any[];
-  @Input() columns: string[];
+  @Input() columns: EditorFieldOptions[];
   @Input() addText: string = 'Add Field';
 
   @Output() add: EventEmitter<void> = new EventEmitter();
-  @Output() change: EventEmitter<any> = new EventEmitter();
+  @Output('onChange') change: EventEmitter<any> = new EventEmitter();
   @Output() delete: EventEmitter<any> = new EventEmitter();
 
   ngOnInit() {}
@@ -26,7 +27,8 @@ export class TableEditorComponent extends EditorComponent {
     this.add.next();
   }
 
-  onValueChange(row) {
+  onValueChange(row: any, column: EditorFieldOptions, value: any) {
+    row[column.property] = value;
     this.change.next(row);
   }
 

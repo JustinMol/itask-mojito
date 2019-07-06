@@ -1,5 +1,3 @@
-import { Observable } from 'rxjs';
-
 const EditorMetaKey = Symbol('Editor');
 const EditorFieldMetaKey = Symbol('EditorField');
 
