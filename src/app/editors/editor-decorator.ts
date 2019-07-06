@@ -12,7 +12,7 @@ export enum EditorType {
 export type Field = EditorFieldOptions & {
     value: any;
     property: string;
-    options$: Observable<any[]>;
+    options: any[];
 };
 
 /* @Editors */

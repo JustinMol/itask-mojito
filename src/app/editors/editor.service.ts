@@ -1,5 +1,5 @@
 import { Injectable, ComponentFactoryResolver, ComponentFactory, Type } from '@angular/core';
-import { EditorType, getEditorType, getFieldOptions, Field } from './editor-decorator';
+import { EditorType, getEditorType, getFieldOptions, Field, EditorFieldOptions } from './editor-decorator';
 import { SimpleEditorComponent } from './simple-editor/simple-editor.component';
 import { EditorComponent } from './editor-component';
 import { TableEditorComponent } from './table-editor/table-editor.component';
@@ -8,6 +8,7 @@ import { ASTNode } from '../ast/ast-node/ast-node';
 
 import { DataType } from '../ast/data-type/data-type';
 import { DataTypeService } from '../data-type.service';
+import { of, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -42,23 +43,25 @@ export class EditorService {
     component.fields = component.fields || [];
 
     fields.forEach(field => {
-      let options = null;
-      switch (field.type) {
-        case DataType:
-          options = this.dataTypes.getAll();
-          break;
-        default:
-          break;
-      }
-
-      component.fields.push({
-        property: field.property,
-        value: node[field.property],
-        options$: options,
-        input: field.input,
-        label: field.label,
-        type: field.type,
+      this.getOptions(field).subscribe(opts => {
+        component.fields.push({
+          property: field.property,
+          value: node[field.property],
+          options: opts,
+          input: field.input,
+          label: field.label,
+          type: field.type,
+        });
       });
     });
+  }
+
+  private getOptions(field: EditorFieldOptions): Observable<any[]> {
+    switch (field.type) {
+      case DataType:
+        return this.dataTypes.getAll();
+      default:
+        return of([]);
+    }
   }
 }

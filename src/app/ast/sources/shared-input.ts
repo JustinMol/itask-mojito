@@ -17,6 +17,7 @@ export class SharedInputDeclaration extends ASTNode {
     @Type(() => DataType)
     @EditorField({
         input: 'select',
-    }) type: DataType = null;
+        type: DataType,
+    }) type: DataType = new DataType();
     @EditorField() multiple: boolean = false;
 }

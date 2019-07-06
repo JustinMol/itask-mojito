@@ -21,7 +21,7 @@ export class UserInputDeclaration extends ASTNode {
         input: 'select',
         type: DataType,
     })
-    type: DataType = null;
+    type: DataType = new DataType();
 
     // @EditorField() multiple: boolean = false;
 }

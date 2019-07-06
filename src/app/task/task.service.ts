@@ -11,10 +11,8 @@ export class TaskService extends DataService<TaskDeclaration> {
 
   public currentTask$: BehaviorSubject<TaskDeclaration> = new BehaviorSubject(null);
 
-  readonly Model = TaskDeclaration;
-
   constructor(storage: LocalStorageService) {
-    super(storage);
+    super(storage, TaskDeclaration);
   }
 
   getAll(): Observable<TaskDeclaration[]> {

@@ -1,3 +1,3 @@
 export class DataType {
-    constructor(public name: string) {}
+    constructor(public name?: string) {}
 };

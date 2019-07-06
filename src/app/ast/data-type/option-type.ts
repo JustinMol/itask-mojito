@@ -19,6 +19,6 @@ export class OptionTypeDeclaration extends DataType {
 
 export class OptionDeclaration {
     name: string = '';
-    argument: DataType = null;
+    argument: DataType = new DataType();
     comment: string = '';
 }

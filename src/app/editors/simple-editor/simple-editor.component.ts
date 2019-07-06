@@ -15,20 +15,10 @@ export class SimpleEditorComponent extends EditorComponent {
     super();
   }
 
-  ngOnInit(): void {
-    console.log((this.node as UserInputDeclaration).type);
-    // this.fields[2].options$.subscribe(options => {
-    //   console.log('got sum options', options);
-    //   console.log('current value is', this.fields[2].value);
-    //   options.forEach(o => {
-    //     console.log(o === this.fields[2].value);
-    //   })
-    // })
-  }
+  ngOnInit(): void {}
 
   onValueChange(field: Field) {
     this.node[field.property] = field.value;
     this.ast.save();
-    console.log((this.node as UserInputDeclaration).type);
   }
 }

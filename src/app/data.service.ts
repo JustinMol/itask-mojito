@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Type } from '@angular/core';
 import { CrudService } from './crud-service';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
@@ -10,14 +10,16 @@ interface Model {
 @Injectable()
 export abstract class DataService<T extends Model> implements CrudService<T> {
 
-  abstract readonly Model;
-
   protected models: T[] = [];
   protected models$: BehaviorSubject<T[]>;
 
   constructor(
-    protected storage: LocalStorageService
-  ) {}
+    protected storage: LocalStorageService,
+    protected readonly Model: Type<T>
+  ) {
+    this.models = this.storage.getAll(this.Model);
+    this.models$ = new BehaviorSubject(this.models);
+  }
 
   create(t: T): Observable<T> {
     this.models.push(t);
@@ -33,11 +35,6 @@ export abstract class DataService<T extends Model> implements CrudService<T> {
 
   getAll(): Observable<T[]> {
     this.log('getAll()');
-    if (!this.models$) {
-      this.models = this.storage.getAll(this.Model);
-      this.models$ = new BehaviorSubject(this.models);
-    }
-
     return this.models$;
   }
 
@@ -58,7 +55,7 @@ export abstract class DataService<T extends Model> implements CrudService<T> {
     return of(null);
   }
 
-  private log(...args) {
+  private log(...args: any[]) {
     return console.log(`DataService<${this.Model.name}>`, ...args);
   }
 }

@@ -4,7 +4,7 @@ import { OptionTypeService } from './option-type.service';
 import { Observable, combineLatest } from 'rxjs';
 import { DataType } from './ast/data-type/data-type';
 import { map } from 'rxjs/operators';
-import { StringType } from './ast/data-type/string-type';
+import { stringType } from './ast/data-type/string-type';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class DataTypeService {
       this.optionTypes.getAll(),
       this.recordTypes.getAll()
     ).pipe(
-      map(([options, records]) => [...options, ...records, new StringType()])
+      map(([options, records]) => [...options, ...records, stringType])
     );
   }
 }

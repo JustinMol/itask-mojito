@@ -9,10 +9,8 @@ import { OptionTypeDeclaration } from './ast/data-type/option-type';
 })
 export class OptionTypeService extends DataService<OptionTypeDeclaration> {
 
-  readonly Model = OptionTypeDeclaration;
-
   constructor(storage: LocalStorageService) {
-    super(storage);
+    super(storage, OptionTypeDeclaration);
   }
 
   create(model?: OptionTypeDeclaration): Observable<OptionTypeDeclaration> {

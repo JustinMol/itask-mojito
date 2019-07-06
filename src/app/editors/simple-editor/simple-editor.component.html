@@ -11,7 +11,7 @@
         <select *ngSwitchCase="'select'"
           [(ngModel)]="field.value"
           (ngModelChange)="onValueChange(field)">
-          <option *ngFor="let option of field.options$ | async" [ngValue]="option">
+          <option *ngFor="let option of field.options" [ngValue]="option">
             {{option.name}}
           </option>
         </select>

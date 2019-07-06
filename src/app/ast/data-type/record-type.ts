@@ -19,7 +19,7 @@ export class RecordTypeDeclaration extends DataType {
 
 export class RecordTypeField {
     property: string = '';
-    type: DataType = null;
+    type: DataType = new DataType();
     optional: boolean = false;
     comment: string = '';
 }

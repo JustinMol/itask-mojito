@@ -9,10 +9,8 @@ import { RecordTypeDeclaration } from './ast/data-type/record-type';
 })
 export class RecordTypeService extends DataService<RecordTypeDeclaration> {
 
-  readonly Model = RecordTypeDeclaration;
-
   constructor(storage: LocalStorageService) {
-    super(storage);
+    super(storage, RecordTypeDeclaration);
   }
 
   create(model?: RecordTypeDeclaration): Observable<RecordTypeDeclaration> {

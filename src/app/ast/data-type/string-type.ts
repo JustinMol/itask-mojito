@@ -5,3 +5,5 @@ export class StringType extends DataType {
         super('String');
     }
 };
+
+export const stringType = new StringType();
