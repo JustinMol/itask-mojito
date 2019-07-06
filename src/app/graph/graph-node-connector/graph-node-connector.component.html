@@ -1,0 +1,36 @@
+<svg *ngIf="!showOptions"
+    width="14" height="14"
+    [attr.x]="node.coordinates.x + 50 - 7"
+    [attr.y]="node.coordinates.y + 35">
+    <circle
+        class="white"
+        (click)="onButtonClick($event)"
+        r="50%"
+        cx="50%"
+        cy="50%" />
+    <text (click)="onButtonClick($event)"
+        class="green"
+        dominant-baseline="middle"
+        text-anchor="middle"
+        x="50%" y="50%">
+        +
+    </text>
+</svg>
+<svg *ngIf="showOptions">
+    <svg *ngFor="let option of options; let i = index"
+        width="50" height="20"
+        [attr.x]="node.coordinates.x + i * 55"
+        [attr.y]="node.coordinates.y + 55" >
+        <rect (click)="onOptionClick($event, option)"
+            class="green"
+            width="100%" height="100%" rx="3" />
+        <text (click)="onOptionClick($event, option)"
+            class="white"
+            dominant-baseline="middle"
+            text-anchor="middle"
+            width="100%"
+            x="50%" y="55%">
+            {{ option }}
+        </text>
+    </svg>
+</svg>

@@ -2,6 +2,7 @@ import { Coordinates } from './coordinates';
 import { Exclude, Type } from 'class-transformer';
 import { AST } from '../ast';
 import { EventEmitter } from '@angular/core';
+import { EdgeConnector, defaultSequenceConnector } from '../edge/edge-connector';
 
 export declare type Location = { line: number, col: number };
 
@@ -26,4 +27,8 @@ export abstract class ASTNode extends AST {
             this.isMoved$.emit();
         }
     }
+
+    getEdgeConnector(): EdgeConnector {
+        return defaultSequenceConnector;
+    };
 }

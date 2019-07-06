@@ -5,8 +5,11 @@ import { ASTNode } from '../ast/ast-node/ast-node';
 import { JoinControlDeclaration } from '../ast/controls/join';
 import { DecisionControlDeclaration } from '../ast/controls/decision';
 import { Coordinates } from '../ast/ast-node/coordinates';
-import { SequenceEdge } from '../ast/task/sequence-edge';
-import { Edge } from '../ast/task/edge';
+import { SequenceEdge } from '../ast/edge/sequence-edge';
+import { Edge } from '../ast/edge/edge';
+import { OptionDeclaration } from '../ast/data-type/option-type';
+import { OptionEdge } from '../ast/edge/option-edge';
+import { PatternMatchExpression } from '../ast/values/pattern-match-expression';
 
 @Injectable()
 export class GraphService {
@@ -31,9 +34,12 @@ export class GraphService {
     this.ast.save();
   }
 
-  createEdge(from: ASTNode, to: ASTNode) {
-    const edge = new SequenceEdge(from, to);
-    this.ast.addEdge(edge);
+  createEdge(from: ASTNode, to: ASTNode, option: boolean | OptionDeclaration) {
+    if (option != null) {
+      this.ast.addEdge(new OptionEdge(from, to, option));
+    } else {
+      this.ast.addEdge(new SequenceEdge(from, to));
+    }
   }
 
   deleteEdge(edge: Edge) {
@@ -81,13 +87,23 @@ export class GraphService {
     return paths;
   }
 
-  private getIncomingEdges(node: ASTNode) {
+  getEdgeMap(node: ASTNode): Map<'sequence' | boolean | OptionDeclaration, Edge> {
+    const edges = this.getOutgoingEdges(node);
+
+    if (node instanceof DecisionControlDeclaration || node instanceof PatternMatchExpression) {
+      return edges.reduce((map, e: OptionEdge) => map.set(e.option, e), new Map());
+    }
+
+    return edges.reduce((map, e: SequenceEdge) => map.set('sequence', e), new Map());
+  }
+
+  getIncomingEdges(node: ASTNode) {
     return this.ast
       .getEdges()
       .filter(e => e.to.equals(node));
   }
 
-  private getOutgoingEdges(node: ASTNode) {
+  getOutgoingEdges(node: ASTNode) {
     return this.ast
       .getEdges()
       .filter(e => e.from.equals(node));
@@ -102,10 +118,6 @@ export class GraphService {
   }
 
   private getOutgoingEdgeLimit(node: ASTNode) {
-    if (node instanceof DecisionControlDeclaration) {
-      return Number.POSITIVE_INFINITY;
-    }
-
-    return 1;
+    return node.getEdgeConnector().limit;
   }
 }

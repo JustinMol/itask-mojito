@@ -14,12 +14,18 @@ svg {
         opacity: 0.5;
     }
 
-    #arrowhead,
-    #arrowhead-transparent {
+    #arrowhead-o,
+    #arrowhead-ot {
+        fill: @graph-option-edge;
+    }
+
+    #arrowhead-s,
+    #arrowhead-st {
         fill: @graph-sequence-edge;
     }
 
-    #arrowhead-transparent {
+    #arrowhead-ot,
+    #arrowhead-st {
         .transparent;
     }
 
@@ -30,22 +36,36 @@ svg {
         outline: 1pt solid red;
     }
 
-    polyline.clickable {
-        opacity: 0;
-        stroke: #000;
-        stroke-width: 10pt;
-        fill: none;
-
-        .pointer;
-    }
-
     polyline.sequence {
         stroke: @graph-sequence-edge;
         stroke-width: 2pt;
         fill: none;
+        marker-end: url('#arrowhead-s');
 
         &.transparent {
-            marker-end: url('#arrowhead-transparent');
+            marker-end: url('#arrowhead-st');
         }
+    }
+
+    polyline.option {
+        stroke: @graph-option-edge;
+        stroke-width: 2pt;
+        stroke-dasharray: 3pt;
+        fill: none;
+        marker-end: url('#arrowhead-ot');
+
+        &.transparent {
+            marker-end: url('#arrowhead-ot');
+        }
+    }
+
+    polyline.clickable {
+        opacity: 0;
+        stroke: #000;
+        stroke-width: 10pt;
+        stroke-dasharray: none;
+        fill: none;
+
+        .pointer;
     }
 }

@@ -3,6 +3,7 @@ import { GraphBlock } from 'src/app/graph/graph-block/graph-block.decorator';
 import { Type } from 'class-transformer';
 import { DEFAULT_ANCHORS, ASTNode } from '../ast-node/ast-node';
 import { SimpleBooleanExpression } from '../values/boolean-expression';
+import { EdgeConnector, booleanSequenceConnector } from '../edge/edge-connector';
 
 @ConditionEditor
 @GraphBlock({
@@ -14,4 +15,8 @@ import { SimpleBooleanExpression } from '../values/boolean-expression';
 export class DecisionControlDeclaration extends ASTNode {
     @Type(() => SimpleBooleanExpression)
     andExpressions: SimpleBooleanExpression[][] = [[new SimpleBooleanExpression()]];
+
+    getEdgeConnector(): EdgeConnector {
+        return booleanSequenceConnector;
+    }
 }

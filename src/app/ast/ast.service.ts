@@ -4,7 +4,7 @@ import { filter } from 'rxjs/operators';
 import { remove } from 'lodash';
 import { ASTNode } from './ast-node/ast-node';
 import { TaskDeclaration } from './task/task-declaration';
-import { Edge } from './task/edge';
+import { Edge } from './edge/edge';
 
 @Injectable()
 export class ASTService implements OnDestroy {

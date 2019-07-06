@@ -8,14 +8,28 @@
     (click)="onFrameClick()"
     (contextmenu)="onRightClick($event)" >
     <defs>
-        <marker id="arrowhead"
+        <marker id="arrowhead-s"
             viewBox="0 0 12 12"
             markerWidth="6" markerHeight="6"
             refX="10" refY="5"
             orient="auto-start-reverse" >
             <path d="M 0 0 L 12 5 L 0 10 z" />
         </marker>
-        <marker id="arrowhead-transparent"
+        <marker id="arrowhead-st"
+            viewBox="0 0 12 12"
+            markerWidth="6" markerHeight="6"
+            refX="10" refY="5"
+            orient="auto-start-reverse" >
+            <path d="M 0 0 L 12 5 L 0 10 z" />
+        </marker>
+        <marker id="arrowhead-o"
+            viewBox="0 0 12 12"
+            markerWidth="6" markerHeight="6"
+            refX="10" refY="5"
+            orient="auto-start-reverse" >
+            <path d="M 0 0 L 12 5 L 0 10 z" />
+        </marker>
+        <marker id="arrowhead-ot"
             viewBox="0 0 12 12"
             markerWidth="6" markerHeight="6"
             refX="10" refY="5"
@@ -24,12 +38,12 @@
         </marker>
     </defs>
     <g *ngFor="let edge of edges" class="pointer" (contextmenu)="onRightClickEdge($event, edge)">
-        <polyline [graph-edge]="edge" marker-end="url(#arrowhead)" class="sequence" />
-        <polyline [graph-edge]="edge" class="clickable"></polyline>
+        <polyline [graph-edge]="edge" />
+        <polyline [graph-edge]="edge" class="clickable" />
     </g>
     <polyline
         *ngIf="newEdge"
-        class="sequence transparent"
+        class="transparent"
         [graph-edge]="newEdge" />
     <g *ngFor="let node of nodes">
         <!-- Graph block image -->
@@ -47,16 +61,11 @@
             (contextmenu)="onRightClick($event, node)"
             (mouseover)="onNodeHover(node)"
             (mouseleave)="onNodeLeave(node)" />
-        <ng-container>
-            <svg *ngIf="!newEdgeFrom && canSendEdge(node)"
-                graph-node-button
-                [node]="node"
-                width="14"
-                height="14"
-                [attr.x]="node.coordinates.x + 50 - 7"
-                [attr.y]="node.coordinates.y + 35"
-                [node]="node"
-                (buttonClick)="startEdge(node, $event)" />
-        </ng-container>
+        <!-- Graph node connector -->
+        <svg *ngIf="!newEdgeFrom && canSendEdge(node)"
+            graph-node-connector
+            [node]="node"
+            (buttonClick)="startEdge(node, $event)">
+        </svg>
     </g>
 </svg>

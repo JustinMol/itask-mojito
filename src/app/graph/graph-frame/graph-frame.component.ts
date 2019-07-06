@@ -5,8 +5,10 @@ import { GraphService } from '../graph.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ASTNode } from 'src/app/ast/ast-node/ast-node';
 import { Coordinates } from 'src/app/ast/ast-node/coordinates';
-import { SequenceEdge } from 'src/app/ast/task/sequence-edge';
-import { Edge } from 'src/app/ast/task/edge';
+import { SequenceEdge } from 'src/app/ast/edge/sequence-edge';
+import { Edge } from 'src/app/ast/edge/edge';
+import { OptionDeclaration } from 'src/app/ast/data-type/option-type';
+import { OptionEdge } from 'src/app/ast/edge/option-edge';
 
 declare const SVG: any;
 
@@ -24,12 +26,11 @@ export class GraphFrameComponent implements OnInit {
   @Input() nodes: ASTNode[] = [];
   @Input() edges: Edge[] = [];
 
-  blocks: {[node: string]: GraphBlockOptions} = {};
-
   private svg;
 
-  newEdgeFrom: ASTNode;
   newEdge: Edge;
+  newEdgeFrom: ASTNode;
+  newEdgeOption: boolean | OptionDeclaration;
 
   constructor(
     private graph: GraphService,
@@ -41,7 +42,6 @@ export class GraphFrameComponent implements OnInit {
     this.svg = SVG('#graph-frame');
     this.drawGrid(GRID_SIZE_LARGE, 0.2);
     this.drawGrid(GRID_SIZE_SMALL, 0.1);
-    this.nodes.forEach(n => this.setGraphBlock(n));
   }
 
   drawGrid(gridSize, strokeWidth) {
@@ -80,7 +80,6 @@ export class GraphFrameComponent implements OnInit {
     const block: GraphBlockOptions = m.getItem();
     const coordinates = new Coordinates(x, y).snap(GRID_SIZE_SMALL);
     const node = this.graph.createNode(block, coordinates);
-    this.setGraphBlock(node);
   }
 
   onNodeMove(node: ASTNode, coordinates: Coordinates) {
@@ -97,10 +96,8 @@ export class GraphFrameComponent implements OnInit {
 
   onRightClick(event: Event, node?: ASTNode) {
     event.stopImmediatePropagation();
-
     if (node) {
       this.graph.deleteNode(node);
-      delete this.blocks[node.id];
     }
 
     return false;
@@ -119,16 +116,17 @@ export class GraphFrameComponent implements OnInit {
     );
   }
 
-  startEdge(node: ASTNode, event: Event) {
-    event.stopImmediatePropagation();
+  startEdge(node: ASTNode, option: boolean | OptionDeclaration) {
     this.newEdgeFrom = node;
+    this.newEdgeOption = option;
   }
 
   private completeEdge(to: ASTNode) {
     if (this.canReceiveEdge(to)) {
-      this.graph.createEdge(this.newEdgeFrom, to);
+      this.graph.createEdge(this.newEdgeFrom, to, this.newEdgeOption);
       this.newEdgeFrom = null;
       this.newEdge = null;
+      this.newEdgeOption = null;
     }
   }
 
@@ -137,15 +135,15 @@ export class GraphFrameComponent implements OnInit {
     if (this.newEdge && this.newEdge.from === node) return;
     if (!this.canReceiveEdge(node)) return;
 
-    this.newEdge = new SequenceEdge(this.newEdgeFrom, node);
+    if (this.newEdgeOption != null) {
+      this.newEdge = new OptionEdge(this.newEdgeFrom, node, this.newEdgeOption);
+    } else {
+      this.newEdge = new SequenceEdge(this.newEdgeFrom, node);
+    }
   }
 
   onNodeLeave(node: ASTNode) {
     this.newEdge = null;
-  }
-
-  private setGraphBlock(node: ASTNode) {
-    this.blocks[node.id] = getGraphBlock(node.constructor);
   }
 
 }

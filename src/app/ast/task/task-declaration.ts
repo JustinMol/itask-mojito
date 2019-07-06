@@ -3,9 +3,9 @@ import { Storable } from 'src/app/local-storage.service';
 import { ASTNode } from '../ast-node/ast-node';
 import { AST } from '../ast';
 import { Variable } from '../values/variable';
-import { Edge } from './edge';
-import { SequenceEdge } from './sequence-edge';
-import { OptionEdge } from './option-edge';
+import { Edge } from '../edge/edge';
+import { SequenceEdge } from '../edge/sequence-edge';
+import { OptionEdge } from '../edge/option-edge';
 import { NodeDiscriminator } from '../ast-node/node-discriminator';
 
 @Storable<TaskDeclaration>({

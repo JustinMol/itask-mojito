@@ -1,10 +1,11 @@
-import { Directive, Input, ElementRef, OnInit, OnDestroy, OnChanges, ViewChild } from '@angular/core';
+import { Directive, Input, ElementRef, OnInit, OnDestroy, OnChanges, ViewChild, HostBinding } from '@angular/core';
 import { Subject, merge } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { getGraphBlock } from '../graph-block/graph-block.decorator';
 import { ASTNode } from 'src/app/ast/ast-node/ast-node';
 import { Coordinates } from 'src/app/ast/ast-node/coordinates';
-import { SequenceEdge } from 'src/app/ast/task/sequence-edge';
+import { SequenceEdge } from 'src/app/ast/edge/sequence-edge';
+import { Edge } from 'src/app/ast/edge/edge';
 
 declare const SVG: any;
 
@@ -13,7 +14,9 @@ declare const SVG: any;
 })
 export class GraphEdgeDirective implements OnInit, OnDestroy {
 
-  @Input('graph-edge') edge: SequenceEdge;
+  @Input('graph-edge') edge: Edge;
+  @HostBinding('class.option') isOption: boolean;
+  @HostBinding('class.sequence') isSequence: boolean;
 
   private line: any;
   private destroy$ = new Subject();
@@ -23,6 +26,8 @@ export class GraphEdgeDirective implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.isSequence = this.edge instanceof SequenceEdge;
+    this.isOption = !this.isSequence;
     this.line = SVG.adopt(this.el.nativeElement);
     this.moveEdge();
     merge(

@@ -4,6 +4,7 @@ import { DataType } from '../data-type/data-type';
 import { DEFAULT_ANCHORS, ASTNode } from '../ast-node/ast-node';
 import { Type } from 'class-transformer';
 import { DataTypeDiscriminator } from '../data-type/data-type-discriminator';
+import { EdgeConnector } from '../edge/edge-connector';
 
 @SimpleEditor
 @GraphBlock({
