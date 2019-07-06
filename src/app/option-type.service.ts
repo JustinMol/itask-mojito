@@ -13,6 +13,14 @@ export class OptionTypeService extends DataService<OptionTypeDeclaration> {
     super(storage, OptionTypeDeclaration);
   }
 
+  rename(model: OptionTypeDeclaration) {
+    const name = window.prompt('Enter a new name');
+    if (!name) return;
+    if (!/^[a-zA-Z][a-zA-Z0-9]+$/.test(name)) return this.rename(model);
+    model.name = name;
+    this.update(model);
+  }
+
   create(model?: OptionTypeDeclaration): Observable<OptionTypeDeclaration> {
     if (arguments.length === 1) {
       return super.create(model);

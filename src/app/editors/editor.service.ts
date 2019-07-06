@@ -9,6 +9,8 @@ import { ASTNode } from '../ast/ast-node/ast-node';
 import { DataType } from '../ast/data-type/data-type';
 import { DataTypeService } from '../data-type.service';
 import { of, Observable } from 'rxjs';
+import { TaskDeclaration } from '../ast/task/task-declaration';
+import { TaskService } from '../task/task.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +21,8 @@ export class EditorService {
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
-    private dataTypes: DataTypeService
+    private dataTypes: DataTypeService,
+    private tasks: TaskService
   ) {
     this._editorMap.set(EditorType.SimpleEditor, SimpleEditorComponent);
     this._editorMap.set(EditorType.TableEditor, TableEditorComponent);
@@ -46,6 +49,8 @@ export class EditorService {
     switch (type) {
       case DataType:
         return this.dataTypes.getAll();
+      case TaskDeclaration:
+        return this.tasks.getAll();
       default:
         return of([]);
     }

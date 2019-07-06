@@ -2,5 +2,6 @@
   *ngFor="let item of items"
   (click)="onSelect.next(item)">
   <span>{{ item.name }}</span>
+  <span class="pencil" (click)="onRename($event, item)">&#9998;</span>
   <span class="close" (click)="onDelete.next(item)">&times;</span>
 </div>

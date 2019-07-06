@@ -34,6 +34,14 @@ export class TaskService extends DataService<TaskDeclaration> {
     return models$;
   }
 
+  rename(model: TaskDeclaration) {
+    const name = window.prompt('Enter a new name');
+    if (!name) return;
+    if (!/^[a-zA-Z][a-zA-Z0-9]+$/.test(name)) return this.rename(model);
+    model.name = name;
+    this.update(model);
+  }
+
   save(task?: TaskDeclaration): void {
     if (task === undefined) {
       return this.models.forEach(t => this.update(t));

@@ -7,7 +7,8 @@
       <app-outline body
         [items]="tasks$"
         (onSelect)="navigateTo($event)"
-        (onDelete)="tasks.delete($event)">
+        (onDelete)="tasks.delete($event)"
+        (onRename)="tasks.rename($event)">
       </app-outline>
     </app-menu-panel>
     <app-menu-panel panelTitle="Record Types">
@@ -15,7 +16,8 @@
       <app-outline body
         [items]="recordTypes$"
         (onSelect)="navigateTo($event)"
-        (onDelete)="recordTypes.delete($event)">
+        (onDelete)="recordTypes.delete($event)"
+        (onRename)="recordTypes.rename($event)">
       </app-outline>
     </app-menu-panel>
     <app-menu-panel panelTitle="Option Types">
@@ -23,7 +25,8 @@
       <app-outline body
         [items]="optionTypes$"
         (onSelect)="navigateTo($event)"
-        (onDelete)="optionTypes.delete($event)">
+        (onDelete)="optionTypes.delete($event)"
+        (onRename)="optionTypes.rename($event)">
       </app-outline>
     </app-menu-panel>
   </app-menu-accordion>

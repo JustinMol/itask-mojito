@@ -1,14 +1,15 @@
 import { GraphBlock } from 'src/app/graph/graph-block/graph-block.decorator';
 import { DEFAULT_ANCHORS, ASTNode } from '../ast-node/ast-node';
-import { TaskDeclaration } from '../task/task-declaration';
+import { SimpleEditor, EditorField } from 'src/app/editors/editor-decorator';
 
+@SimpleEditor
 @GraphBlock({
     name: 'Task Transform',
     svg: 'assets/svg/transform/task.svg',
-    description: '',
+    description: 'Call another task and use the result',
     anchors: DEFAULT_ANCHORS,
 })
 export class TaskTransformDeclaration extends ASTNode {
-    task: TaskDeclaration = null;
-    varName: string = '';
+    @EditorField() task: string = '';
+    @EditorField({ label: 'variable name' }) varName: string = '';
 }

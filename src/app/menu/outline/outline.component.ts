@@ -13,11 +13,17 @@ export class OutlineComponent implements OnInit {
   @Input('items') items$: Observable<MenuItem>;
   @Output() onSelect: EventEmitter<MenuItem> = new EventEmitter();
   @Output() onDelete: EventEmitter<MenuItem> = new EventEmitter();
+  @Output('onRename') onRename$: EventEmitter<MenuItem> = new EventEmitter();
 
   items: MenuItem[];
 
   ngOnInit() {
     this.items$.subscribe(items => this.items = items);
+  }
+
+  onRename(event: Event, item: MenuItem) {
+    event.stopImmediatePropagation();
+    this.onRename$.emit(item);
   }
 
 }
