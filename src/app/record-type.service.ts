@@ -28,4 +28,15 @@ export class RecordTypeService extends DataService<RecordTypeDeclaration> {
 
     return super.create(new RecordTypeDeclaration(`RecordType-${highest + 1}`));
   }
+
+  update(t: RecordTypeDeclaration) {
+    t.fields.forEach(opt => {
+      if (opt.type === t) {
+        window.alert('Mojito currently does not support recursive types');
+        opt.type = null;
+      }
+    });
+
+    return super.update(t);
+  }
 }

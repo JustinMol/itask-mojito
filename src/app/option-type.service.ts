@@ -32,7 +32,8 @@ export class OptionTypeService extends DataService<OptionTypeDeclaration> {
   update(t: OptionTypeDeclaration) {
     t.options.forEach(opt => {
       if (opt.argument === t) {
-        console.log('circleref in', t);
+        window.alert('Mojito currently does not support recursive types');
+        opt.argument = null;
       }
     });
 
