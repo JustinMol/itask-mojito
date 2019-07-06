@@ -11,8 +11,6 @@ export enum EditorType {
 
 export type Field = EditorFieldOptions & {
     value: any;
-    property: string;
-    options: any[];
 };
 
 /* @Editors */

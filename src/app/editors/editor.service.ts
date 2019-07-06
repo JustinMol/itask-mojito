@@ -26,7 +26,7 @@ export class EditorService {
     this._editorMap.set(EditorType.ConditionEditor, ConditionEditorComponent);
   }
 
-  createEditorFactory(target: any): ComponentFactory<EditorComponent> {
+  public createEditorFactory(target: any): ComponentFactory<EditorComponent> {
     const Class = target.constructor ? target.constructor : target;
     const editorType = getEditorType(Class);
     if (this._editorMap.has(editorType)) {
@@ -37,27 +37,13 @@ export class EditorService {
     return null;
   }
 
-  initializeEditor(component: EditorComponent, node: ASTNode) {
-    const fields = getFieldOptions(node);
+  public initializeEditor(component: EditorComponent, node: ASTNode) {
     component.node = node;
-    component.fields = component.fields || [];
-
-    fields.forEach(field => {
-      this.getOptions(field).subscribe(opts => {
-        component.fields.push({
-          property: field.property,
-          value: node[field.property],
-          options: opts,
-          input: field.input,
-          label: field.label,
-          type: field.type,
-        });
-      });
-    });
+    component.fields = getFieldOptions(node);
   }
 
-  private getOptions(field: EditorFieldOptions): Observable<any[]> {
-    switch (field.type) {
+  public getOptions(type: any): Observable<any[]> {
+    switch (type) {
       case DataType:
         return this.dataTypes.getAll();
       default:

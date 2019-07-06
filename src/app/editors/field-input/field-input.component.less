@@ -1,0 +1,25 @@
+@import "../../../styles//styles.less";
+
+& select {
+    width: 100%;
+
+    & option {
+        background: @editor-background;
+    }
+}
+
+& input {
+    width: calc(100% - 16pt);
+}
+
+& select,
+& input {
+    height: 100%;
+    border: none;
+    background: none;
+    padding: 0 8pt;
+
+    .font.monospace;
+    .font.medium;
+    .color.bright;
+}

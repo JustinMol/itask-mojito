@@ -1,23 +1,12 @@
 <div class="table noselect">
   <div class="tr" *ngFor="let field of fields">
-    <div class="td">{{ field.label | titlecase }}</div> 
+    <div class="td">{{ field.label | titlecase }}</div>
     <div class="td">
-      <!-- NEEDS DYNAMIC -->
-      <ng-container [ngSwitch]="field.input">
-        <input *ngSwitchCase="'input'"
-          type="text"
-          [(ngModel)]="field.value"
-          (ngModelChange)="onValueChange(field)" />
-        <select *ngSwitchCase="'select'"
-          [(ngModel)]="field.value"
-          (ngModelChange)="onValueChange(field)">
-          <option *ngFor="let option of field.options" [ngValue]="option">
-            {{option.name}}
-          </option>
-        </select>
-        <span *ngSwitchDefault>OOPS :(</span>
-      </ng-container>
-      <!-- NEEDS DYNAMIC -->
+      <app-field-input
+        [value]="node[field.property]"
+        [field]="field"
+        (onChange)="onValueChange(field, $event)">
+      </app-field-input>
     </div>
   </div>
 </div>

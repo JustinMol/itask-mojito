@@ -1,0 +1,13 @@
+<ng-container [ngSwitch]="field.input">
+  <input *ngSwitchDefault
+    type="text"
+    [(ngModel)]="value"
+    (ngModelChange)="onValueChange()" />
+  <select *ngSwitchCase="'select'"
+    [(ngModel)]="value"
+    (ngModelChange)="onValueChange()">
+    <option *ngFor="let option of options" [ngValue]="option">
+      {{option.name}}
+    </option>
+  </select>
+</ng-container>

@@ -37,6 +37,7 @@ import { GraphEdgeDirective } from './graph/graph-edge/graph-edge.directive';
 import { SvgHoverableDirective } from './svg/svg-hoverable.directive';
 import { ConditionEditorComponent } from './editors/condition-editor/condition-editor.component';
 import { GraphNodeButtonComponent } from './graph/graph-node-button/graph-node-button.component';
+import { FieldInputComponent } from './editors/field-input/field-input.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { GraphNodeButtonComponent } from './graph/graph-node-button/graph-node-b
     SvgHoverableDirective,
     ConditionEditorComponent,
     GraphNodeButtonComponent,
+    FieldInputComponent,
   ],
   imports: [
     BrowserModule,
