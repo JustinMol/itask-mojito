@@ -3,6 +3,7 @@ import { GraphBlock } from 'src/app/graph/graph-block/graph-block.decorator';
 import { DataType } from '../data-type/data-type';
 import { ASTNode, ANCHORS_SQUARE } from '../ast-node/ast-node';
 import { Type } from 'class-transformer';
+import { Variable } from '../values/variable';
 
 @SimpleEditor
 @GraphBlock({
@@ -17,11 +18,11 @@ export class SharedInputDeclaration extends ASTNode {
     @Type(() => DataType)
     @EditorField({
         input: 'select',
-        type: DataType,
+        type: 'datatype',
     }) type: DataType = new DataType();
     @EditorField() multiple: boolean = false;
 
     getOutput() {
-        return this.varName;
+        return new Variable(this.varName, this.type);
     }
 }

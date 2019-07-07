@@ -6,7 +6,9 @@ import { ASTNode } from './ast-node/ast-node';
 import { TaskDeclaration } from './task/task-declaration';
 import { Edge } from './edge/edge';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class ASTService implements OnDestroy {
 
   private task: TaskDeclaration;

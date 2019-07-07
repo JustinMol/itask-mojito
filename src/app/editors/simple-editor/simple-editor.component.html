@@ -5,6 +5,7 @@
       <app-field-input
         [value]="node[field.property]"
         [field]="field"
+        [node]="node"
         (onChange)="onValueChange(field, $event)">
       </app-field-input>
     </div>

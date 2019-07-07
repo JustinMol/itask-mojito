@@ -20,7 +20,7 @@ export class RecordTypeDeclaration extends DataType {
 
 export class RecordTypeField {
     @EditorField() property: string = '';
-    @EditorField({ input: 'select', type: DataType }) type: DataType = new DataType();
+    @EditorField({ input: 'select', type: 'datatype' }) type: DataType = new DataType();
     @EditorField() optional: boolean = false;
     @EditorField() comment: string = '';
 }

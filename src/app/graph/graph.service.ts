@@ -11,7 +11,9 @@ import { OptionDeclaration } from '../ast/data-type/option-type';
 import { OptionEdge } from '../ast/edge/option-edge';
 import { PatternMatchExpression } from '../ast/values/pattern-match-expression';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class GraphService {
 
   constructor(

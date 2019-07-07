@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EditorFieldOptions } from '../editor-decorator';
 import { EditorService } from '../editor.service';
+import { ASTNode } from 'src/app/ast/ast-node/ast-node';
 
 export interface SelectOption {
   name: string;
@@ -16,16 +17,19 @@ export class FieldInputComponent implements OnInit {
 
   @Input() field: EditorFieldOptions;
   @Input() value: SelectOption;
+  @Input() node: ASTNode;
 
   @Output('onChange') valueChange$ = new EventEmitter<any>();
 
   options: SelectOption[] = [];
 
-  constructor(private editor: EditorService) {}
+  constructor(
+    private editor: EditorService
+  ) {}
 
   ngOnInit() {
     if (this.field.input === 'select') {
-      this.editor.getOptions(this.field.type).subscribe(opts => {
+      this.editor.getOptions(this.field.type, this.node).subscribe(opts => {
         this.options = opts;
         this.value = this.options.find(opt => opt.equals(this.value));
       });

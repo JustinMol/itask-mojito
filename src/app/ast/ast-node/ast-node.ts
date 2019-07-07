@@ -3,6 +3,7 @@ import { Exclude, Type } from 'class-transformer';
 import { AST } from '../ast';
 import { EventEmitter } from '@angular/core';
 import { EdgeConnector, defaultSequenceConnector } from '../edge/edge-connector';
+import { Variable } from '../values/variable';
 
 export declare type Location = { line: number, col: number };
 
@@ -39,8 +40,8 @@ export abstract class ASTNode extends AST {
     getEdgeConnector(): EdgeConnector {
         return defaultSequenceConnector;
     };
-    
-    getOutput(): any {
+
+    getOutput(): string | Variable {
         return null;
     }
 }

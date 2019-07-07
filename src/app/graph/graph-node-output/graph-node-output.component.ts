@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ASTNode } from 'src/app/ast/ast-node/ast-node';
+import { Variable } from 'src/app/ast/values/variable';
 
 @Component({
   selector: '[graph-node-output]',
@@ -10,7 +11,7 @@ export class GraphNodeOutputComponent implements OnInit {
 
   @Input() node: ASTNode;
 
-  output: any;
+  output: string | Variable;
 
   constructor() { }
 

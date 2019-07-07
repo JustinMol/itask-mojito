@@ -20,6 +20,6 @@ export class OptionTypeDeclaration extends DataType {
 
 export class OptionDeclaration {
     @EditorField() name: string = '';
-    @EditorField({ input: 'select', type: DataType }) argument: DataType = new DataType();
+    @EditorField({ input: 'select', type: 'datatype' }) argument: DataType = new DataType();
     @EditorField() comment: string = '';
 }

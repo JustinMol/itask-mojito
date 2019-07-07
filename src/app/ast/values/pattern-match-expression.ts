@@ -13,7 +13,7 @@ import { EdgeConnector } from '../edge/edge-connector';
     anchors: DEFAULT_ANCHORS,
 })
 export class PatternMatchExpression extends ASTNode {
-    @EditorField()
+    @EditorField({ type: 'variable', input: 'select' })
     variable: Variable = null;
 
     get type(): OptionTypeDeclaration {

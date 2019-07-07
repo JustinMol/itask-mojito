@@ -9,11 +9,11 @@ import { ASTNode } from '../ast/ast-node/ast-node';
 import { DataType } from '../ast/data-type/data-type';
 import { DataTypeService } from '../data-type.service';
 import { of, Observable } from 'rxjs';
-import { TaskDeclaration } from '../ast/task/task-declaration';
 import { TaskService } from '../task/task.service';
 import { Variable } from '../ast/values/variable';
 import { map } from 'rxjs/operators';
 import { SelectOption } from './field-input/field-input.component';
+import { GraphService } from '../graph/graph.service';
 
 @Injectable({
   providedIn: 'root'
@@ -25,7 +25,8 @@ export class EditorService {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private dataTypes: DataTypeService,
-    private tasks: TaskService
+    private tasks: TaskService,
+    private graph: GraphService
   ) {
     this._editorMap.set(EditorType.SimpleEditor, SimpleEditorComponent);
     this._editorMap.set(EditorType.TableEditor, TableEditorComponent);
@@ -48,11 +49,11 @@ export class EditorService {
     component.fields = getFieldOptions(node);
   }
 
-  public getOptions(type: any): Observable<SelectOption[]> {
+  public getOptions(type: 'datatype' | 'task' | 'variable' | 'condition', node: ASTNode): Observable<SelectOption[]> {
     switch (type) {
-      case DataType:
+      case 'datatype':
         return this.dataTypes.getAll();
-      case 'TaskDeclaration':
+      case 'task':
         return this.tasks.getAll().pipe(map(ts => ts.map(t => ({
           id: t.id,
           name: t.name,
@@ -61,10 +62,38 @@ export class EditorService {
             return (other as any).id === t.id;
           }
         }))));
-      case Variable:
-        
+      case 'variable':
+        return this.getVariablesInScope(node);
+      case 'condition':
+
       default:
         return of([]);
     }
+  }
+
+  private getVariablesInScope(node: ASTNode) {
+    const paths = this.graph.getIncomingPaths(node);
+    paths.map(p => p.pop());
+    const vars: SelectOption[] = [];
+    for (const p of paths) {
+      for (const node of p) {
+        const output = node.getOutput();
+        if (!output || output === '') continue;
+
+        if (output instanceof Variable) {
+          vars.push(output);
+        } else {
+          vars.push({
+            name: output,
+            equals(other): boolean {
+              if (!other) return false;
+              return other.name === output;
+            }
+          });
+        }
+      }
+    }
+    
+    return of(vars);
   }
 }

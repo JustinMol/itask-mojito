@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DropTargetMonitor } from '@angular-skyhook/core';
-import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
+import { GraphBlockOptions } from '../graph-block/graph-block.decorator';
 import { GraphService } from '../graph.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ASTNode } from 'src/app/ast/ast-node/ast-node';

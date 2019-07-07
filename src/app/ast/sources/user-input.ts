@@ -4,6 +4,7 @@ import { DataType } from '../data-type/data-type';
 import { ASTNode, ANCHORS_SQUARE } from '../ast-node/ast-node';
 import { Type } from 'class-transformer';
 import { DataTypeDiscriminator } from '../data-type/data-type-discriminator';
+import { Variable } from '../values/variable';
 
 @SimpleEditor
 @GraphBlock({
@@ -19,11 +20,11 @@ export class UserInputDeclaration extends ASTNode {
     @Type(() => DataType, DataTypeDiscriminator)
     @EditorField({
         input: 'select',
-        type: DataType,
+        type: 'datatype',
     })
     type: DataType = new DataType();
 
     getOutput() {
-        return this.varName;
+        return new Variable(this.varName, this.type);
     }
 }
