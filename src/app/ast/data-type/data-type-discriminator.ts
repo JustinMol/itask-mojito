@@ -2,6 +2,7 @@ import { StringType } from './string-type';
 import { RecordTypeDeclaration } from './record-type';
 import { OptionTypeDeclaration } from './option-type';
 import { DataType } from './data-type';
+import { BooleanType } from './boolean-type';
 
 export const DataTypeDiscriminator = {
     discriminator: {
@@ -11,6 +12,7 @@ export const DataTypeDiscriminator = {
             { value: StringType, name: 'string' },
             { value: RecordTypeDeclaration, name: 'record' },
             { value: OptionTypeDeclaration, name: 'option' },
+            { value: BooleanType, name: 'boolean' },
         ]
     }
 };

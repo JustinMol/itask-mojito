@@ -7,6 +7,8 @@ import { DecisionControlDeclaration } from '../controls/decision';
 import { JoinControlDeclaration } from '../controls/join';
 import { SplitControlDeclaration } from '../controls/parallel-split';
 import { PatternMatchExpression } from '../values/pattern-match-expression';
+import { ShowMessageDeclaration } from '../sources/show-message';
+import { UserSelectDeclaration } from '../sources/user-select';
 
 export const NodeDiscriminator = {
     discriminator: {
@@ -15,6 +17,8 @@ export const NodeDiscriminator = {
             { value: UserInputDeclaration, name: 'user-input' },
             { value: SharedInputDeclaration, name: 'shared-input' },
             { value: ClockInputDeclaration, name: 'clock-input' },
+            { value: ShowMessageDeclaration, name: 'show-message' },
+            { value: UserSelectDeclaration, name: 'user-select', },
             { value: TaskTransformDeclaration, name: 'task-transform' },
             { value: CodeTransformDeclaration, name: 'code-transform' },
             { value: DecisionControlDeclaration, name: 'decision-control' },

@@ -11,8 +11,7 @@ import { Variable } from '../values/variable';
     anchors: ANCHORS_SQUARE,
 })
 export class ClockInputDeclaration extends ASTNode {
-    @EditorField({ label: 'variable name' })
-    varName: string = '';
+    @EditorField({ label: 'variable name' }) varName: string = '';
 
     getOutput() {
         return new Variable(this.varName, null);

@@ -10,13 +10,13 @@
 }
 
 .grid {
-    height: calc(100% - @padding-top);
     width: 100%;
     display: grid;
     justify-items: center;
     justify-content: center;
     align-items: center;
     grid-template-rows: repeat(auto-fill, @row-size);
+    grid-auto-rows: @row-size;
     grid-template-columns: repeat(auto-fit, @column-size);
     grid-gap: @gap-size;
     padding-top: @padding-top;
