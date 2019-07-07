@@ -1,5 +1,5 @@
 import { Injectable, ComponentFactoryResolver, ComponentFactory, Type } from '@angular/core';
-import { EditorType, getEditorType, getFieldOptions, Field, EditorFieldOptions } from './editor-decorator';
+import { EditorType, getEditorType, getFieldOptions } from './editor-decorator';
 import { SimpleEditorComponent } from './simple-editor/simple-editor.component';
 import { EditorComponent } from './editor-component';
 import { TableEditorComponent } from './table-editor/table-editor.component';
@@ -11,6 +11,9 @@ import { DataTypeService } from '../data-type.service';
 import { of, Observable } from 'rxjs';
 import { TaskDeclaration } from '../ast/task/task-declaration';
 import { TaskService } from '../task/task.service';
+import { Variable } from '../ast/values/variable';
+import { map } from 'rxjs/operators';
+import { SelectOption } from './field-input/field-input.component';
 
 @Injectable({
   providedIn: 'root'
@@ -45,12 +48,21 @@ export class EditorService {
     component.fields = getFieldOptions(node);
   }
 
-  public getOptions(type: any): Observable<any[]> {
+  public getOptions(type: any): Observable<SelectOption[]> {
     switch (type) {
       case DataType:
         return this.dataTypes.getAll();
-      case TaskDeclaration:
-        return this.tasks.getAll();
+      case 'TaskDeclaration':
+        return this.tasks.getAll().pipe(map(ts => ts.map(t => ({
+          id: t.id,
+          name: t.name,
+          equals(other): boolean {
+            if (!other) return false;
+            return (other as any).id === t.id;
+          }
+        }))));
+      case Variable:
+        
       default:
         return of([]);
     }

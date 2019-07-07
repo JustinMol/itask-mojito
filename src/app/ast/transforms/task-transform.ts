@@ -10,7 +10,7 @@ import { SimpleEditor, EditorField } from 'src/app/editors/editor-decorator';
     anchors: DEFAULT_ANCHORS,
 })
 export class TaskTransformDeclaration extends ASTNode {
-    @EditorField() task: string = '';
+    @EditorField({ input: 'select', type: 'TaskDeclaration' }) task: string = '';
     @EditorField({ label: 'variable name' }) varName: string = '';
 
     getOutput() {

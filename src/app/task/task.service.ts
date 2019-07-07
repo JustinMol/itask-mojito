@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage.service';
 import { DataService } from '../data.service';
 import { TaskDeclaration } from '../ast/task/task-declaration';
+import { TaskTransformDeclaration } from '../ast/transforms/task-transform';
 
 @Injectable({
   providedIn: 'root'
