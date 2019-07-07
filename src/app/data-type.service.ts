@@ -6,6 +6,7 @@ import { DataType } from './ast/data-type/data-type';
 import { map } from 'rxjs/operators';
 import { stringType } from './ast/data-type/string-type';
 import { booleanType } from './ast/data-type/boolean-type';
+import { dateType } from './ast/data-type/date-type';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class DataTypeService {
       this.optionTypes.getAll(),
       this.recordTypes.getAll()
     ).pipe(
-      map(([options, records]) => [...options, ...records, stringType, booleanType])
+      map(([options, records]) => [...options, ...records, stringType, booleanType, dateType])
     );
   }
 }

@@ -10,4 +10,8 @@
       {{option.name}}
     </option>
   </select>
+  <input *ngSwitchCase="'checkbox'"
+    type="checkbox"
+    [(ngModel)]="value"
+    (ngModelChange)="onValueChange()" />
 </ng-container>

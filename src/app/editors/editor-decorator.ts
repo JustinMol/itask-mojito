@@ -24,9 +24,10 @@ export function getEditorType(target: object): EditorType {
 export interface EditorFieldOptions {
     property?: string;
     label?: string;
-    input?: 'input' | 'select',
+    input?: 'input' | 'select' | 'checkbox',
     type?: 'datatype' | 'task' | 'variable' | 'condition',
     order?: number;
+    filter?: (opt: any) => boolean;
 }
 
 export function EditorField(options: EditorFieldOptions = {}) {

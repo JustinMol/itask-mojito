@@ -4,6 +4,7 @@ import { DataType } from '../data-type/data-type';
 import { ASTNode, ANCHORS_SQUARE } from '../ast-node/ast-node';
 import { Type } from 'class-transformer';
 import { Variable } from '../values/variable';
+import { ListType } from '../data-type/list-type';
 
 @SimpleEditor
 @GraphBlock({
@@ -21,7 +22,12 @@ export class SharedInputDeclaration extends ASTNode {
         type: 'datatype',
     }) type: DataType = new DataType();
 
+    @EditorField({
+        input: 'checkbox',
+    }) multiple: boolean = false;
+
     getOutput() {
-        return new Variable(this.varName, this.type);
+        const type = this.multiple ? new ListType(this.type) : this.type;
+        return new Variable(this.varName, type);
     }
 }

@@ -1,10 +1,18 @@
 import { SelectOption } from 'src/app/editors/field-input/field-input.component';
 
 export class DataType implements SelectOption {
-    public name: string;
+    private _name: string;
 
     constructor(name?: string) {
-        this.name = name;
+        this._name = name;
+    }
+
+    get name() {
+        return this._name;
+    }
+
+    set name(name) {
+        this._name = name;
     }
 
     equals(other: DataType): boolean {

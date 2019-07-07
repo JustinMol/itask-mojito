@@ -3,6 +3,8 @@ import { RecordTypeDeclaration } from './record-type';
 import { OptionTypeDeclaration } from './option-type';
 import { DataType } from './data-type';
 import { BooleanType } from './boolean-type';
+import { DateType } from './date-type';
+import { ListType } from './list-type';
 
 export const DataTypeDiscriminator = {
     discriminator: {
@@ -13,6 +15,8 @@ export const DataTypeDiscriminator = {
             { value: RecordTypeDeclaration, name: 'record' },
             { value: OptionTypeDeclaration, name: 'option' },
             { value: BooleanType, name: 'boolean' },
+            { value: DateType, name: 'date' },
+            { value: ListType, name: 'list' },
         ]
     }
 };
