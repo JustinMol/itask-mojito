@@ -41,6 +41,12 @@ export abstract class ASTNode extends AST {
         return defaultSequenceConnector;
     };
 
+    getInputs(): (string | Variable)[] {
+        return [];
+    }
+
+    invalidateInput(input: string | Variable): void {}
+
     getOutput(): string | Variable {
         return null;
     }

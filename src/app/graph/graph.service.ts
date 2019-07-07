@@ -10,6 +10,9 @@ import { Edge } from '../ast/edge/edge';
 import { OptionDeclaration } from '../ast/data-type/option-type';
 import { OptionEdge } from '../ast/edge/option-edge';
 import { PatternMatchExpression } from '../ast/values/pattern-match-expression';
+import { SelectOption } from '../editors/field-input/field-input.component';
+import { Variable } from '../ast/values/variable';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -45,6 +48,7 @@ export class GraphService {
   }
 
   deleteEdge(edge: Edge) {
+    this.invalidatePathTo(edge.to);
     this.ast.removeEdge(edge);
   }
 
@@ -87,6 +91,36 @@ export class GraphService {
     }
 
     return paths;
+  }
+
+  getVariablesInScope(node: ASTNode): (string | Variable)[] {
+    const paths = this.getIncomingPaths(node);
+    paths.map(p => p.pop());
+    const vars: (string | Variable)[] = [];
+    for (const p of paths) {
+      for (const node of p) {
+        const output = node.getOutput();
+        if (!output || output === '') continue;
+
+        if (output instanceof Variable) {
+          if (output.isValid()) {
+            vars.push(output);
+          }
+        } else {
+          vars.push(output);
+        }
+      }
+    }
+    
+    return vars;
+  }
+
+  invalidatePathTo(node: ASTNode) {
+    const vars = this.getVariablesInScope(node);
+    for (const input of node.getInputs()) {
+      if (vars.includes(input)) continue;
+      node.invalidateInput(input);
+    }
   }
 
   getEdgeMap(node: ASTNode): Map<'sequence' | boolean | OptionDeclaration, Edge> {

@@ -17,6 +17,7 @@ export class Variable implements SelectOption {
 
     equals(other: Variable): boolean {
         if (!other) return false;
+        if (other === this) return true;
         return this.name === other.name && this.type.equals(other.type);
     }
 

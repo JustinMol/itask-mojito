@@ -30,4 +30,14 @@ export class UserSelectDeclaration extends ASTNode {
         const listType = this.list.type as ListType;
         return new Variable(this.varName, listType.type);
     }
+
+    getInputs() {
+        return [this.list];
+    }
+
+    invalidateInput(input: Variable) {
+        if (this.list === input) {
+            this.list = null;
+        }
+    }
 }
