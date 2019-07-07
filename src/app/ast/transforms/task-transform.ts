@@ -12,4 +12,8 @@ import { SimpleEditor, EditorField } from 'src/app/editors/editor-decorator';
 export class TaskTransformDeclaration extends ASTNode {
     @EditorField() task: string = '';
     @EditorField({ label: 'variable name' }) varName: string = '';
+
+    getOutput() {
+        return this.varName;
+    }
 }

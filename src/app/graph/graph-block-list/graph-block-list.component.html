@@ -1,5 +1,6 @@
 <div class="grid">
-  <div *ngFor="let block of blocks">
+  <div *ngFor="let block of blocks" class="container">
+    <span>{{block.name}}</span>
     <graph-block-icon
       [block]="block"
       appDroppable

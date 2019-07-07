@@ -65,7 +65,8 @@
         <svg *ngIf="!newEdgeFrom && canSendEdge(node)"
             graph-node-connector
             [node]="node"
-            (buttonClick)="startEdge(node, $event)">
-        </svg>
+            (buttonClick)="startEdge(node, $event)" />
+        <!-- Node output indicator -->
+        <svg graph-node-output [node]="node" />
     </g>
 </svg>

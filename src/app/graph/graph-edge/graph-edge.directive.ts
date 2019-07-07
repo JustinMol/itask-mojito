@@ -31,8 +31,8 @@ export class GraphEdgeDirective implements OnInit, OnDestroy {
     this.line = SVG.adopt(this.el.nativeElement);
     this.moveEdge();
     merge(
-      this.edge.to.isMoved$,
-      this.edge.from.isMoved$
+      this.edge.to.hasChanged,
+      this.edge.from.hasChanged
     ).pipe(
       takeUntil(this.destroy$)
     ).subscribe(() => {
