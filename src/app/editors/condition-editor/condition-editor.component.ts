@@ -3,6 +3,7 @@ import { EditorComponent } from '../editor-component';
 import { ASTService } from 'src/app/ast/ast.service';
 import { DecisionControlDeclaration } from 'src/app/ast/controls/decision';
 import { SimpleBooleanExpression } from 'src/app/ast/values/boolean-expression';
+import { getFieldOptions } from '../editor-decorator';
 
 @Component({
   selector: 'app-condition-editor',
@@ -17,7 +18,12 @@ export class ConditionEditorComponent extends EditorComponent {
     super();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fields = getFieldOptions(new SimpleBooleanExpression());
+    this.fields.sort((a, b) => {
+      return a.order - b.order;
+    });
+  }
 
   onAndClick() {
     this.node.andExpressions.push([new SimpleBooleanExpression()]);
@@ -27,6 +33,10 @@ export class ConditionEditorComponent extends EditorComponent {
   onOrClick(andExpression: SimpleBooleanExpression[]) {
     andExpression.push(new SimpleBooleanExpression());
     this.ast.save();
+  }
+
+  updateExpression(value, expression: SimpleBooleanExpression, prop: string) {
+    expression[prop] = value;
   }
 
 }

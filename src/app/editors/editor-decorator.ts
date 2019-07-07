@@ -26,6 +26,7 @@ export interface EditorFieldOptions {
     label?: string;
     input?: 'input' | 'select',
     type?: 'datatype' | 'task' | 'variable' | 'condition',
+    order?: number;
 }
 
 export function EditorField(options: EditorFieldOptions = {}) {

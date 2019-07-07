@@ -6,7 +6,6 @@ import { TableEditorComponent } from './table-editor/table-editor.component';
 import { ConditionEditorComponent } from './condition-editor/condition-editor.component';
 import { ASTNode } from '../ast/ast-node/ast-node';
 
-import { DataType } from '../ast/data-type/data-type';
 import { DataTypeService } from '../data-type.service';
 import { of, Observable } from 'rxjs';
 import { TaskService } from '../task/task.service';
@@ -14,6 +13,7 @@ import { Variable } from '../ast/values/variable';
 import { map } from 'rxjs/operators';
 import { SelectOption } from './field-input/field-input.component';
 import { GraphService } from '../graph/graph.service';
+import { CONDITIONS } from '../ast/values/condition';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +65,7 @@ export class EditorService {
       case 'variable':
         return this.getVariablesInScope(node);
       case 'condition':
-
+        return of(CONDITIONS)
       default:
         return of([]);
     }

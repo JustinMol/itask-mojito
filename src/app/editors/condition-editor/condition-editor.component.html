@@ -1,17 +1,17 @@
 <div *ngFor="let andExpression of node.andExpressions; let last = last">
   <div id="block">
     <div id="headers">
-      <span>Variable</span>
-      <span>Condition</span>
-      <span>Value</span>
+      <span *ngFor="let field of fields">{{field.label | titlecase}}</span>
       <div class="or"></div>
     </div>
     <div id="row" *ngFor="let orExpression of andExpression; let last = last">
-      <!-- NEEDS DYNAMIC -->
-      <div><input [(ngModel)]="orExpression.variable" /></div>
-      <!-- NEEDS DYNAMIC -->
-      <div><input class="i" [(ngModel)]="orExpression.condition" /></div>
-      <div><input [(ngModel)]="orExpression.value" /></div>
+      <div *ngFor="let field of fields">
+        <app-field-input [field]="field"
+          [value]="orExpression[field.property]"
+          [node]="node"
+          (onChange)="updateExpression($event, orExpression, field.property)">
+        </app-field-input>
+      </div>
       <div (click)="last ? onOrClick(andExpression) : null" class="or" [ngClass]="{'last': last}">
         <span>OR</span>
       </div>

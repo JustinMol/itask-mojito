@@ -9,6 +9,7 @@ export class Variable implements SelectOption {
     }
 
     equals(other: Variable): boolean {
+        if (!other) return false;
         return this.name === other.name && this.type === other.type;
     }
 
