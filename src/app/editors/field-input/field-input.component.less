@@ -6,6 +6,11 @@
     & option {
         background: @editor-background;
     }
+
+    &[disabled] {
+        color: tomato;
+        background: darken(@editor-background, 2);
+    }
 }
 
 & input[type="text"] {

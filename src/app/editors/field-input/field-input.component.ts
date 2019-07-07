@@ -32,9 +32,7 @@ export class FieldInputComponent implements OnInit {
       this.editor.getOptions(this.field, this.node).subscribe(opts => {
         const filter = this.field.filter;
         this.options = filter ? opts.filter(x => filter(x)) : opts;
-        console.log(this.value, this.options);
         this.value = this.options.find(opt => opt.equals(this.value));
-        console.log(this.value);
       });
     }
   }

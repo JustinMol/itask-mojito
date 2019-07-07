@@ -81,7 +81,9 @@ export class EditorService {
         if (!output || output === '') continue;
 
         if (output instanceof Variable) {
-          vars.push(output);
+          if (output.isValid()) {
+            vars.push(output);
+          }
         } else {
           vars.push({
             name: output,
