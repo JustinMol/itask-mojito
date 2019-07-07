@@ -1,5 +1,5 @@
 import { Injectable, ComponentFactoryResolver, ComponentFactory, Type } from '@angular/core';
-import { EditorType, getEditorType, getFieldOptions } from './editor-decorator';
+import { EditorType, getEditorType, getFieldOptions, EditorFieldOptions } from './editor-decorator';
 import { SimpleEditorComponent } from './simple-editor/simple-editor.component';
 import { EditorComponent } from './editor-component';
 import { TableEditorComponent } from './table-editor/table-editor.component';
@@ -49,8 +49,8 @@ export class EditorService {
     component.fields = getFieldOptions(node);
   }
 
-  public getOptions(type: 'datatype' | 'task' | 'variable' | 'condition', node: ASTNode): Observable<SelectOption[]> {
-    switch (type) {
+  public getOptions(field: EditorFieldOptions, node: ASTNode): Observable<SelectOption[]> {
+    switch (field.type) {
       case 'datatype':
         return this.dataTypes.getAll();
       case 'task':

@@ -29,7 +29,7 @@ export class FieldInputComponent implements OnInit {
 
   ngOnInit() {
     if (this.field.input === 'select') {
-      this.editor.getOptions(this.field.type, this.node).subscribe(opts => {
+      this.editor.getOptions(this.field, this.node).subscribe(opts => {
         this.options = opts;
         this.value = this.options.find(opt => opt.equals(this.value));
       });

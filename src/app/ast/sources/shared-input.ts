@@ -20,7 +20,6 @@ export class SharedInputDeclaration extends ASTNode {
         input: 'select',
         type: 'datatype',
     }) type: DataType = new DataType();
-    @EditorField() multiple: boolean = false;
 
     getOutput() {
         return new Variable(this.varName, this.type);
