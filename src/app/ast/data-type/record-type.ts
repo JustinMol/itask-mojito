@@ -21,6 +21,6 @@ export class RecordTypeDeclaration extends DataType {
 export class RecordTypeField {
     @EditorField() property: string = '';
     @EditorField({ input: 'select', type: 'datatype' }) type: DataType = new DataType();
-    @EditorField() optional: boolean = false;
+    @EditorField({ input: 'checkbox' }) optional: boolean = false;
     @EditorField() comment: string = '';
 }

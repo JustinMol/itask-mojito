@@ -10,11 +10,12 @@ import { DataTypeService } from '../data-type.service';
 import { of, Observable } from 'rxjs';
 import { TaskService } from '../task/task.service';
 import { Variable } from '../ast/values/variable';
-import { map } from 'rxjs/operators';
+import { switchMap } from 'rxjs/operators';
 import { SelectOption } from './field-input/field-input.component';
 import { GraphService } from '../graph/graph.service';
 import { CONDITIONS } from '../ast/values/condition';
 import { TaskDeclaration } from '../ast/task/task-declaration';
+import { RecordTypeDeclaration } from '../ast/data-type/record-type';
 
 @Injectable({
   providedIn: 'root'
@@ -55,10 +56,14 @@ export class EditorService {
       case 'datatype':
         return this.dataTypes.getAll();
       case 'task':
-        return this.tasks.getAll().pipe(map(ts => ts.map(t => this.toSelectOption(t))));
+        return this.tasks.getAll().pipe(switchMap(ts => {
+          const opts = ts.map(t => this.toSelectOptions(t));
+          return of(...opts);
+        }));
       case 'variable':
         const vars = this.graph.getVariablesInScope(node);
-        return of(vars.map(v => this.toSelectOption(v)));
+        const optss = vars.map(v => this.toSelectOptions(v));
+        return of(...optss);
       case 'condition':
         return of(CONDITIONS)
       default:
@@ -66,25 +71,37 @@ export class EditorService {
     }
   }
 
-  private toSelectOption(v: TaskDeclaration | Variable | string): SelectOption {
-    if (v instanceof Variable) return v;
+  private toSelectOptions(v: TaskDeclaration | Variable | string): SelectOption[] {
+    if (v instanceof Variable) {
+      if (v.type instanceof RecordTypeDeclaration) {
+        return v.type.fields.map(f => ({
+          name: v.name + '.' + f.property,
+          equals(other) {
+            if (!other) return false;
+            return other.name === this.name;
+          }
+        }))
+      }
+
+      return [v];
+    }
     if (v instanceof TaskDeclaration) {
-      return {
+      return [{
         id: v.id,
         name: v.name,
         equals(other): boolean {
           if (!other) return false;
           return (other as any).id === v.id;
         }
-      } as SelectOption;
+      } as SelectOption];
     }
 
-    return {
+    return [{
       name: v,
       equals(other): boolean {
         if (!other) return false;
         return other.name === v;
       }
-    }
+    }]
   }
 }
