@@ -3,7 +3,7 @@ import { GraphBlock } from 'src/app/graph/graph-block/graph-block.decorator';
 import { ASTNode, ANCHORS_SQUARE } from '../ast-node/ast-node';
 import { Variable } from '../values/variable';
 import { ListType } from '../data-type/list-type';
-import { Type } from 'class-transformer';
+import { Type, plainToClass } from 'class-transformer';
 
 @SimpleEditor
 @GraphBlock({
@@ -15,12 +15,12 @@ import { Type } from 'class-transformer';
 export class UserSelectDeclaration extends ASTNode {
     @EditorField({ label: 'variable name' }) varName: string = '';
 
-    @Type(() => Variable)
     @EditorField({
         type: 'variable',
         input: 'select',
         filter: (v: Variable) => v.type instanceof ListType
     })
+    @Type(() => Variable)
     list: Variable = null;
 
     @EditorField() message: string = '';

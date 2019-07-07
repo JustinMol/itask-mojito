@@ -33,6 +33,10 @@ export abstract class DataService<T extends Model> implements CrudService<T> {
     return of(this.models.find(t => t.id === id));
   }
 
+  getSync(id: string): T {
+    return this.models.find(t => t.id === id);
+  }
+
   getAll(): Observable<T[]> {
     this.log('getAll()');
     return this.models$;

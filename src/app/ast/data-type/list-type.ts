@@ -6,6 +6,7 @@ import { RecordTypeDeclaration } from './record-type';
 import { OptionTypeDeclaration } from './option-type';
 import { BooleanType } from './boolean-type';
 import { DateType } from './date-type';
+import { IntegerType } from './integer-type';
 
 export class ListType extends DataType {
     @Type(() => DataType, {
@@ -18,6 +19,7 @@ export class ListType extends DataType {
                 { value: OptionTypeDeclaration, name: 'option' },
                 { value: BooleanType, name: 'boolean' },
                 { value: DateType, name: 'date' },
+                { value: IntegerType, name: 'integer' },
                 { value: ListType, name: 'list' },
             ]
         }

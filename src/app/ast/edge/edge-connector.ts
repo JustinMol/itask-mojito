@@ -5,7 +5,7 @@ export class EdgeConnector {
     options: (boolean | OptionDeclaration)[];
     limit: number;
 
-    constructor(isSequence = true, options = [], limit = 1) {
+    constructor(isSequence = true, limit = 1, options = []) {
         this.isSequence = isSequence;
         this.options = options;
         this.limit = limit;
@@ -13,4 +13,4 @@ export class EdgeConnector {
 }
 
 export const defaultSequenceConnector = new EdgeConnector();
-export const booleanSequenceConnector = new EdgeConnector(false, [true, false], 2);
+export const booleanSequenceConnector = new EdgeConnector(false, 2, [true, false]);

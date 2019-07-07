@@ -21,7 +21,7 @@ export class GraphBlockOptions {
     }
 }
 
-export function GraphBlock(options: GraphBlockOptions | any) {
+export function GraphBlock(options: { name: string; svg: string; description: string; anchors?: Coordinates[]; NodeType?: Type<ASTNode>; }) {
     options = plainToClass(GraphBlockOptions, options);
     return constructor => {
         if (!options.NodeType) {

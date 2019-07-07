@@ -17,6 +17,7 @@ export class GraphNodeConnectorComponent implements OnInit {
   edgeConnector: EdgeConnector;
   showOptions = false;
   options: (boolean | OptionDeclaration)[];
+  math = Math;
 
   constructor(
     private graph: GraphService

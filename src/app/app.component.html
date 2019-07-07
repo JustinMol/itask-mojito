@@ -2,7 +2,7 @@
   side="left"
   (resizing)="onSidebarResize($event)">
   <app-menu-accordion>
-    <app-menu-panel panelTitle="Outline">
+    <app-menu-panel panelTitle="Tasks">
       <span buttons (click)="addTask($event)">+</span>
       <app-outline body
         [items]="tasks$"

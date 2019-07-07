@@ -39,6 +39,9 @@ export class ASTService implements OnDestroy {
 
   getNode(id: string): ASTNode {
     if (!this.task) return null;
+    if (this.task.input.id === id) return this.task.input;
+    if (this.task.output.id === id) return this.task.output;
+
     return this.task.nodes.find(node => node.id === id);
   }
 

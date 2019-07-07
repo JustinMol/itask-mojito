@@ -4,6 +4,7 @@ import { AST } from '../ast';
 import { EventEmitter } from '@angular/core';
 import { EdgeConnector, defaultSequenceConnector } from '../edge/edge-connector';
 import { Variable } from '../values/variable';
+import { TaskService } from 'src/app/task/task.service';
 
 export declare type Location = { line: number, col: number };
 
@@ -22,7 +23,7 @@ export const ANCHORS_SQUARE: Coordinates[] = [
     new Coordinates(0.99, 0.01),
 ]
 
-export abstract class ASTNode extends AST {
+export class ASTNode extends AST {
     @Type(() => Coordinates)
     coordinates: Coordinates;
     location?: Location;

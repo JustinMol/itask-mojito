@@ -10,9 +10,8 @@ import { Edge } from '../ast/edge/edge';
 import { OptionDeclaration } from '../ast/data-type/option-type';
 import { OptionEdge } from '../ast/edge/option-edge';
 import { PatternMatchExpression } from '../ast/values/pattern-match-expression';
-import { SelectOption } from '../editors/field-input/field-input.component';
 import { Variable } from '../ast/values/variable';
-import { of } from 'rxjs';
+import { uniq } from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -112,7 +111,7 @@ export class GraphService {
       }
     }
     
-    return vars;
+    return uniq(vars);
   }
 
   invalidatePathTo(node: ASTNode) {

@@ -10,6 +10,9 @@
     <option *ngFor="let option of options" [ngValue]="option">
       {{option.name}}
     </option>
+    <option *ngIf="options.length === 0" disabled selected [value]="value">
+      No options
+    </option>
   </select>
   <input *ngSwitchCase="'checkbox'"
     type="checkbox"

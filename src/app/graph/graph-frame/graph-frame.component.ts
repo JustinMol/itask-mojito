@@ -9,6 +9,9 @@ import { SequenceEdge } from 'src/app/ast/edge/sequence-edge';
 import { Edge } from 'src/app/ast/edge/edge';
 import { OptionDeclaration } from 'src/app/ast/data-type/option-type';
 import { OptionEdge } from 'src/app/ast/edge/option-edge';
+import { TaskOutput } from 'src/app/ast/task/task-output';
+import { TaskInput } from 'src/app/ast/task/task-input';
+import { Subject } from 'rxjs';
 
 declare const SVG: any;
 
@@ -23,8 +26,12 @@ const GRID_SIZE_SMALL = 25;
 })
 export class GraphFrameComponent implements OnInit {
 
+  @Input() input: TaskInput;
+  @Input() output: TaskOutput;
   @Input() nodes: ASTNode[] = [];
   @Input() edges: Edge[] = [];
+
+  public resized$ = new Subject();
 
   private svg;
 
@@ -38,10 +45,20 @@ export class GraphFrameComponent implements OnInit {
     private router: Router
   ) {}
 
+  ngOnChanges(): void {
+    this.resized$.next();
+  }
+
   ngOnInit() {
     this.svg = SVG('#graph-frame');
     this.drawGrid(GRID_SIZE_LARGE, 0.2);
     this.drawGrid(GRID_SIZE_SMALL, 0.1);
+
+    this.resized$.subscribe(() => {
+      const rbox = this.svg.rbox();
+      this.output.setCoordinates(new Coordinates(rbox.width / 2 + 20, 30 + 20));
+    });
+    this.resized$.next();
   }
 
   drawGrid(gridSize, strokeWidth) {

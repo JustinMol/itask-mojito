@@ -13,7 +13,11 @@ import { EdgeConnector } from '../edge/edge-connector';
     anchors: DEFAULT_ANCHORS,
 })
 export class PatternMatchExpression extends ASTNode {
-    @EditorField({ type: 'variable', input: 'select' })
+    @EditorField({
+        type: 'variable',
+        input: 'select',
+        filter: (v: Variable) => v.type instanceof OptionTypeDeclaration
+    })
     variable: Variable = null;
 
     get type(): OptionTypeDeclaration {
@@ -28,11 +32,12 @@ export class PatternMatchExpression extends ASTNode {
     }
 
     getEdgeConnector(): EdgeConnector {
-        if (!this.variable) {
-            return new EdgeConnector(false, [], 0);
+        if (!this.variable || !this.variable.type) {
+            return new EdgeConnector(false, 0, []);
         }
 
-        // TODO
-        return new EdgeConnector();
+        const type = this.variable.type as OptionTypeDeclaration;
+        const options = type.options.map(o => o.name);
+        return new EdgeConnector(false, options.length, options);
     }
 }

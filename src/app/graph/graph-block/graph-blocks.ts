@@ -10,10 +10,12 @@ import { SplitControlDeclaration } from 'src/app/ast/controls/parallel-split';
 import { PatternMatchExpression } from 'src/app/ast/values/pattern-match-expression';
 import { ShowMessageDeclaration } from 'src/app/ast/sources/show-message';
 import { UserSelectDeclaration } from 'src/app/ast/sources/user-select';
+import { TaskInput } from 'src/app/ast/task/task-input';
 
 export const sources: GraphBlockOptions[] = [
     UserInputDeclaration,
     SharedInputDeclaration,
+    TaskInput,
     UserSelectDeclaration,
     ClockInputDeclaration,
     ShowMessageDeclaration,
@@ -28,5 +30,5 @@ export const controls: GraphBlockOptions[] = [
     DecisionControlDeclaration,
     JoinControlDeclaration,
     SplitControlDeclaration,
-    PatternMatchExpression,
+    // PatternMatchExpression,
 ].map(getGraphBlock);

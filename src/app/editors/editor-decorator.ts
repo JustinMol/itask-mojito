@@ -28,6 +28,7 @@ export interface EditorFieldOptions {
     type?: 'datatype' | 'task' | 'variable' | 'condition',
     order?: number;
     filter?: (opt: any) => boolean;
+    map?: (opt: any) => any;
 }
 
 export function EditorField(options: EditorFieldOptions = {}) {

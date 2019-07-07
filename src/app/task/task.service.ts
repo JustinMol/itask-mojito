@@ -3,7 +3,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage.service';
 import { DataService } from '../data.service';
 import { TaskDeclaration } from '../ast/task/task-declaration';
-import { TaskTransformDeclaration } from '../ast/transforms/task-transform';
 
 @Injectable({
   providedIn: 'root'
@@ -20,9 +19,13 @@ export class TaskService extends DataService<TaskDeclaration> {
     const models$ = super.getAll();
     this.models.map(task => {
       for (const node of task.nodes) {
-        
-
         for (const edge of task.edges) {
+          if (edge.from.equals(task.input)) {
+            edge.from = task.input;
+          }
+          if (edge.to.equals(task.output)) {
+            edge.to = task.output;
+          }
           if (edge.from.equals(node)) {
             edge.from = node;
           } else if (edge.to.equals(node)) {

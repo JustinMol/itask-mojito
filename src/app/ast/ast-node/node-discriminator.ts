@@ -9,6 +9,8 @@ import { SplitControlDeclaration } from '../controls/parallel-split';
 import { PatternMatchExpression } from '../values/pattern-match-expression';
 import { ShowMessageDeclaration } from '../sources/show-message';
 import { UserSelectDeclaration } from '../sources/user-select';
+import { TaskOutput } from '../task/task-output';
+import { TaskInput } from '../task/task-input';
 
 export const NodeDiscriminator = {
     discriminator: {
@@ -25,6 +27,8 @@ export const NodeDiscriminator = {
             { value: JoinControlDeclaration, name: 'join-control' },
             { value: SplitControlDeclaration, name: 'split-control' },
             { value: PatternMatchExpression, name: 'pattern-match' },
+            { value: TaskOutput, name: 'task-output' },
+            { value: TaskInput, name: 'task-input' },
         ]
     }
 };

@@ -30,8 +30,9 @@ export class FieldInputComponent implements OnInit {
   ngOnInit() {
     if (this.field.input === 'select') {
       this.editor.getOptions(this.field, this.node).subscribe(opts => {
-        const filter = this.field.filter;
-        this.options = filter ? opts.filter(x => filter(x)) : opts;
+        const { map, filter } = this.field;
+        this.options = map ? opts.map(x => map(x)) : opts;
+        this.options = filter ? this.options.filter(x => filter(x)) : this.options;
         this.value = this.options.find(opt => opt.equals(this.value));
       });
     }

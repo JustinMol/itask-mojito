@@ -57,7 +57,7 @@
             }"
             (moved)="onNodeMove(node, $event)"
             (click)="$event.stopImmediatePropagation()"
-            (clicked)="onNodeClick(node, $event)"
+            (clicked)="onNodeClick(node)"
             (contextmenu)="onRightClick($event, node)"
             (mouseover)="onNodeHover(node)"
             (mouseleave)="onNodeLeave(node)" />
@@ -69,4 +69,12 @@
         <!-- Node output indicator -->
         <svg graph-node-output [node]="node" />
     </g>
+    <svg app-task-output
+        class="pointer"
+        (click)="$event.stopImmediatePropagation(); onNodeClick(output)"
+        (mouseover)="onNodeHover(output)"
+        (mouseleave)="onNodeLeave(node)"
+        [attr.x]="svg.rbox().width / 2"
+        y="30"
+        width="40" height="20" />
 </svg>

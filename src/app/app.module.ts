@@ -39,6 +39,7 @@ import { ConditionEditorComponent } from './editors/condition-editor/condition-e
 import { FieldInputComponent } from './editors/field-input/field-input.component';
 import { GraphNodeConnectorComponent } from './graph/graph-node-connector/graph-node-connector.component';
 import { GraphNodeOutputComponent } from './graph/graph-node-output/graph-node-output.component';
+import { TaskOutputComponent } from './graph/task-output/task-output.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { GraphNodeOutputComponent } from './graph/graph-node-output/graph-node-o
     FieldInputComponent,
     GraphNodeConnectorComponent,
     GraphNodeOutputComponent,
+    TaskOutputComponent,
   ],
   imports: [
     BrowserModule,

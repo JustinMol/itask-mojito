@@ -1,16 +1,16 @@
 <div id="table">
   <div class="flex-row header">
-    <div class="flex-cell" *ngFor="let column of columns">
-      {{ column.label | titlecase }}
+    <div class="flex-cell" *ngFor="let field of fields">
+      {{ field.label | titlecase }}
     </div>
     <div class="delete"></div>
   </div>
   <div class="flex-row" *ngFor="let row of rows">
-    <div class="flex-cell" *ngFor="let column of columns">
+    <div class="flex-cell" *ngFor="let field of fields">
       <app-field-input
-        [field]="column"
-        [value]="row[column.property]"
-        (onChange)="onValueChange(row, column, $event)">
+        [field]="field"
+        [value]="row[field.property]"
+        (onChange)="onValueChange(row, field, $event)">
       </app-field-input>
     </div>
     <ng-container *ngIf="showDeleteButtons; then thenTemplate; else elseTemplate"></ng-container>

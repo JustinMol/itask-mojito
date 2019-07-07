@@ -3,6 +3,9 @@ import { DataService } from './data.service';
 import { LocalStorageService } from './local-storage.service';
 import { Observable } from 'rxjs';
 import { OptionTypeDeclaration } from './ast/data-type/option-type';
+import { RecordTypeDeclaration } from './ast/data-type/record-type';
+import { classToPlain } from 'class-transformer';
+import { DataType } from './ast/data-type/data-type';
 
 @Injectable({
   providedIn: 'root'
@@ -41,7 +44,11 @@ export class OptionTypeService extends DataService<OptionTypeDeclaration> {
     t.options.forEach(opt => {
       if (opt.argument === t) {
         window.alert('Mojito currently does not support recursive types');
-        opt.argument = null;
+        opt.argument = new DataType();
+      }
+
+      if (opt.argument instanceof RecordTypeDeclaration) {
+        opt.argument = new DataType();
       }
     });
 

@@ -5,12 +5,13 @@ import { EditorComponent } from './editor-component';
 import { TableEditorComponent } from './table-editor/table-editor.component';
 import { ConditionEditorComponent } from './condition-editor/condition-editor.component';
 import { ASTNode } from '../ast/ast-node/ast-node';
+import { flatten } from 'lodash';
 
 import { DataTypeService } from '../data-type.service';
 import { of, Observable } from 'rxjs';
 import { TaskService } from '../task/task.service';
 import { Variable } from '../ast/values/variable';
-import { switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { SelectOption } from './field-input/field-input.component';
 import { GraphService } from '../graph/graph.service';
 import { CONDITIONS } from '../ast/values/condition';
@@ -56,14 +57,13 @@ export class EditorService {
       case 'datatype':
         return this.dataTypes.getAll();
       case 'task':
-        return this.tasks.getAll().pipe(switchMap(ts => {
-          const opts = ts.map(t => this.toSelectOptions(t));
-          return of(...opts);
+        return this.tasks.getAll().pipe(map(ts => {
+          return flatten(ts.map(t => this.toSelectOptions(t)));
         }));
       case 'variable':
         const vars = this.graph.getVariablesInScope(node);
-        const optss = vars.map(v => this.toSelectOptions(v));
-        return of(...optss);
+        const opts = vars.map(v => this.toSelectOptions(v));
+        return of(flatten(opts));
       case 'condition':
         return of(CONDITIONS)
       default:
@@ -74,26 +74,20 @@ export class EditorService {
   private toSelectOptions(v: TaskDeclaration | Variable | string): SelectOption[] {
     if (v instanceof Variable) {
       if (v.type instanceof RecordTypeDeclaration) {
-        return v.type.fields.map(f => ({
+        return [v, ...v.type.fields.map(f => ({
           name: v.name + '.' + f.property,
           equals(other) {
             if (!other) return false;
             return other.name === this.name;
           }
-        }))
+        }))];
       }
 
       return [v];
     }
+
     if (v instanceof TaskDeclaration) {
-      return [{
-        id: v.id,
-        name: v.name,
-        equals(other): boolean {
-          if (!other) return false;
-          return (other as any).id === v.id;
-        }
-      } as SelectOption];
+      return [v];
     }
 
     return [{

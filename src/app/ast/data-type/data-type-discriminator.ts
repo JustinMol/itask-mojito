@@ -5,6 +5,7 @@ import { DataType } from './data-type';
 import { BooleanType } from './boolean-type';
 import { DateType } from './date-type';
 import { ListType } from './list-type';
+import { IntegerType } from './integer-type';
 
 export const DataTypeDiscriminator = {
     discriminator: {
@@ -16,6 +17,7 @@ export const DataTypeDiscriminator = {
             { value: OptionTypeDeclaration, name: 'option' },
             { value: BooleanType, name: 'boolean' },
             { value: DateType, name: 'date' },
+            { value: IntegerType, name: 'integer' },
             { value: ListType, name: 'list' },
         ]
     }

@@ -18,9 +18,10 @@
 </svg>
 <svg *ngIf="showOptions">
     <svg *ngFor="let option of options; let i = index"
-        width="50" height="20"
-        [attr.x]="node.coordinates.x + i * 55"
-        [attr.y]="node.coordinates.y + 55" >
+        [attr.width]="option.toString().length * 10" height="20"
+        [attr.x]="node.coordinates.x + 25
+            + (i % 2 === 0 ? -option.toString().length * 10 : 4)"
+        [attr.y]="node.coordinates.y + 55 + (math.floor(i / 2)) * 30" >
         <rect (click)="onOptionClick($event, option)"
             class="green"
             width="100%" height="100%" rx="3" />

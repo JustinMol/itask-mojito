@@ -24,7 +24,7 @@ export class LocalStorageService {
     const keys = this.storage.keys().filter(k => k.startsWith(options.key));
     return keys.map(k => {
       const value = this.storage.get(k);
-      return plainToClass(Class, value);
+      return plainToClass(Class, value, { enableCircularCheck: true });
     });
   }
 
@@ -33,7 +33,7 @@ export class LocalStorageService {
 
     const options = this.getOptions(t.constructor);
     const key = options.key + options.id(t);
-    this.storage.set(key, classToPlain(t));
+    this.storage.set(key, classToPlain(t, { enableCircularCheck: true }));
   }
 
   remove<T>(t: T): void {

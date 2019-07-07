@@ -1,8 +1,7 @@
 <svg *ngIf="node"
     [attr.x]="node.coordinates.x"
     [attr.y]="node.coordinates.y">
-    <text *ngIf="node.getOutput(); let output"
-        class="white"
+    <text *ngIf="getOutput(); let output"
         x="55" y="15">
         {{output.toString()}}
     </text>
