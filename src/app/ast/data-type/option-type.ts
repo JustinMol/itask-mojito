@@ -28,6 +28,7 @@ export class OptionDeclaration {
     @EditorField() name: string = '';
 
     @Type(() => DataType, {
+        keepDiscriminatorProperty: true,
         discriminator: {
             property: '__type',
             subTypes: [
@@ -37,9 +38,14 @@ export class OptionDeclaration {
                 { value: DateType, name: 'date' },
                 { value: IntegerType, name: 'integer' },
             ]
-        }
+        },
     })
-    @EditorField({ input: 'select', type: 'datatype' })
+    @EditorField({
+        input: 'select',
+        type: 'datatype',
+        filter: (d: DataType) => !(d.constructor.name === 'RecordTypeDeclaration' || d instanceof OptionTypeDeclaration)
+    })
     argument: DataType = new DataType();
+
     @EditorField() comment: string = '';
 }

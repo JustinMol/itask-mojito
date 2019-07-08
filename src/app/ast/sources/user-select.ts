@@ -3,7 +3,7 @@ import { GraphBlock } from 'src/app/graph/graph-block/graph-block.decorator';
 import { ASTNode, ANCHORS_SQUARE } from '../ast-node/ast-node';
 import { Variable } from '../values/variable';
 import { ListType } from '../data-type/list-type';
-import { Type, plainToClass } from 'class-transformer';
+import { Type } from 'class-transformer';
 
 @SimpleEditor
 @GraphBlock({

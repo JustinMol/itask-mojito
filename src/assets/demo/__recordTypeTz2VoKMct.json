@@ -1,0 +1,1 @@
+{"_name":"Account","fields":[{"property":"username","type":{"_name":"String","__type":"string"},"optional":false,"comment":""},{"property":"password","type":{"_name":"String","__type":"string"},"optional":false,"comment":"Super secret; pls do not leak"}],"id":"Tz2VoKMct","__type":"record"}
