@@ -6,7 +6,7 @@ import { Variable } from '../values/variable';
 
 @SimpleEditor
 @GraphBlock({
-    name: 'Task Transform',
+    name: 'Task Call',
     svg: 'assets/svg/transform/task.svg',
     description: 'Call another task and use the result',
     anchors: DEFAULT_ANCHORS,

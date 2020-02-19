@@ -5,7 +5,7 @@ import { EdgeConnector } from '../edge/edge-connector';
 @GraphBlock({
     name: 'Parallel Split',
     svg: 'assets/svg/control/parallel-split.svg',
-    description: '',
+    description: 'Split the workflow into two parallel paths. This block does not require configuration.',
     anchors: DEFAULT_ANCHORS,
 })
 export class SplitControlDeclaration extends ASTNode {

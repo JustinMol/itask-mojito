@@ -1,0 +1,1 @@
+{"_name":"product","fields":[{"property":"name","type":{"_name":"String","__type":"string"},"optional":false,"comment":""},{"property":"price","type":{"_name":"Integer","__type":"integer"},"optional":false,"comment":""}],"id":"2ui-yVJD3"}

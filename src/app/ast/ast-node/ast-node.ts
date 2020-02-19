@@ -4,7 +4,6 @@ import { AST } from '../ast';
 import { EventEmitter } from '@angular/core';
 import { EdgeConnector, defaultSequenceConnector } from '../edge/edge-connector';
 import { Variable } from '../values/variable';
-import { TaskService } from 'src/app/task/task.service';
 
 export declare type Location = { line: number, col: number };
 

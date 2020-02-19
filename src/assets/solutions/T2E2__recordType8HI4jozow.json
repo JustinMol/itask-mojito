@@ -1,0 +1,1 @@
+{"_name":"Address","fields":[{"property":"city","type":{"_name":"String","__type":"string"},"optional":false,"comment":""},{"property":"street","type":{"_name":"String","__type":"string"},"optional":false,"comment":""},{"property":"number","type":{"_name":"Integer","__type":"integer"},"optional":false,"comment":""}],"id":"8HI4jozow"}
