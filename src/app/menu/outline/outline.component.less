@@ -4,27 +4,12 @@
 @indent: 8pt;
 @font-size: 12pt;
 
-div {
+:host {
     display: block;
 }
 
-span {
-    display: inline-block;
-    vertical-align: middle;
-
-    &.close {
-        position: absolute;
-        right: 13px;
-    }
-
-    &.pencil {
-        font-size: 10pt;
-        position: absolute;
-        right: 30px;
-    }
-}
-
-div {
+div.item {
+    position: relative;
     overflow: hidden;
     font-family: 'Consolas', monaco, monospace;
     padding-left: @indent;
@@ -36,5 +21,21 @@ div {
 
     &:hover {
         background: lighten(#49504D, 5);
+    }
+
+    span {
+        display: inline-block;
+        vertical-align: middle;
+
+        &.close {
+            position: absolute;
+            right: 13px;
+        }
+    
+        &.pencil {
+            font-size: 10pt;
+            position: absolute;
+            right: 30px;
+        }
     }
 }

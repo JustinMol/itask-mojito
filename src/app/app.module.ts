@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 import { ResizableModule } from 'angular-resizable-element';
 import { AngularSvgIconModule } from 'angular-svg-icon';
-import { NgScrollbarModule } from 'ngx-scrollbar';
 import { SkyhookDndModule } from '@angular-skyhook/core';
 import { default as HTML5Backend } from 'react-dnd-html5-backend';
 import { LocalStorageModule } from 'angular-2-local-storage';
@@ -80,7 +79,6 @@ import { TaskOutputComponent } from './graph/task-output/task-output.component';
     ResizableModule,
     HttpClientModule,
     AngularSvgIconModule,
-    NgScrollbarModule,
     SkyhookDndModule.forRoot({ backend: HTML5Backend }),
     LocalStorageModule.forRoot(),
   ],

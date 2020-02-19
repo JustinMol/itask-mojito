@@ -1,4 +1,5 @@
 /// <reference path="../../../node_modules/monaco-editor/monaco.d.ts" />
+
 import { Injectable, ElementRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -28,7 +29,7 @@ export class MonacoEditorService {
     return this.monacoEditor !== null;
   }
 
-  public loadEditor(elementRef: ElementRef, options?: monaco.editor.IEditorConstructionOptions): Observable<void> {
+  public loadEditor(elementRef: ElementRef, options?: monaco.editor.IStandaloneEditorConstructionOptions): Observable<void> {
     return this.bootstrap$.pipe(
       tap(() => {
         this.monacoEditor = monaco.editor.create(elementRef.nativeElement, options);

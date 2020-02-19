@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter, HostBinding, ViewChild, HostListener, OnInit } from '@angular/core';
-import { NgScrollbar } from 'ngx-scrollbar';
 
 @Component({
   selector: 'app-menu-panel',
@@ -14,23 +13,9 @@ export class MenuPanelComponent implements OnInit {
   @HostBinding('class.open')
   isOpen: boolean = true;
 
-  @ViewChild(NgScrollbar)
-  bodyScrollbar?: NgScrollbar;
-
   showAddButton: boolean;
 
   ngOnInit() {
     this.showAddButton = this.add.observers.length > 0;
-  }
-
-  @HostListener('window:resize')
-  onWindowResize() {
-    this.updateScrollbar();
-  }
-
-  updateScrollbar() {
-    if (this.bodyScrollbar) {
-      this.bodyScrollbar.update();
-    }
   }
 }
