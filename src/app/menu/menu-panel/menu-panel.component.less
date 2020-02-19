@@ -18,8 +18,20 @@
     overflow: hidden;
 
     & .panel-body {
-        overflow-y: auto;
+        overflow-y: scroll;
         height: calc(100% - @heading-height);
+
+        &::-webkit-scrollbar {
+            width: 6pt;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: #3B433F;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: lighten(#49504D, 2);
+        }
     }
 
     & .panel-heading {
