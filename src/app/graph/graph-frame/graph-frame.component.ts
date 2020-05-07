@@ -33,7 +33,7 @@ export class GraphFrameComponent implements OnInit {
 
   public resized$ = new Subject();
 
-  private svg;
+  svg;
 
   newEdge: Edge;
   newEdgeFrom: ASTNode;

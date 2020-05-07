@@ -24,9 +24,9 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private tasks: TaskService,
-    private recordTypes: RecordTypeService,
-    private optionTypes: OptionTypeService
+    public tasks: TaskService,
+    public recordTypes: RecordTypeService,
+    public optionTypes: OptionTypeService
   ) {
     this.recordTypes$ = recordTypes.getAll();
     this.tasks$ = tasks.getAll();
