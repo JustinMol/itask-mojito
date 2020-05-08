@@ -22,10 +22,7 @@
             "styles": [
               "src/styles/styles.less"
             ],
-            "scripts": [
-              "./node_modules/@svgdotjs/svg.js/dist/svg.min.js",
-              "./node_modules/@svgdotjs/svg.draggable.js/dist/svg.draggable.min.js"
-            ],
+            "scripts": [],
             "customWebpackConfig": {
               "path": "./angular.webpack.js"
             }

@@ -1,6 +1,5 @@
 import { Directive, ElementRef, Input, OnDestroy, AfterViewInit } from '@angular/core';
-
-declare const SVG: any;
+import { SVG } from '@svgdotjs/svg.js';
 
 @Directive({
   selector: '[svg-hoverable]'
@@ -20,7 +19,7 @@ export class SvgHoverableDirective implements AfterViewInit, OnDestroy {
   ) {}
 
   ngAfterViewInit(): void {
-    this.svg = SVG.adopt(this.el.nativeElement)
+    this.svg = SVG(this.el.nativeElement)
       .on('dragmove.namespace', () => this.unfocus())
       .on('mouseover', () => this.focus())
       .on('mouseleave', () => this.unfocus());

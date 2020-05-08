@@ -12,8 +12,7 @@ import { OptionEdge } from 'src/app/ast/edge/option-edge';
 import { TaskOutput } from 'src/app/ast/task/task-output';
 import { TaskInput } from 'src/app/ast/task/task-input';
 import { Subject } from 'rxjs';
-
-declare const SVG: any;
+import { SVG, Svg } from '@svgdotjs/svg.js';
 
 const GRID_SIZE_LARGE = 100;
 const GRID_SIZE_SMALL = 25;
@@ -33,7 +32,7 @@ export class GraphFrameComponent implements OnInit {
 
   public resized$ = new Subject();
 
-  svg;
+  svg: Svg;
 
   newEdge: Edge;
   newEdgeFrom: ASTNode;
@@ -50,7 +49,7 @@ export class GraphFrameComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.svg = SVG('#graph-frame');
+    this.svg = SVG('#graph-frame') as Svg;
     this.drawGrid(GRID_SIZE_LARGE, 0.2);
     this.drawGrid(GRID_SIZE_SMALL, 0.1);
 

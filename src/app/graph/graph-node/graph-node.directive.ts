@@ -2,8 +2,8 @@ import { Directive, Input, ElementRef, OnInit, OnDestroy, Output, EventEmitter }
 import { GraphBlockOptions, getGraphBlock } from '../graph-block/graph-block.decorator';
 import { ASTNode } from 'src/app/ast/ast-node/ast-node';
 import { Coordinates } from 'src/app/ast/ast-node/coordinates';
-
-declare const SVG: any;
+import { adopt, Element } from '@svgdotjs/svg.js';
+import '@svgdotjs/svg.draggable.js';
 
 const GRID_SIZE_SMALL = 25;
 
@@ -16,17 +16,17 @@ export class GraphNodeDirective implements OnInit, OnDestroy {
   @Output('moved') isMoved$ = new EventEmitter<Coordinates>();
   @Output('clicked') clicked$ = new EventEmitter<Event>();
 
-  private svg: any;
+  private svg: Element;
   private graphBlock: GraphBlockOptions;
   private moved = false;
 
   constructor(
-    private el: ElementRef<Element>
+    private el: ElementRef<HTMLElement>
   ) {}
 
   ngOnInit(): void {
     this.graphBlock = getGraphBlock(this.node.constructor);
-    this.svg = SVG.adopt(this.el.nativeElement);
+    this.svg = adopt(this.el.nativeElement);
 
     this.svg
       .draggable()

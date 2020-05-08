@@ -7,7 +7,6 @@ const args = process.argv.slice(1),
   serve = args.some(val => val === '--serve');
 
 function createWindow(): BrowserWindow {
-
   const size = screen.getPrimaryDisplay().workAreaSize;
 
   // Create the browser window.
@@ -16,6 +15,7 @@ function createWindow(): BrowserWindow {
     y: 0,
     width: size.width,
     height: size.height,
+    icon: path.join(__dirname, 'dist/assets/icons/favicon.png'),
     webPreferences: {
       nodeIntegration: true,
       allowRunningInsecureContent: (serve) ? true : false,
@@ -24,8 +24,6 @@ function createWindow(): BrowserWindow {
 
   if (serve) {
     require('devtron').install();
-    win.webContents.openDevTools();
-
     require('electron-reload')(__dirname, {
       electron: require(`${__dirname}/node_modules/electron`)
     });

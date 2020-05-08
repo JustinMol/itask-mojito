@@ -6,8 +6,7 @@ import { ASTNode } from 'src/app/ast/ast-node/ast-node';
 import { Coordinates } from 'src/app/ast/ast-node/coordinates';
 import { SequenceEdge } from 'src/app/ast/edge/sequence-edge';
 import { Edge } from 'src/app/ast/edge/edge';
-
-declare const SVG: any;
+import { SVG } from '@svgdotjs/svg.js';
 
 @Directive({
   selector: '[graph-edge]'
@@ -28,7 +27,7 @@ export class GraphEdgeDirective implements OnInit, OnDestroy {
   ngOnInit() {
     this.isSequence = this.edge instanceof SequenceEdge;
     this.isOption = !this.isSequence;
-    this.line = SVG.adopt(this.el.nativeElement);
+    this.line = SVG<SVGPolylineElement>(this.el.nativeElement);
     this.moveEdge();
     merge(
       this.edge.to.hasChanged,
