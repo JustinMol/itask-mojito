@@ -25,7 +25,7 @@
     "angular-2-local-storage": "^3.0.2",
     "angular-resizable-element": "^3.3.0",
     "angular-svg-icon": "^8.0.0",
-    "class-transformer": "^0.2.3",
+    "class-transformer": "^0.3.1",
     "core-js": "^3.6.4",
     "lodash": "^4.17.15",
     "monaco-editor": "^0.20.0",
